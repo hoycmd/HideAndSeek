@@ -26,7 +26,7 @@ TeamsBalancer.IsAutoBalance = true;
 // создаем команды
 const blueTeam = CreateNewTeam("Blue", "ВЫЖИВШИЕ\nПрячущиеся и убегающие игроки.", new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
 const redTeam = CreateNewTeam("Red", "НАДЗИРАТЕЛИ\nИскатели прячущихся игроков.", new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
-const DeadTeam = CreateNewTeam("Dead", "МЕРТВЫЕ\nУбитые игроки в комнате.", new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
+const deadTeam = CreateNewTeam("Dead", "МЕРТВЫЕ\nУбитые игроки в комнате.", new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
 // лидерборд команд
 LeaberBoard.PlayerLeaberBoardValues = [
  new DisplayValueHeader("Kills", "\nКиллы", "\nКиллы"),
@@ -34,4 +34,31 @@ LeaberBoard.PlayerLeaberBoardValues = [
  new DisplayValueHeader("Scores", "\nОчки", "\nОчки"),
  new DisplayValueHeader("Spawns", "\nСпавны", "\nСпавны")
 ];
-LeaberBoard.TeamWeightGetter.Set
+// вес команды в лидерборде
+LeaberBoard.TeamWeightGetter.Set(function(t) {
+ return t.Properties.Get("Deaths").Value;
+});
+// вес игрока в лидерборде
+LeaberBoard.PlayersWeightGetter.Add(function(p) {
+ return p.Properties.Get("Kills").Value;
+});
+
+// щит игрока
+Spawns.GetContext().OnSpawn.Add(function(p) {
+ p.Properties.Get("Immortality").Value = true;
+ p.Timers.Get("Immortality").Restart(3);
+});
+Timers.OnPlayerTimer.Add(function(t) {
+ if (t.Id != "Immortality") p.Team.Properties.Get("Immortality").Value = false;
+});
+
+// счетчик спавнов
+Spawns.OnSpawn.Add(function(p) {
+ ++p.Properties.Spawns.Value;
+});
+
+// счетчик смертей
+Damage.OnDeath.Add(function(p) {
+ ++p.Properties.Deaths.Value;
+ deadTeam.Add(p);
+ p.Ui.
