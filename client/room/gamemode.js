@@ -82,3 +82,31 @@ Damage.OnKill.Add(function(k,p) {
 
 // таймер переключения режимов
 mainTimer.OnTimer.Add(function() {
+ switch (stateProp.Value) {
+  case WaitingModeStateValue:
+   SetHideAndSeek();
+   break;
+  case HideAndSeekStateValue:
+   SetGameMode();
+   break;
+  case GameStateValue:
+   WinBlueTeam();
+   break;
+  case End0fMatchStateValue:
+   RestartGame();
+   break;
+       }
+});
+
+// задаем первое игровое состояние игры
+SetWaitingMode();
+
+// состояние игры:
+function SetWaitingMode() {
+ stateProp.Value = WaitingModeStateValue;
+ Ui.GetContext().Hint.Value = "Ожиадние, всех - игроков...";
+ Spawns.GetContext().Enable = false;
+ mainTimer.Restart(WaitingPlayersTime);
+}
+functim 
+ 
