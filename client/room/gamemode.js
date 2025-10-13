@@ -108,5 +108,28 @@ function SetWaitingMode() {
  Spawns.GetContext().Enable = false;
  mainTimer.Restart(WaitingPlayersTime);
 }
-functim 
+function SetHideAndSeek() {
+ stateProp.Value = HideAndSeekStateValue;
+ Ui.GetContext().Hint.Value = "Выберите, команду!";
+ blueTeam.Ui.Hint.Value = "Прячьтесь, от надзирателей!";
+ redTeam.Ui.Hint.Value = "Ожидайте, пока выжившие спрячутся!";
+
+ blueTeam.Inventory.Melee.Value = false;
+ blueTeam.Inventory.Secondary.Value = false;
+ blueTeam.Inventory.Explosive.Value = false;
+ blueTeam.Inventory.Main.Value = false;
+ blueTeam.Inventory.Build.Value = false;
+ redTeam.Inventory.Melee.Value = false;
+ redTeam.Inventory.Secondary.Value = false;
+ redTeam.Inventory.Explosive.Value = false;
+ redTeam.Inventory.Main.Value = false;
+ redTeam.Inventory.Build.Value = false;
+
+ mainTimer.Restart(HideAndSeekTime);
+ Spawns.GetContext().Enable = true;
+ TeamsBalancer.IsAutoBalance = false;
+ SpawnTeams();
+}
+function SetGameMode() {
+  
  
