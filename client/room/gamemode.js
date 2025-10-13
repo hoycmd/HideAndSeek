@@ -75,3 +75,10 @@ Damage.OnDeath.Add(function(p) {
 
 // счетчик убийств
 Damage.OnKill.Add(function(k,p) {
+ if (p.id != k.id) { ++p.Properties.Kills.Value;
+  p.Properties.Scores.Value += 50;
+   }
+}); 
+
+// таймер переключения режимов
+mainTimer.OnTimer.Add(function() {
