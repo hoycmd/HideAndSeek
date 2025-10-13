@@ -21,7 +21,6 @@ BreackGraph.PlayerBlockBoost = true;
 Damage.GetContext().DamageOut.Value = true;
 Damage.GetContext().DranadeTouchExplosive.Value = true;
 Ui.GetContext().MainTimerId.Value = mainTimer.Id;
-TeamsBalancer.IsAutoBalance = true;
 
 // создаем команды
 const blueTeam = CreateNewTeam("Blue", "ВЫЖИВШИЕ\nПрячущиеся и убегающие игроки.", new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
@@ -60,5 +59,14 @@ Spawns.OnSpawn.Add(function(p) {
 // счетчик смертей
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
- deadTeam.Add(p);
- p.Ui.
+  deadTeam.Add(p);
+  redTeam.Remove(p);
+  blueTeam.Remove(p);
+  p.Ui.Hint.Value = "Ожидайте, конца матча!";
+   p.Spawns.Despawn();
+   p.Spawns.RespawnEnable.Value = false;
+   if (blueTeam.Properties.Deaths.Value == 1) {
+    WinRedTeam();
+   }
+   if (redTeam.Properties.Deaths.Value == 1) {
+    WinBlueTeam();
