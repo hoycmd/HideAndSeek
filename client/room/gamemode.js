@@ -5,10 +5,12 @@ import { DisplayValueHeader, Color } from "pixel_combats/basic";
 const WaitingPlayersTime = 10;
 const HideAndSeekTime = 20;
 const GameModeTime = 300;
+const WinTeamsTime = 15;
 const End0fMatchTime = 10;
 const WaitingModeStateValue = "WaitingMode";
 const HideAndSeekStateValue = "HideAndSeek";
 const GameStateValue = "GameMode";
+const WinTeamsStateValue = "WinTeams";
 const End0fMatchStateValue = "End0fMatch";
 const mainTimer = Timers.GetContext().Get("Main");
 const stateProp = Properties.GetContext().Get("State");
@@ -92,9 +94,11 @@ mainTimer.OnTimer.Add(function() {
   case GameStateValue:
    WinBlueTeam();
    break;
+  case WinTeamsStateValue:
+   SetEnd0fMatch();
+   break;
   case End0fMatchStateValue:
    RestartGame();
-   break;
        }
 });
 
@@ -104,32 +108,92 @@ SetWaitingMode();
 // состояние игры:
 function SetWaitingMode() {
  stateProp.Value = WaitingModeStateValue;
- Ui.GetContext().Hint.Value = "Ожиадние, всех - игроков...";
+ Ui.GetContext().Hint.Value = "Ожидание, всех - игроков...";
  Spawns.GetContext().Enable = false;
  mainTimer.Restart(WaitingPlayersTime);
 }
 function SetHideAndSeek() {
  stateProp.Value = HideAndSeekStateValue;
  Ui.GetContext().Hint.Value = "Выберите, команду!";
- blueTeam.Ui.Hint.Value = "Прячьтесь, от надзирателей!";
- redTeam.Ui.Hint.Value = "Ожидайте, пока выжившие спрячутся!";
+ blueTeam.Ui.Hint.Value = "Ищите место, где спрятатся!\nНайдите укромное место, или убегайте.";
+ redTeam.Ui.Hint.Value = "Помешайте выжившим, спрятатся!\nПриследуйте выживших.";
 
  blueTeam.Inventory.Melee.Value = false;
  blueTeam.Inventory.Secondary.Value = false;
- blueTeam.Inventory.Explosive.Value = false;
  blueTeam.Inventory.Main.Value = false;
+ blueTeam.Inventory.Explosive.Value = false;
  blueTeam.Inventory.Build.Value = false;
  redTeam.Inventory.Melee.Value = false;
  redTeam.Inventory.Secondary.Value = false;
- redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Main.Value = false;
+ redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
-
+ 
  mainTimer.Restart(HideAndSeekTime);
  Spawns.GetContext().Enable = true;
  TeamsBalancer.IsAutoBalance = false;
  SpawnTeams();
 }
 function SetGameMode() {
+ stateProp.Value = GameStateValue;
+ blueTeam.Ui.Hint.Value = "Избегайте надзирателей!\nПрячьтесь или убегайте, от надзирателей.";
+ redTeam.Ui.Hint.Value = "Ищите, всех выживших!\nНайдите всех прячущихся, или убегающих.";
+
+ blueTeam.Inventory.Melee.Value = false;
+ blueTeam.Inventory.Secondary.Value = false;
+ blueTeam.Inventory.Main.Value = false;
+ blueTeam.Inventory.Explosive.Value = false;
+ blueTeam.Inventory.Build.Value = false;
+ redTeam.Inventory.Melee.Value = true;
+ redTeam.Inventory.Secondary.Value = true;
+ redTeam.Inventory.Main.Value = false;
+ redTeam.Inventory.Explosive.Value = false;
+ redTeam.Inventory.Build.Value = true;
+
+ Spawns.GetContext().Despawn();
+ mainTimer.Restart(GameModeTime);
+ TeamsBalancer.BalanceTeams();
+ TeamsBalancer.IsAutoBalance = true;
+ SpawnTeams();
+}
+function WinBlueTeam() {
+ stateProp.Value = WinTeamsStateValue;
+ Ui.GetContext().Hint.Value = "Время вышло.\nВыжишие спаслись, от надзирателей!";
+ blueTeam.Properties.Scores.Value += 30;
+ redTeam.Properties.Scores.Value -= 30;
+
+ Spawns.GetContext().Spawn();
+ Game.GameOver(redTeam);
+ mainTimer.Restart(WinTeamsTime);
+}
+function WinRedTeam() {
+ stateProp.Value = WinTeamsStateValue;
+ Ui.GetContext().Hint.Value = "Все выжившие мертвы!\nНадзиратели нашли, всех выживших!";
+ redTeam.Properties.Scores.Value += 30;
+ blueTeam.Properties.Scores.Value -= 30;
+
+ Spawns.GetContext().Spawn();
+ Game.GameOver(blueTeam);
+ mainTimer.Restart(WinTeamsTime);
+}
+function SetEnd0fMatch() {
+ stateProp.Value = End0fMatchStateValue;
+ Ui.GetContext().Hint.Value = "Конец матча!";
+
+ const spawns = Spawns.GetContext();
+ spawns.Enable = false;
+ spawns.Despawn();
+
+ MainTimer.Restart(End0fMatchTime);
+}
+function RestartGame() {
+ Game.RestartGame();
+}
+
+function SpawnTeams() {
+ for (const t of Teams) {
+  Spawns.GetContext(t).Spawn();
+    }
+}
   
  
