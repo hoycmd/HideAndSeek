@@ -12,6 +12,7 @@ const HideAndSeekStateValue = "HideAndSeek";
 const GameStateValue = "GameMode";
 const WinTeamsStateValue = "WinTeams";
 const End0fMatchStateValue = "End0fMatch";
+const maxPlayers = 
 const mainTimer = Timers.GetContext().Get("Main");
 const stateProp = Properties.GetContext().Get("State");
 
@@ -44,13 +45,26 @@ LeaberBoard.PlayersWeightGetter.Add(function(p) {
  return p.Properties.Get("Kills").Value;
 });
 
+// вход в команды по запросу
+Teams.OnRequestJoinTeam.Add(function(p) {
+ blueTeam.Add(p);
+ redTeam.Add(p);
+ deadTeam.Remove(p);
+});
+// спавн по входу в команду
+Teams.OnPlayerChangeTeam.Add(function(p) {
+ p.Spawns.Spawn();
+ Spawns.GetContext(p).RespawnEnable = true;
+});
+ 
 // щит игрока
 Spawns.GetContext().OnSpawn.Add(function(p) {
- p.Properties.Get("Immortality").Value = true;
+ p.Properties.Immortality.Value = true;
  p.Timers.Get("Immortality").Restart(3);
 });
 Timers.OnPlayerTimer.Add(function(t) {
- if (t.Id != "Immortality") p.Team.Properties.Get("Immortality").Value = false;
+ if (t.Id != "Immortality") return;
+  t.Player.Properties.Get("Immortality").Value = false;
 });
 
 // счетчик спавнов
@@ -66,7 +80,7 @@ Damage.OnDeath.Add(function(p) {
   blueTeam.Remove(p);
   p.Ui.Hint.Value = "Ожидайте, конца матча!";
    p.Spawns.Despawn();
-   p.Spawns.RespawnEnable.Value = false;
+   Spawns.GetContext(p).RespawnEnable.Value = false;
        if (blueTeam.Properties.Deaths.Value == 1) {
        WinRedTeam();
       }
@@ -128,7 +142,7 @@ function SetHideAndSeek() {
  redTeam.Inventory.Main.Value = false;
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
- 
+
  mainTimer.Restart(HideAndSeekTime);
  Spawns.GetContext().Enable = true;
  TeamsBalancer.IsAutoBalance = false;
@@ -150,6 +164,11 @@ function SetGameMode() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = true;
 
+ blueTeam.Properties.Get("MaxPlayers").Value = maxPlayers;
+ Ui.GetContext().TeamProp1.Value = { Team: "Blue", Prop: "MaxPlayers" };
+ redTeam.Properties.Get("MaxPlayers").Value = maxPlayers;
+ Ui.GetContext().TeamProp2.Value = { Team: "Red", Prop: "MaxPlayers" };
+ 
  Spawns.GetContext().Despawn();
  mainTimer.Restart(GameModeTime);
  TeamsBalancer.BalanceTeams();
