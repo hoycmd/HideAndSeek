@@ -12,7 +12,6 @@ const HideAndSeekStateValue = "HideAndSeek";
 const GameStateValue = "GameMode";
 const WinTeamsStateValue = "WinTeams";
 const End0fMatchStateValue = "End0fMatch";
-const maxPlayers = 
 const mainTimer = Timers.GetContext().Get("Main");
 const stateProp = Properties.GetContext().Get("State");
 
@@ -45,11 +44,21 @@ LeaberBoard.PlayersWeightGetter.Add(function(p) {
  return p.Properties.Get("Kills").Value;
 });
 
+// задаем изначально нули с вверху экрана если нету игроков
+var blueCount = 0;
+var redCount = 0;
+
 // вход в команды по запросу
 Teams.OnRequestJoinTeam.Add(function(p) {
  blueTeam.Add(p);
  redTeam.Add(p);
  deadTeam.Remove(p);
+ if (p.Team == redTeam) {
+   ++redCount;
+ } 
+ if (p.Team == blueTeam) { 
+  ++blueCount;
+ }
 });
 // спавн по входу в команду
 Teams.OnPlayerChangeTeam.Add(function(p) {
@@ -164,10 +173,10 @@ function SetGameMode() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = true;
 
- blueTeam.Properties.Get("MaxPlayers").Value = maxPlayers;
- Ui.GetContext().TeamProp1.Value = { Team: "Blue", Prop: "MaxPlayers" };
- redTeam.Properties.Get("MaxPlayers").Value = maxPlayers;
- Ui.GetContext().TeamProp2.Value = { Team: "Red", Prop: "MaxPlayers" };
+ blueTeam.Properties.Get("MaxPlayersBlue").Value = blueCount;
+ Ui.GetContext().TeamProp1.Value = { Team: "Blue", Prop: "MaxPlayersBlue" };
+ redTeam.Properties.Get("MaxPlayersRed").Value = redCount;
+ Ui.GetContext().TeamProp2.Value = { Team: "Res", Prop: "MaxPlayersRed" };
  
  Spawns.GetContext().Despawn();
  mainTimer.Restart(GameModeTime);
