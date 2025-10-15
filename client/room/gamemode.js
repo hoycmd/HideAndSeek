@@ -1,21 +1,23 @@
 import { Players, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from "pixel_combats/basic";
 
-// константы
-const WaitingPlayersTime = 10;
-const HideAndSeekTime = 20;
-const GameModeTime = 300;
-const WinTeamsTime = 15;
-const End0fMatchTime = 10;
-const WaitingModeStateValue = "WaitingMode";
-const HideAndSeekStateValue = "HideAndSeek";
-const GameStateValue = "GameMode";
-const WinTeamsStateValue = "WinTeams";
-const End0fMatchStateValue = "End0fMatch";
-const mainTimer = Timers.GetContext().Get("Main");
-const stateProp = Properties.GetContext().Get("State");
+// * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
+const WaitingPlayersTime = 11;
+const HideAndSeekTime = 31;
+const GameModeTime = 301;
+const WinTeamsTime = 16;
+const End0fMatchTime = 11;
+const blueCount = 0;
+const redCount = 0;
+const WaitingModeStateValue = `WaitingMode`;
+const HideAndSeekStateValue = `HideAndSeek`;
+const GameStateValue = `GameMode`;
+const WinTeamsStateValue = `WinTeams`;
+const End0fMatchStateValue = `End0fMatch`;
+const mainTimer = Timers.GetContext().Get(`Main`);
+const stateProp = Properties.GetContext().Get(`State`);
 
-// настройки 
+// * Игровые настройки параметров, и заданные настройки в игре. * //
 Damage.GetContext().FriendliFire.Value = GameMode.Parameters.GetBool("FriendliFire");
 BreackGraph.Damage = GameMode.Parameters.GetBool("BlocksDamage");
 BreackGraph.BreackAll = GameMode.Parameters.GetBool("LoosenBlocks");
@@ -24,56 +26,44 @@ Damage.GetContext().DamageOut.Value = true;
 Damage.GetContext().DranadeTouchExplosive.Value = true;
 Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 
-// создаем команды
-const blueTeam = CreateNewTeam("Blue", "ВЫЖИВШИЕ\nПрячущиеся и убегающие игроки.", new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
-const redTeam = CreateNewTeam("Red", "НАДЗИРАТЕЛИ\nИскатели прячущихся игроков.", new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
-const deadTeam = CreateNewTeam("Dead", "МЕРТВЫЕ\nУбитые игроки в комнате.", new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
-// лидерборд команд
+// * Создаем команды, из функции - команд создания.
+const blueTeam = CreateNewTeam("Blue", "ВЫЖИВШИЕ\nЛюди в комнате.", new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
+const redTeam = CreateNewTeam("Red", "НАДЗИРАТЕЛИ\nИскатели выживших.", new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
+const deadTeam = CreateNewTeam("Dead", "МЕРТВЫЕ\nУбитые выжившие в комнате.", new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
+// * Вносим в таблицу лидерборда значения, которые нужны в игре. * //
 LeaberBoard.PlayerLeaberBoardValues = [
  new DisplayValueHeader("Kills", "\nКиллы", "\nКиллы"),
  new DisplayValueHeader("Deaths", "\nСмерти", "\nСмерти"),
  new DisplayValueHeader("Scores", "\nОчки", "\nОчки"),
  new DisplayValueHeader("Spawns", "\nСпавны", "\nСпавны")
 ];
-// вес команды в лидерборде
+// * Обрабатываем список лидирующих, для команд с наилучшими - значениями по смертям. * //
 LeaberBoard.TeamWeightGetter.Set(function(t) {
  return t.Properties.Get("Deaths").Value;
 });
-// вес игрока в лидерборде
+// * Список лидирующих, для игроков по лучшими значениями дл киллов. * //
 LeaberBoard.PlayersWeightGetter.Add(function(p) {
  return p.Properties.Get("Kills").Value;
 });
 
-// задаем изначально нули с вверху экрана если нету игроков
-var blueCount = 0;
-var redCount = 0;
-
-// вход в команды по запросу
+// * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p) {
- blueTeam.Add(p);
- redTeam.Add(p);
- deadTeam.Remove(p);
- if (p.Team == redTeam) {
-   ++redCount;
- } 
- if (p.Team == blueTeam) { 
-  ++blueCount;
- }
+blueTeam.Add(p);
+redTeam.Add(p);
+deadTeam.Remove(p);
+  if (p.Team == redTeam) ++redCount; 
+  if (p.Team == blueTeam) ++blueCount;    
 });
-// спавн по входу в команду
-Teams.OnPlayerChangeTeam.Add(function(p) {
- p.Spawns.Spawn();
- Spawns.GetContext(p).RespawnEnable = true;
-});
+// * Сразу после входа в команду, респавним игрока - на спавн. * //
+Teams.OnPlayerChangeTeam.Add(function(p) {p.Spawns.Spawn(); });
  
-// щит игрока
+// * Обработчик бессмертия игрока, после респавна. * //
 Spawns.GetContext().OnSpawn.Add(function(p) {
  p.Properties.Immortality.Value = true;
- p.Timers.Get("Immortality").Restart(3);
+ p.Timers.Get(`Immortality`).Restart(3);
 });
 Timers.OnPlayerTimer.Add(function(t) {
- if (t.Id != "Immortality") return;
-  t.Player.Properties.Get("Immortality").Value = false;
+ if (t.Id != `Immortality`) t.Player.Properties.Get("Immortality").Value = false;
 });
 
 // счетчик спавнов
@@ -88,7 +78,7 @@ Damage.OnDeath.Add(function(p) {
   redTeam.Remove(p);
   blueTeam.Remove(p);
   p.Ui.Hint.Value = "Ожидайте, конца матча!";
-   p.Spawns.Despawn();
+   Spawns.GetContext(p).Despawn();
    Spawns.GetContext(p).RespawnEnable.Value = false;
        if (blueTeam.Properties.Deaths.Value == 1) {
        WinRedTeam();
@@ -176,7 +166,7 @@ function SetGameMode() {
  blueTeam.Properties.Get("MaxPlayersBlue").Value = blueCount;
  Ui.GetContext().TeamProp1.Value = { Team: "Blue", Prop: "MaxPlayersBlue" };
  redTeam.Properties.Get("MaxPlayersRed").Value = redCount;
- Ui.GetContext().TeamProp2.Value = { Team: "Res", Prop: "MaxPlayersRed" };
+ Ui.GetContext().TeamProp2.Value = { Team: "Red", Prop: "MaxPlayersRed" };
  
  Spawns.GetContext().Despawn();
  mainTimer.Restart(GameModeTime);
