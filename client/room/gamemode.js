@@ -18,32 +18,32 @@ const mainTimer = Timers.GetContext().Get(`Main`);
 const stateProp = Properties.GetContext().Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
-Damage.GetContext().FriendliFire.Value = GameMode.Parameters.GetBool("FriendliFire");
-BreackGraph.Damage = GameMode.Parameters.GetBool("BlocksDamage");
-BreackGraph.BreackAll = GameMode.Parameters.GetBool("LoosenBlocks");
+Damage.GetContext().FriendliFire.Value = GameMode.Parameters.GetBool(`FriendliFire`);
+BreackGraph.Damage = GameMode.Parameters.GetBool(`BlocksDamage`);
+BreackGraph.WeakBlocks = GameMode.Parameters.GetBool(`LoosenBlocks`);
 BreackGraph.PlayerBlockBoost = true;
 Damage.GetContext().DamageOut.Value = true;
 Damage.GetContext().DranadeTouchExplosive.Value = true;
 Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 
 // * Создаем команды, из функции - команд создания.
-const blueTeam = CreateNewTeam("Blue", "ВЫЖИВШИЕ\nЛюди в комнате.", new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
-const redTeam = CreateNewTeam("Red", "НАДЗИРАТЕЛИ\nИскатели выживших.", new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
-const deadTeam = CreateNewTeam("Dead", "МЕРТВЫЕ\nУбитые выжившие в комнате.", new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
-// * Вносим в таблицу лидерборда значения, которые нужны в игре. * //
+const blueTeam = CreateNewTeam(`Blue`, `ВЫЖИВШИЕ\nЛюди в комнате.`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
+const redTeam = CreateNewTeam(`Red`, `НАДЗИРАТЕЛИ\nИскатели выживших.`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
+const deadTeam = CreateNewTeam(`Dead`, `МЁРТВЫЕ\nУбитые выжившие в комнате.`, new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
+// * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
 LeaberBoard.PlayerLeaberBoardValues = [
- new DisplayValueHeader("Kills", "\nКиллы", "\nКиллы"),
- new DisplayValueHeader("Deaths", "\nСмерти", "\nСмерти"),
- new DisplayValueHeader("Scores", "\nОчки", "\nОчки"),
- new DisplayValueHeader("Spawns", "\nСпавны", "\nСпавны")
+ new DisplayValueHeader(`Kills`, `KILLS\nКиллы`, `KILLS\nКиллы`),
+ new DisplayValueHeader(`Deaths`, `DEATHS\nСмерти`, `DEATHS\nСмерти`),
+ new DisplayValueHeader(`Scores`, `SCORES\nОчки`, `SCORES\nОчки`),
+ new DisplayValueHeader(`Spawns`, `SPAWNS\nСпавны`, `SPAWNS\nСпавны`)
 ];
 // * Обрабатываем список лидирующих, для команд с наилучшими - значениями по смертям. * //
 LeaberBoard.TeamWeightGetter.Set(function(t) {
- return t.Properties.Get("Deaths").Value;
+ return t.Properties.Get(`Deaths`).Value;
 });
 // * Список лидирующих, для игроков по лучшими значениями дл киллов. * //
 LeaberBoard.PlayersWeightGetter.Add(function(p) {
- return p.Properties.Get("Kills").Value;
+ return p.Properties.Get(`Kills`).Value;
 });
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
@@ -66,36 +66,32 @@ Timers.OnPlayerTimer.Add(function(t) {
  if (t.Id != `Immortality`) t.Player.Properties.Get("Immortality").Value = false;
 });
 
-// счетчик спавнов
+// * Обработчик спавнов. * //
 Spawns.OnSpawn.Add(function(p) {
  ++p.Properties.Spawns.Value;
 });
 
-// счетчик смертей
+// * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
   deadTeam.Add(p);
   redTeam.Remove(p);
   blueTeam.Remove(p);
   p.Ui.Hint.Value = "Ожидайте, конца матча!";
-   Spawns.GetContext(p).Despawn();
-   Spawns.GetContext(p).RespawnEnable.Value = false;
-       if (blueTeam.Properties.Deaths.Value == 1) {
-       WinRedTeam();
-      }
-       if (redTeam.Properties.Deaths.Value == 1) {
-        WinBlueTeam();
-     }
+   p.Spawns.Despawn();
+   p.Spawns.RespawnEnable.Value = false;
+ if (blueTeam.Properties.Deaths.Value == 1) WinRedTeam();     
+ if (redTeam.Properties.Deaths.Value == 1) WinBlueTeam();
 });
 
-// счетчик убийств
+// * Обработчик киллов. * //
 Damage.OnKill.Add(function(k,p) {
  if (p.id != k.id) { ++p.Properties.Kills.Value;
-  p.Properties.Scores.Value += 50;
+  p.Properties.Scores.Vlue += 50;
    }
 }); 
 
-// таймер переключения режимов
+// * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
@@ -112,24 +108,25 @@ mainTimer.OnTimer.Add(function() {
    break;
   case End0fMatchStateValue:
    RestartGame();
+   break;
        }
 });
 
-// задаем первое игровое состояние игры
+// * Первеночальное, игровое состояние игры. * //
 SetWaitingMode();
 
-// состояние игры:
+// * Состояние, игровых режимов игры. * //
 function SetWaitingMode() {
  stateProp.Value = WaitingModeStateValue;
- Ui.GetContext().Hint.Value = "Ожидание, всех - игроков...";
+ Ui.GetContext().Hint.Value = `Ожидание, всех - игроков...`;
  Spawns.GetContext().Enable = false;
  mainTimer.Restart(WaitingPlayersTime);
 }
 function SetHideAndSeek() {
  stateProp.Value = HideAndSeekStateValue;
- Ui.GetContext().Hint.Value = "Выберите, команду!";
- blueTeam.Ui.Hint.Value = "Ищите место, где спрятатся!\nНайдите укромное место, или убегайте.";
- redTeam.Ui.Hint.Value = "Помешайте выжившим, спрятатся!\nПриследуйте выживших.";
+ Ui.GetContext().Hint.Value = `Выберите, команду!`;
+ blueTeam.Ui.Hint.Value = `Ищите место, где спрятатся!\nНайдите укромное место, или убегайте.`;
+ redTeam.Ui.Hint.Value = `Помешайте выжившим, спрятатся!\nПриследуйте выживших.`;
 
  blueTeam.Inventory.Melee.Value = false;
  blueTeam.Inventory.Secondary.Value = false;
@@ -149,8 +146,8 @@ function SetHideAndSeek() {
 }
 function SetGameMode() {
  stateProp.Value = GameStateValue;
- blueTeam.Ui.Hint.Value = "Избегайте надзирателей!\nПрячьтесь или убегайте, от надзирателей.";
- redTeam.Ui.Hint.Value = "Ищите, всех выживших!\nНайдите всех прячущихся, или убегающих.";
+ blueTeam.Ui.Hint.Value = `Избегайте надзирателей!\nПрячьтесь или убегайте, от надзирателей.`;
+ redTeam.Ui.Hint.Value = `Ищите, всех выживших!\nНайдите всех прячущихся, или убегающих.`;
 
  blueTeam.Inventory.Melee.Value = false;
  blueTeam.Inventory.Secondary.Value = false;
@@ -163,10 +160,10 @@ function SetGameMode() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = true;
 
- blueTeam.Properties.Get("MaxPlayersBlue").Value = blueCount;
- Ui.GetContext().TeamProp1.Value = { Team: "Blue", Prop: "MaxPlayersBlue" };
- redTeam.Properties.Get("MaxPlayersRed").Value = redCount;
- Ui.GetContext().TeamProp2.Value = { Team: "Red", Prop: "MaxPlayersRed" };
+ blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
+ Ui.GetContext().TeamProp1.Value = { Team: `Blue`, Prop: `MaxPlayersBlue` };
+ redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
+ Ui.GetContext().TeamProp2.Value = { Team: `Red`, Prop: `MaxPlayersRed` };
  
  Spawns.GetContext().Despawn();
  mainTimer.Restart(GameModeTime);
@@ -176,7 +173,7 @@ function SetGameMode() {
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = "Время вышло.\nВыжишие спаслись, от надзирателей!";
+ Ui.GetContext().Hint.Value = `Время вышло.\nВыжишие спаслись, от надзирателей!`;
  blueTeam.Properties.Scores.Value += 30;
  redTeam.Properties.Scores.Value -= 30;
 
@@ -186,7 +183,7 @@ function WinBlueTeam() {
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = "Все выжившие мертвы!\nНадзиратели нашли, всех выживших!";
+ Ui.GetContext().Hint.Value = `Все выжившие мертвы!\nНадзиратели нашли, всех выживших!`;
  redTeam.Properties.Scores.Value += 30;
  blueTeam.Properties.Scores.Value -= 30;
 
@@ -196,7 +193,7 @@ function WinRedTeam() {
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
- Ui.GetContext().Hint.Value = "Конец матча!";
+ Ui.GetContext().Hint.Value = `Конец матча!`;
 
  const spawns = Spawns.GetContext();
  spawns.Enable = false;
