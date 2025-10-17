@@ -91,8 +91,8 @@ Damage.OnDeath.Add(function(p) {
   p.Ui.Hint.Value = `Ожидайте, конца матча!`;
    p.Spawns.Despawn();
    p.Spawns.RespawnEnable.Value = false;
- if (blueTeam.Properties.Deaths.Value == 1) WinRedTeam();     
- if (redTeam.Properties.Deaths.Value == 1) WinBlueTeam();
+ if (blueCount.Value <= 0) WinRedTeam();     
+ if (redCount.Value <= 0) WinBlueTeam();
    blueTeam.Properties.Get(`MaxPlayersBlue`).Value -= blueCount;
    redTeam.Properties.Get(`MaxPlayersRed`).Value -= redCount;
 });
