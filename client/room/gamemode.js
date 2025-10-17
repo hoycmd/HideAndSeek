@@ -201,7 +201,7 @@ function WinBlueTeam() {
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
  Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;
- for (const winBlueTeam of leaberboard[0].redTeam.Players) {
+ for (const winRedTeam of leaberboard[0].redTeam.Players) {
    winRedTeam.Properties.Scores.Value += WINNER_SCORES;
   }
   for (const losRedTeam of leaberboard[1].blueTeam.Players) {
@@ -220,7 +220,7 @@ function SetEnd0fMatch() {
  spawns.Enable = false;
  spawns.Despawn();
 
- MainTimer.Restart(End0fMatchTime);
+ mainTimer.Restart(End0fMatchTime);
 }
 function RestartGame() {
  Game.RestartGame();
