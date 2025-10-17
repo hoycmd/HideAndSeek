@@ -94,7 +94,7 @@ Damage.OnDeath.Add(function(p) {
  if (blueTeam.Properties.Deaths.Value == 1) WinRedTeam();     
  if (redTeam.Properties.Deaths.Value == 1) WinBlueTeam();
    blueTeam.Properties.Get(`MaxPlayersBlue`).Value -= blueCount;
-   redTeam.Propertues.Get(`MaxPlayersRed`).Value -= redCount;
+   redTeam.Properties.Get(`MaxPlayersRed`).Value -= redCount;
 });
 
 // * Обработчик киллов. * //
