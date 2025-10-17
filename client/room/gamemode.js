@@ -100,7 +100,7 @@ Damage.OnDeath.Add(function(p) {
 // * Обработчик киллов. * //
 Damage.OnKill.Add(function(k,p) {
  if (p.id != k.id) { ++p.Properties.Kills.Value;
-  p.Properties.Scores.Vlue += 50;
+  p.Properties.Scores.Value += 50;
    }
 }); 
 
