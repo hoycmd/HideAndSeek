@@ -74,7 +74,7 @@ Spawns.GetContext().OnSpawn.Add(function(p) {
  p.Timers.Get(`Immortality`).Restart(3);
 });
 Timers.OnPlayerTimer.Add(function(t) {
- if (t.Id != `Immortality`) t.Player.Properties.Get("Immortality").Value = false;
+ if (t.Id != `Immortality`) t.Player.Properties.Get(`Immortality`).Value = false;
 });
 
 // * Обработчик спавнов. * //
@@ -91,8 +91,8 @@ Damage.OnDeath.Add(function(p) {
   p.Ui.Hint.Value = `Ожидайте, конца матча!`;
    p.Spawns.Despawn();
    p.Spawns.RespawnEnable.Value = false;
- if (blueCount.Value <= 0) WinRedTeam();     
- if (redCount.Value <= 0) WinBlueTeam();
+ if (blueCount == 0) WinRedTeam();     
+ if (redCount == 0) WinBlueTeam();
    blueTeam.Properties.Get(`MaxPlayersBlue`).Value -= blueCount;
    redTeam.Properties.Get(`MaxPlayersRed`).Value -= redCount;
 });
@@ -187,12 +187,8 @@ function SetGameMode() {
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
  Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint;
-  for (const winBlueTeam of leaberboard[0].blueTeam.Players) {
-   winBlueTeam.Properties.Scores.Value += WINNER_SCORES;
-  }
-  for (const losRedTeam of leaberboard[1].redTeam.Players) {
-   losRedTeam.Properties.Scores.Value += LOOSER_SCORES;
-  }
+ blueTeam.Properties.Scores.Value += WINNER_SCORES;
+ redTeam.Properties.Scores.Value += LOOSER_SCORES;
  
  Spawns.GetContext().Spawn();
  Game.GameOver(redTeam);
@@ -201,12 +197,8 @@ function WinBlueTeam() {
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
  Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;
- for (const winRedTeam of leaberboard[0].redTeam.Players) {
-   winRedTeam.Properties.Scores.Value += WINNER_SCORES;
-  }
-  for (const losRedTeam of leaberboard[1].blueTeam.Players) {
-   losBlueTeam.Properties.Scores.Value += LOOSER_SCORES;
-  }
+ redTeam.Properties.Scores.Value += WINNER_SCORES;
+ blueTeam.Properties.Scores.Value += LOOSER_SCORES;
  
  Spawns.GetContext().Spawn();
  Game.GameOver(blueTeam);
