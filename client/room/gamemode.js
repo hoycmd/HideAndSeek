@@ -1,6 +1,6 @@
-import { Players, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph } from "pixel_combats/room";
-import { DisplayValueHeader, Color } from "pixel_combats/basic";
-import * as default_timer from "./default_timer.js";
+import { Players, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
+import { DisplayValueHeader, Color } from 'pixel_combats/basic';
+import * as default_timer from './default_timer.js';
 
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 const WaitingPlayersTime = 11;
@@ -30,10 +30,10 @@ const mainTimer = Timers.GetContext().Get(`Main`);
 const stateProp = Properties.GetContext().Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
+const MapRotation = GameMode.Parameters.GetBool('MapRotation');
 Damage.GetContext().FriendliFire.Value = GameMode.Parameters.GetBool(`FriendliFire`);
 BreackGraph.Damage = GameMode.Parameters.GetBool(`BlocksDamage`);
 BreackGraph.WeakBlocks = GameMode.Parameters.GetBool(`LoosenBlocks`);
-BreackGraph.PlayerBlockBoost = true;
 Damage.GetContext().DamageOut.Value = true;
 Damage.GetContext().DranadeTouchExplosive.Value = true;
 Ui.GetContext().MainTimerId.Value = mainTimer.Id;
@@ -244,7 +244,13 @@ function START_VOTE() {
 function RestartGame() {
  Game.RestartGame();
 }
-
+function CreateNewTeam(TeamName, TeamDisplayName, TeamColor, TeamSpawnPointGroup, TeamBuildBlocksSet) {
+Teams.Add(TeamName, TeamDisplayName, TeamColor);
+ let NewTeam = Teams.Get(TeamName);
+  NewTeam.Spawns.SpawnPointsGroups.Add(TeamSpawnPointGroup);
+  NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
+   return NewTeam;
+}
 function SpawnTeams() {
  for (const t of Teams) {
   Spawns.GetContext(t).Spawn();
