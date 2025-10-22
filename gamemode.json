@@ -1,0 +1,66 @@
+{
+ "Name": "<b><color=#db4242>Прятки</a></b>",
+ "Description": "<b>Сильнее всего это страх с ужасом и <color=#db4242>Прятки</a> его образ\nПрячься или беги, веть жить тебе осталось <color=#db4242>недолго...</a></b>",
+  "MapFilter": {
+   "IsBlank": false,
+  },
+  "MapLists": [
+    {
+      "MapListId": 21239,
+    },
+    {
+      "MapListId": 581,
+    }
+  ],
+  "Parameters": {
+   "Bool": [
+      {
+        "Name": "Hast",
+        "DisplayName": "<b>Наст<color=#4fb22e>роки игры ☉</a></b>"
+      },
+      {
+        "Name": "LoosenBlocks",
+        "DisplayName": "<b><color=#4fb22e>Слабые</a> блоки ☉</b>"
+      },
+      {
+       "Name": "PartialDeserction",
+        "DisplayName": "<b><color=#4fb22e>Частичные</a> блоки ☉</b>"
+      },
+      {
+        "Name": "MapRotation",
+        "DisplayName": "<b><color=#4fb22e>Смена</a> карт ☉</b>"
+      },
+      {
+       "Name": "Waiting2Player",
+       "DisplayName": "<b><color=#4fb22e>Ожидание</a> 2 игрока ☉</b>"
+      },
+      {
+       "Name": "FriendlyFire",
+       "DisplayName": "<b><color=#4fb22e>Френдли</a> фаер ☉</b>"  
+        },
+      ], 
+       "Dropdown": [
+      {
+        "Name": "Length",
+        "DisplayName": "<b><color=#4fb22e>Длинна</a> матча:</b>",
+        "Default": "Min7MatchTime",
+        "Order": 6,
+        "Variants": [
+          {
+            "Name": "Min10MatchTime",
+            "DisplayName": "<b>10 Mimut <color=#4fb22e>☉</a></b>"
+          },
+          {
+            "Name": "Min7MatchTime",
+            "DisplayName": "<b>7 Minut <color=#4fb22e>☉</a></b>"
+          },
+          {
+            "Name": "Min5MatchTime",
+            "DisplayName": "<b>5 Minut <color=#4fb22e>☉</a></b>"
+          }
+        ]
+      }
+    ]
+   }
+}
+                                   
