@@ -1,10 +1,11 @@
 import { Players, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from "pixel_combats/basic";
+import * as default_timer from "./default_timer.js";
 
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 const WaitingPlayersTime = 11;
 const HideAndSeekTime = 31;
-const GameModeTime = 301;
+const GameModeTime = default_timer.GameModeMatchTime();
 const WinTeamsTime = 16;
 const End0fMatchTime = 11;
 const blueCount = 0;
@@ -16,8 +17,8 @@ const HideAndSeekStateValue = `HideAndSeek`;
 const GameStateValue = `GameMode`;
 const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
-const WaitingAllPlayersForHint = `\nОжидание, всех - игроков...`;
-const ContextAllViborTeamsForHint = `\nВыберите, команду!`;
+const WaitingAllPlayersForHint = `<b>\nОжидание, всех - игроков...</b>`;
+const ContextAllViborTeamsForHint = `<b>\nВыберите, команду!</b>`;
 const BlueIschetMestoHidengiliBegForHint = `\nИщите место где спрятатся, или убегайте!`;
 const RedSleditGdeBlueHidengIliBegaetForHint = `\nСледите где спрячутся выжившие, или где убегают!`;
 const BlueHidendIliYrunsForHint = `\nПрячьтесь в укромном месте, или убегайте от надзирателей!`;
@@ -41,6 +42,12 @@ Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 const blueTeam = CreateNewTeam(`Blue`, `ВЫЖИВШИЕ\nЛюди в комнате.`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
 const redTeam = CreateNewTeam(`Red`, `НАДЗИРАТЕЛИ\nИскатели выживших.`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
 const deadTeam = CreateNewTeam(`Dead`, `МЁРТВЫЕ\nУбитые выжившие в комнате.`, new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
+// * Интерфейс команд. * //
+blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
+Ui.GetContext().TeamProp1.Value = { Team: `Blue`, Prop: `MaxPlayersBlue` };
+redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
+Ui.GetContext().TeamProp2.Value = { Team: `Red`, Prop: `MaxPlayersRed` };
+ 
 // * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
 LeaberBoard.PlayerLeaberBoardValues = [
  new DisplayValueHeader(`Kills`, `KILLS\nКиллы`, `KILLS\nКиллы`),
@@ -62,8 +69,12 @@ Teams.OnRequestJoinTeam.Add(function(p) {
 blueTeam.Add(p);
 redTeam.Add(p);
 deadTeam.Remove(p);
-  if (p.Team == redTeam) ++redCount; 
-  if (p.Team == blueTeam) ++blueCount;    
+  if (p.Team == redTeam) {
+   ++redCount; 
+  }
+  if (p.Team == blueTeam) {
+   ++blueCount;    
+  }
 });
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p) {p.Spawns.Spawn(); });
@@ -74,7 +85,8 @@ Spawns.GetContext().OnSpawn.Add(function(p) {
  p.Timers.Get(`Immortality`).Restart(3);
 });
 Timers.OnPlayerTimer.Add(function(t) {
- if (t.Id != `Immortality`) t.Player.Properties.Get(`Immortality`).Value = false;
+ if (t.Id != `Immortality`) return;
+ t.Player.Properties.Get(`Immortality`).Value = false;
 });
 
 // * Обработчик спавнов. * //
@@ -88,18 +100,23 @@ Damage.OnDeath.Add(function(p) {
   deadTeam.Add(p);
   redTeam.Remove(p);
   blueTeam.Remove(p);
-  p.Ui.Hint.Value = `Ожидайте, конца матча!`;
+  p.Ui.Hint.Value = `\nОжидайте, конца матча!`;
    p.Spawns.Despawn();
    p.Spawns.RespawnEnable.Value = false;
- if (blueCount == 0) WinRedTeam();     
- if (redCount == 0) WinBlueTeam();
-   blueTeam.Properties.Get(`MaxPlayersBlue`).Value -= blueCount;
-   redTeam.Properties.Get(`MaxPlayersRed`).Value -= redCount;
-});
+ if (blueCount <= 0) {
+  WinRedTeam();
+ }
+ if (redCount >= 0) {
+  WinBlueTeam();
+ }
+   blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
+   redTeam.Properties.Get(`MaxPlayersRed`).Value--;
+})
 
 // * Обработчик киллов. * //
 Damage.OnKill.Add(function(k,p) {
- if (p.id != k.id) { ++p.Properties.Kills.Value;
+ if (p.id != k.id) { 
+ ++p.Properties.Kills.Value;
   p.Properties.Scores.Value += 50;
    }
 }); 
@@ -120,7 +137,8 @@ mainTimer.OnTimer.Add(function() {
    SetEnd0fMatch();
    break;
   case End0fMatchStateValue:
-   RestartGame();
+   START_VOTE();
+  if (!GameMode.Parameters.GetBool('MapRotation')) RestartGame();
    break;
        }
 });
@@ -173,11 +191,6 @@ function SetGameMode() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = true;
 
- blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
- Ui.GetContext().TeamProp1.Value = { Team: `Blue`, Prop: `MaxPlayersBlue` };
- redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
- Ui.GetContext().TeamProp2.Value = { Team: `Red`, Prop: `MaxPlayersRed` };
- 
  Spawns.GetContext().Despawn();
  mainTimer.Restart(GameModeTime);
  TeamsBalancer.BalanceTeams();
@@ -214,6 +227,20 @@ function SetEnd0fMatch() {
 
  mainTimer.Restart(End0fMatchTime);
 }
+
+function OnVoteResult(v) {
+if (v.Result === null) return;
+ NewGame.RestartGame(v.Result);
+}
+NewGameVote.OnResult.Add(OnVoteResult);
+
+function START_VOTE() {
+ NewGameVote.Start({
+  Variants: [{ MapId: 0 }],
+  Timer: VoteTime
+ }, MapRotation ? 3 : 0);
+}
+
 function RestartGame() {
  Game.RestartGame();
 }
