@@ -1,6 +1,6 @@
 {
- "Name": "<b><color=#db4242>Прятки</a></b>",
- "Description": "<b>Сильнее всего это страх с ужасом и <color=#db4242>Прятки</a> его образ\nПрячься или беги, веть жить тебе осталось <color=#db4242>недолго...</a></b>",
+ "Name": "<b><color=#E32636>Прятки</a></b>",
+ "Description": "<b>Сильнее всего это страх с ужасом и <color=share#E32636>Прятки</a> его образ\nПрячься или беги, веть жить тебе осталось <color=#E32636>недолго...</a></b>",
   "MapFilter": {
    "IsBlank": false,
   },
@@ -15,16 +15,12 @@
   "Parameters": {
    "Bool": [
       {
-        "Name": "Hast",
-        "DisplayName": "<b>Наст<color=#4fb22e>роки игры ☉</a></b>"
-      },
-      {
         "Name": "LoosenBlocks",
-        "DisplayName": "<b><color=#4fb22e>Слабые</a> блоки ☉</b>"
+        "DisplayName": "<b><color=#e32636>Слабые</a> блоки ☉</b>"
       },
       {
        "Name": "PartialDeserction",
-        "DisplayName": "<b><color=#4fb22e>Частичные</a> блоки ☉</b>"
+        "DisplayName": "<b><color=>Частичные</a> блоки ☉</b>"
       },
       {
         "Name": "MapRotation",
