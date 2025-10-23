@@ -106,7 +106,7 @@ Damage.OnDeath.Add(function(p) {
  if (blueCount <= 0) {
   WinRedTeam();
  }
- if (redCount >= 0) {
+ if (redCount <= 0) {
   WinBlueTeam();
  }
    blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
@@ -115,7 +115,7 @@ Damage.OnDeath.Add(function(p) {
 
 // * Обработчик киллов. * //
 Damage.OnKill.Add(function(k,p) {
- if (p.id != k.id) { 
+ if (p.id !== k.id) { 
  ++p.Properties.Kills.Value;
   p.Properties.Scores.Value += 50;
    }
