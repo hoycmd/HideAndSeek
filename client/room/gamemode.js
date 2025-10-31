@@ -8,8 +8,6 @@ const HideAndSeekTime = 31;
 const GameModeTime = default_timer.GameModeMatchTime();
 const WinTeamsTime = 16;
 const End0fMatchTime = 11;
-const blueCount = 0;
-const redCount = 0;
 const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
 const WaitingModeStateValue = `WaitingMode`;
@@ -69,12 +67,6 @@ Teams.OnRequestJoinTeam.Add(function(p) {
 blueTeam.Add(p);
 redTeam.Add(p);
 deadTeam.Remove(p);
-  if (p.Team == redTeam) {
-   ++redCount; 
-  }
-  if (p.Team == blueTeam) {
-   ++blueCount;    
-  }
 });
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p) {p.Spawns.Spawn(); });
@@ -103,10 +95,10 @@ Damage.OnDeath.Add(function(p) {
   p.Ui.Hint.Value = `\nОжидайте, конца матча!`;
    p.Spawns.Despawn();
    p.Spawns.RespawnEnable.Value = false;
- if (blueCount <= 0) {
+ if (blueTeam.Properties.Get('blueCount').Value < 0) {
   WinRedTeam();
  }
- if (redCount <= 0) {
+ if (redTeam.Properties.Get('redCount').Value < 0) {
   WinBlueTeam();
  }
    blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
