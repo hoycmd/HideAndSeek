@@ -20,19 +20,19 @@
       },
       {
        "Name": "PartialDeserction",
-        "DisplayName": "<b><color=>Частичные</a> блоки ☉</b>"
+        "DisplayName": "<b><color=e32636>Частичные</a> блоки ☉</b>"
       },
       {
         "Name": "MapRotation",
-        "DisplayName": "<b><color=#4fb22e>Смена</a> карт ☉</b>"
+        "DisplayName": "<b><color=e32636>Смена</a> карт ☉</b>"
       },
       {
        "Name": "Waiting2Player",
-       "DisplayName": "<b><color=#4fb22e>Ожидание</a> 2 игрока ☉</b>"
+       "DisplayName": "<b><color=e32636>Ожидание</a> 2 игрока ☉</b>"
       },
       {
        "Name": "FriendlyFire",
-       "DisplayName": "<b><color=#4fb22e>Френдли</a> фаер ☉</b>"  
+       "DisplayName": "<b><color=e32636>Френдли</a> фаер ☉</b>"  
         },
       ], 
        "Dropdown": [
