@@ -20,39 +20,39 @@
       },
       {
        "Name": "PartialDeserction",
-        "DisplayName": "<b><color=e32636>Частичные</a> блоки ☉</b>"
+        "DisplayName": "<b><color=#e32636>Частичные</a> блоки ☉</b>"
       },
       {
         "Name": "MapRotation",
-        "DisplayName": "<b><color=e32636>Смена</a> карт ☉</b>"
+        "DisplayName": "<b><color=#e32636>Смена</a> карт ☉</b>"
       },
       {
        "Name": "Waiting2Player",
-       "DisplayName": "<b><color=e32636>Ожидание</a> 2 игрока ☉</b>"
+       "DisplayName": "<b><color=#e32636>Ожидание</a> 2 игрока ☉</b>"
       },
       {
        "Name": "FriendlyFire",
-       "DisplayName": "<b><color=e32636>Френдли</a> фаер ☉</b>"  
+       "DisplayName": "<b><color=#e32636>Френдли</a> фаер ☉</b>"  
         },
       ], 
        "Dropdown": [
       {
         "Name": "Length",
-        "DisplayName": "<b><color=#4fb22e>Длинна</a> матча:</b>",
+        "DisplayName": "<b><color=#e32636>Длинна</a> матча:</b>",
         "Default": "Min7MatchTime",
         "Order": 6,
         "Variants": [
           {
             "Name": "Min10MatchTime",
-            "DisplayName": "<b>10 Mimut <color=#4fb22e>☉</a></b>"
+            "DisplayName": "<b>10 Mimut <color=#32636>☉</a></b>"
           },
           {
             "Name": "Min7MatchTime",
-            "DisplayName": "<b>7 Minut <color=#4fb22e>☉</a></b>"
+            "DisplayName": "<b>7 Minut <color=#32636>☉</a></b>"
           },
           {
             "Name": "Min5MatchTime",
-            "DisplayName": "<b>5 Minut <color=#4fb22e>☉</a></b>"
+            "DisplayName": "<b>5 Minut <color=#32636>☉</a></b>"
           }
         ]
       }
