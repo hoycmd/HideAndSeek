@@ -1,7 +1,7 @@
 import { Players, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as default_timer from './default_timer.js';
-
+try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 const WaitingPlayersTime = 11;
 const HideAndSeekTime = 31;
@@ -247,6 +247,11 @@ function SpawnTeams() {
  for (const t of Teams) {
   Spawns.GetContext(t).Spawn();
     }
+}
+
+} catch (e) {
+ for (const p of Players.All) { p.PopUp(`${e.name}: ${e.message}: ${e.stack}`);
+             }
 }
   
  
