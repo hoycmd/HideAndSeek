@@ -74,13 +74,13 @@ deadTeam.Remove(p);
     redTeam.Add(p);
     blueTem.Remove(p);
     ++redTeam.Properties.Get(`MaxPlayersRed`).Value = blueCount;
-     blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
+     --blueTeam.Properties.Get(`MaxPlayersBlue`).Value = redCount;
  }
  if (p.Team == blueTeam) {
   blueTeam.Add(p);
   redTeam.Remove(p);
   ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
-  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
+  --redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
  }
 }); 
  
