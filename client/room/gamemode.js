@@ -104,8 +104,8 @@ if (blueTeam.Properties.Get('blueCount').Value <= 0) {
  if (redTeam.Properties.Get('redCount').Value <= 0) {
  WinBlueTeam();
  }
- //  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
- //  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
+blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
+redTeam.Properties.Get(`MaxPlayersRed`).Value--;
 })
 
 // * Обработчик киллов. * //
