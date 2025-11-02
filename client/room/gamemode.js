@@ -67,37 +67,20 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p, t) {
+ blueTeam.Add(p);
  if (p.Team === blueTeam) {
-  blueTeam.Add(p);
-  redTeam.Remove(p);
   ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
  }
  if (p.Team == redTeam) {
     redTeam.Add(p);
-    blueTem.Remove(p);
     ++redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount; 
  }
  deadTeam.Remove(p);
-});
-
-Teams.OnTeam.Add(function (p) {
- if (p.Team == blueTeam) {
-  redTeam.Properties.Get(`MaxPlayersRed`).Value--; 
- }
- if (p.Team == redTeam) {
-  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--; 
-    }  
 });
   
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p, t) {
  p.Spawns.Spawn();
-  if (p.Team == blueTeam) {
-  ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
-   }
-  if (p.Team == redTeam) {
-  ++redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
-  }
 });
   
 // * Обработчик бессмертия игрока, после респавна. * //
@@ -119,12 +102,12 @@ Spawns.OnSpawn.Add(function(p) {
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
  blueTeam.Remove(p);
- redTeam.Remove(p);
  deadTeam.Add(p);
  if (p.Team == blueTeam) {
   blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
  }
  if (p.Team == redTeam) {
+  redTeam.Remove(p);
   redTeam.Properties.Get(`MaxPlayersRed`).Value--;
  }
   p.Ui.Hint.Value = `\nОжидайте, конца матча!`;
