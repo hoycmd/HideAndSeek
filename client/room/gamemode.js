@@ -34,7 +34,7 @@ Damage.GetContext().FriendlyFire.Value = GameMode.Parameters.GetBool(`FriendlyFi
 BreackGraph.Damage = GameMode.Parameters.GetBool(`BlocksDamage`);
 BreackGraph.WeakBlocks = GameMode.Parameters.GetBool(`LoosenBlocks`);
 Damage.GetContext().DamageOut.Value = true;
-Damage.GetContext().DranadeTouchExplosive.Value = true;
+Damage.GetContext().GranadeTouchExplosive.Value = true;
 Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 
 // * Создаем команды, из функции - команд создания.
