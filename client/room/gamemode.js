@@ -73,6 +73,15 @@ deadTeam.Remove(p);
 });
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p) {p.Spawns.Spawn(); });
+
+Players.OnPlayerConnected.Add(function (p) {
+ if (p.Team == blueTeam) {
+  ++blueCount;
+ }
+ if (p.Team == redTeam) {
+  ++redCount;
+ }
+});
  
 // * Обработчик бессмертия игрока, после респавна. * //
 Spawns.GetContext().OnSpawn.Add(function(p) {
