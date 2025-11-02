@@ -61,7 +61,7 @@ LeaderBoard.TeamWeightGetter.Set(function (t) {
  return t.Properties.Get(`Deaths`).Value;
 });
 // * Список лидирующих, для игроков по лучшими значениями дл киллов. * //
-LeaberBoard.PlayersWeightGetter.Set(function (p) {
+LeaderBoard.PlayersWeightGetter.Set(function (p) {
  return p.Properties.Get(`Kills`).Value;
 });
 
