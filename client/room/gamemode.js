@@ -76,18 +76,11 @@ Teams.OnPlayerChangeTeam.Add(function(p) {
  p.Spawns.Spawn();
   if (p.Team == redTeam) {
   ++redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
+  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
  }
  if (p.Team == blueTeam) {
   ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
- }
-});
-
-Players.OnPlayerDisconnected.Add(function (p) {
-   if (p.Team == redTeam) {
-  redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount--;
- }
- if (p.Team == blueTeam) {
-  blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount--;
+  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
  }
 });
   
