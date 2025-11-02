@@ -78,7 +78,7 @@ redTeam.Add(p);
 deadTeam.Remove(p);
 }); 
 
-Teams.OnExitTeam.Add(function (p) {
+Teams.OnRemoveTeam.Add(function (p) {
   if (p.Team == redTeam) {
     redTeam.Properties.Get(`MaxPlayersRed`).Value--;
  }
