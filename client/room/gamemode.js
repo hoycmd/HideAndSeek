@@ -42,6 +42,8 @@ const blueTeam = CreateNewTeam(`Blue`, `ВЫЖИВШИЕ\nЛюди в комна
 const redTeam = CreateNewTeam(`Red`, `НАДЗИРАТЕЛИ\nИскатели выживших.`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
 const deadTeam = CreateNewTeam(`Dead`, `МЁРТВЫЕ\nУбитые выжившие в комнате.`, new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
 // * Интерфейс команд. * //
+const blueCount = 0;
+const redCount = 0;
 blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
 Ui.GetContext().TeamProp1.Value = { Team: `Blue`, Prop: `MaxPlayersBlue` };
 redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
