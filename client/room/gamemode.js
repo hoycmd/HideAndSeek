@@ -67,21 +67,31 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p, t) {
-blueTeam.Add(p);
-redTeam.Add(p);
 deadTeam.Remove(p);
-});                          
-// * Сразу после входа в команду, респавним игрока - на спавн. * //
-Teams.OnPlayerChangeTeam.Add(function(p) {
- p.Spawns.Spawn();
+    if (p.Team == blueTeam) {
+  ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
+     blueTeam.Add(p);
+   }
   if (p.Team == redTeam) {
   ++redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
-  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
+   redTeam.Add(p);
+  }
+}); 
+
+Players.OnPlayerDisconnected.Add(function (p) {
+ if (p.Team == redTeam) {
+    redTeam.Properties.Get(`MaxPlayersRed`).Value--;
+   redTeam.Remove(p);
  }
  if (p.Team == blueTeam) {
-  ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
-  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
- }
+  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
+   BlueTeam.Remove(p);
+    }
+});
+ 
+// * Сразу после входа в команду, респавним игрока - на спавн. * //
+Teams.OnPlayerChangeTeam.Add(function(p, t) {
+ p.Spawns.Spawn();
 });
   
 // * Обработчик бессмертия игрока, после респавна. * //
@@ -102,20 +112,25 @@ Spawns.OnSpawn.Add(function(p) {
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
-  deadTeam.Add(p);
-  redTeam.Remove(p);
+ if (p.Team == blueTeam) {
+  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
   blueTeam.Remove(p);
+  deadTeam.Add(p);
+ }
+ if (p.Team == redTeam) {
+  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
+  redTeam.Remove(p);
+  deadTeam.Add(p);
+ }
   p.Ui.Hint.Value = `\nОжидайте, конца матча!`;
    p.Spawns.Despawn();
    p.Spawns.RespawnEnable.Value = false;
-if (blueTeam.Properties.Get('blueCount').Value <= 0) {
+if (blueTeam.Properties.Get(`MaxPlayersBlue`).Value == 0) {
  WinRedTeam();
  }
- if (redTeam.Properties.Get('redCount').Value <= 0) {
+ if (redTeam.Properties.Get(`MaxPlayersRed`).Value == 0) {
  WinBlueTeam();
  }
-blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
-redTeam.Properties.Get(`MaxPlayersRed`).Value--;
 })
 
 // * Обработчик киллов. * //
