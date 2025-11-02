@@ -50,7 +50,7 @@ redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
 Ui.GetContext().TeamProp2.Value = { Team: `Red`, Prop: `MaxPlayersRed` };
  
 // * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
-LeaberBoard.PlayerLeaberBoardValues = [
+LeaderBoard.PlayerLeaderBoardValues = [
  new DisplayValueHeader(`Kills`, `KILLS\nКиллы`, `KILLS\nКиллы`),
  new DisplayValueHeader(`Deaths`, `DEATHS\nСмерти`, `DEATHS\nСмерти`),
  new DisplayValueHeader(`Scores`, `SCORES\nОчки`, `SCORES\nОчки`),
