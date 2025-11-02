@@ -70,26 +70,15 @@ Teams.OnRequestJoinTeam.Add(function(p) {
 blueTeam.Add(p);
 redTeam.Add(p);
 deadTeam.Remove(p);
-});
+ if (p.Team == redTeam) {
+  ++redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
+ }
+ if (p.Team == blueTeam) {
+  ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
+  }
+});                          
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p) {p.Spawns.Spawn(); });
-
-Players.OnPlayerConnected.Add(function (p) {
- if (p.Team == blueTeam) {
-  ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value;
- }
- if (p.Team == redTeam) {
-  ++redTeam.Properties.Get(`MaxPlayersRed`).Value;
- }
-});
-Players.OnPlayerDisconnected.Add(function (p) {
- if (p.Team == blueTeam) {
-  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
-}
- if (p.Team == redTeam) {
-  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
-    }
-});
   
 // * Обработчик бессмертия игрока, после респавна. * //
 Spawns.GetContext().OnSpawn.Add(function(p) {
