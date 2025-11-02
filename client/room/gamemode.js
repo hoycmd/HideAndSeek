@@ -68,14 +68,21 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 // * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p, t) {
  blueTeam.Add(p);
+ redTeam.Add(p);
  if (p.Team === blueTeam) {
-  ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
+  blueTeam.Properties.Get(`MaxPlayersBlue`).Value += 1;
  }
  if (p.Team == redTeam) {
-    redTeam.Add(p);
-    ++redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount; 
+  redTeam.Properties.Get(`MaxPlayersRed`).Value += 1; 
  }
  deadTeam.Remove(p);
+});
+
+Players.OnPlayerDisconnected.Add(function (p) {
+ redTeam.Properties.Get(`MaxPlayersRed`).Value -= 1;
+ if (p.Team == blueTeam) {
+ blueTeam.Properties.Get(`MaxPlayersBlue`).Value -= 1;
+ }
 });
   
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
