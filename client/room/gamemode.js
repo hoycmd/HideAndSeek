@@ -1,8 +1,9 @@
-import { Players, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
+import { Players, room, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as default_timer from './default_timer.js';
 try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
+room.PopupsEnable = true;
 const WaitingPlayersTime = 11;
 const HideAndSeekTime = 31;
 const GameModeTime = default_timer.GameModeMatchTime();
@@ -95,14 +96,13 @@ Damage.OnDeath.Add(function(p) {
   p.Ui.Hint.Value = `\nОжидайте, конца матча!`;
    p.Spawns.Despawn();
    p.Spawns.RespawnEnable.Value = false;
- if (blueTeam.Properties.Get('blueCount').Value < 0) {
-  WinRedTeam();
- }
- if (redTeam.Properties.Get('redCount').Value < 0) {
-  WinBlueTeam();
- }
-   blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
-   redTeam.Properties.Get(`MaxPlayersRed`).Value--;
+// if (blueTeam.Properties.Get('blueCount').Value < 0) {
+// WinRedTeam();
+// }
+// if (redTeam.Properties.Get('redCount').Value < 0) {
+//  WinBlueTeam() }
+ //  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
+ //  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
 })
 
 // * Обработчик киллов. * //
@@ -250,7 +250,8 @@ function SpawnTeams() {
 }
 
 } catch (e) {
- for (const p of Players.All) { p.PopUp(`${e.name}: ${e.message}: ${e.stack}`);
+ for (const p of Players.All) { 
+   p.PopUp(`${e.name}: ${e.message}: ${e.stack}`);
              }
 }
   
