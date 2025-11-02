@@ -70,15 +70,21 @@ Teams.OnRequestJoinTeam.Add(function(p, t) {
 blueTeam.Add(p);
 redTeam.Add(p);
 deadTeam.Remove(p);
-}); 
-
-Teams.OnRemoveTeam.Add(function (p) {
-  if (p.Team == redTeam) {
-    redTeam.Properties.Get(`MaxPlayersRed`).Value--;
+ if (p.Team == redTeam) {
+    redTeam.Add(p);
+    blueTem.Remove(p);
+    ++redTeam.Properties.Get(`MaxPlayersRed`).Value = blueCount;
+     blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
  }
  if (p.Team == blueTeam) {
-  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
+  blueTeam.Add(p);
+  redTeam.Remove(p);
+  ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
+  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
  }
+}); 
+
+Teams.OnRemove.Add(function (p) {
 });
  
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
