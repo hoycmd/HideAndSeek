@@ -30,7 +30,7 @@ const stateProp = Properties.GetContext().Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
 const MapRotation = GameMode.Parameters.GetBool('MapRotation');
-Damage.GetContext().FriendliFire.Value = GameMode.Parameters.GetBool(`FriendliFire`);
+Damage.GetContext().FriendlyFire.Value = GameMode.Parameters.GetBool(`FriendlyFire`);
 BreackGraph.Damage = GameMode.Parameters.GetBool(`BlocksDamage`);
 BreackGraph.WeakBlocks = GameMode.Parameters.GetBool(`LoosenBlocks`);
 Damage.GetContext().DamageOut.Value = true;
