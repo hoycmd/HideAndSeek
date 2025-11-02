@@ -57,11 +57,11 @@ LeaderBoard.PlayerLeaderBoardValues = [
  new DisplayValueHeader(`Spawns`, `SPAWNS\nСпавны`, `SPAWNS\nСпавны`)
 ];
 // * Обрабатываем список лидирующих, для команд с наилучшими - значениями по смертям. * //
-LeaberBoard.TeamWeightGetter.Set(function(t) {
+LeaderBoard.TeamWeightGetter.Set(function (t) {
  return t.Properties.Get(`Deaths`).Value;
 });
 // * Список лидирующих, для игроков по лучшими значениями дл киллов. * //
-LeaberBoard.PlayersWeightGetter.Add(function(p) {
+LeaberBoard.PlayersWeightGetter.Add(function (p) {
  return p.Properties.Get(`Kills`).Value;
 });
 
