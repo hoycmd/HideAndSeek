@@ -67,12 +67,6 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p, t) {
- if (p.Team == blueTeam) {
-  ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
-   }
-  if (p.Team == redTeam) {
-  ++redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
-  }
 blueTeam.Add(p);
 redTeam.Add(p);
 deadTeam.Remove(p);
@@ -89,7 +83,13 @@ Teams.OnRemoveTeam.Add(function (p) {
  
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p, t) {
- Spawns.GetContext(p).Spawn();
+ p.Spawns.Spawn();
+  if (p.Team == blueTeam) {
+  ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
+   }
+  if (p.Team == redTeam) {
+  ++redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
+  }
 });
   
 // * Обработчик бессмертия игрока, после респавна. * //
