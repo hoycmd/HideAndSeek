@@ -83,9 +83,6 @@ deadTeam.Remove(p);
   redTeam.Properties.Get(`MaxPlayersRed`).Value--;
  }
 }); 
-
-Teams.OnRemove.Add(function (p) {
-});
  
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p, t) {
