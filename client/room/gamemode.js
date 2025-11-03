@@ -63,7 +63,7 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 });
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
-Teams.OnRequestJoinTeam.Add(function(p, t) { deadTeam.Remove(p); blueTeam.Add(p); redTeam.Add(p); });
+Teams.OnRequestJoinTeam.Add(function(p, t) { if (t === deadTeam) return; t.Add(p); });
   
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p, t) { p.Spawns.Spawn(); });
@@ -87,8 +87,14 @@ Spawns.OnSpawn.Add(function(p) {
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
   if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
-  if (blueTeam.Properties.Get('Deaths').Value <= 2) WinRedTeam(); 
-  if (redTeam.Properties.Get('Deaths').Value <= 2) WinBlueTeam();
+  if (blueTeam.Count < 1) {
+    WinRedTeam(); 
+    return;
+  }
+  if (redTeam.Count < 1) {
+    WinBlueTeam();
+    return;
+  }
   p.Ui.Hint.Value = `Ожидайте, конца матча!`;
   p.spawns.enable = false;
   p.spawns.Despawn();
