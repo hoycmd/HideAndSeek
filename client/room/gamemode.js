@@ -86,20 +86,12 @@ Spawns.OnSpawn.Add(function(p) {
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
- blueTeam.Remove(p);
- redTeam.Remove(p);
- deadTeam.Add(p);
-  if (blueTeam.Properties.Deaths.Value <= 2) {
-     WinRedTeam(); 
-   } 
-  if (redTeam.Properties.Deaths.Value <= 2) { 
-     WinBlueTeam(); 
-  }
+  if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
+  if (blueTeam.Properties.Get('Deaths').Value <= 2) WinRedTeam(); 
+  if (redTeam.Properties.Get('Deaths').Value <= 2) WinBlueTeam();
   p.Ui.Hint.Value = `Ожидайте, конца матча!`;
-  const spawns = Spawns.GetContext(p);
-  spawns.Despawn();
-  spawns.Enable = false;
-  spawns.RespawnEnable.Value = false;
+  p.spawns.enable = false;
+  p.spawns.Despawn();
 });
 
 // * Обработчик киллов. * //
