@@ -16,15 +16,15 @@ const HideAndSeekStateValue = `HideAndSeek`;
 const GameStateValue = `GameMode`;
 const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
-const WaitingAllPlayersForHint = `<b>\nОжидание, всех - игроков...</b>`;
-const ContextAllViborTeamsForHint = `<b>\nВыберите, команду!</b>`;
-const BlueIschetMestoHidengiliBegForHint = `<b>\nИщите место где спрятатся, или убегайте!</b>`;
-const RedSleditGdeBlueHidengIliBegaetForHint = `\nСледите где спрячутся выжившие, или где убегают!`;
-const BlueHidendIliYrunsForHint = `\nПрячьтесь в укромном месте, или убегайте от надзирателей!`;
-const RedIschetBluePlayersForHint = `\nНайдите, всех выживших!`;
-const BlueWinnerTeamLoosersRedForHint = `\nВыжившие смогли продержатся, с надзирателями!`;
-const RedWinnerTeamLoosersBlueForHint = `\nНадзиратели, нашли всех выживших!`;
-const EndingeMatchForHint = `\nКонец, матча!`;
+const WaitingAllPlayersForHint = `Ожидание, всех - игроков...`;
+const ContextAllViborTeamsForHint = `Выберите, команду!`;
+const BlueIschetMestoHidengiliBegForHint = `Ищите место где спрятатся, или убегайте!</b>`;
+const RedSleditGdeBlueHidengIliBegaetForHint = `Следите где спрячутся выжившие, или где убегают!`;
+const BlueHidendIliYrunsForHint = `Прячьтесь в укромном месте, или убегайте от надзирателей!`;
+const RedIschetBluePlayersForHint = `Найдите, всех выживших!`;
+const BlueWinnerTeamLoosersRedForHint = `Выжившие смогли продержатся, с надзирателями!`;
+const RedWinnerTeamLoosersBlueForHint = `Надзиратели, нашли всех выживших!`;
+const EndingeMatchForHint = `Конец, матча!`;
 const mainTimer = Timers.GetContext().Get(`Main`);
 const stateProp = Properties.GetContext().Get(`State`);
 
@@ -94,12 +94,6 @@ Damage.OnDeath.Add(function(p) {
   spawns.Despawn();
   spawns.Enable = false;
   spawns.RespawnEnable.Value = false;
-  if (p.Team == blueTeam) {
-     WinRedTeam(); 
-   } 
-  if (p.Team == redTeam) { 
-     WinBlueTeam(); 
-   }
 });
 
 // * Обработчик киллов. * //
@@ -108,7 +102,15 @@ Damage.OnKill.Add(function(k,p) {
  ++p.Properties.Kills.Value;
   p.Properties.Scores.Value += 50;
    }
+    if (blueTeam.Properties.Deaths.Value == 1) {
+     WinRedTeam(); 
+   } 
+  if (redTeam.Properties.Deaths.Value == 1) { 
+     WinBlueTeam(); 
+  }
 }); 
+
+
 
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
