@@ -160,9 +160,9 @@ function SetHideAndSeek() {
 
  mainTimer.Restart(HideAndSeekTime);
  Spawns.GetContext().Enable = true;
+ Spawns.GetContext().Spawn();
  TeamsBalancer.IsAutoBalance = false;
  deadTeam.Remove(p);
- SpawnTeams();
 }
 function SetGameMode() {
  stateProp.Value = GameStateValue;
@@ -182,7 +182,7 @@ function SetGameMode() {
 
  Spawns.GetContext().Despawn();
  mainTimer.Restart(GameModeTime);
- SpawnTeams();
+ Spawns.GetContext().Spawn();
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
@@ -238,10 +238,9 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
 }
+  
 function SpawnTeams() {
- for (const t of Teams) {
-  Spawns.GetContext(t).Spawn();
-    }
+ for (const t of Teams) Spawns.GetContext(t).Spawn();
 }
 
 } catch (e) {
