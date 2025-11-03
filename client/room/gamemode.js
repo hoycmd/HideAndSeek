@@ -38,16 +38,20 @@ Damage.GetContext().GranadeTouchExplosion.Value = true;
 Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 
 // * Создаем команды, из функции - команд создания.
-const blueTeam = CreateNewTeam(`Blue`, `ВЫЖИВШИЕ\nЛюди в комнате.`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
-const redTeam = CreateNewTeam(`Red`, `НАДЗИРАТЕЛИ\nИскатели выживших.`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
-const deadTeam = CreateNewTeam(`Dead`, `МЁРТВЫЕ\nУбитые выжившие в комнате.`, new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
+const blueTeam = CreateNewTeam(`Blue`, `ВЫЖИВШИЕ`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
+const redTeam = CreateNewTeam(`Red`, `НАДЗИРАТЕЛИ`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
+const deadTeam = CreateNewTeam(`Dead`, `УМЕРШИЕ`, new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
+deadTeam.contextedProperties.SkinType.Value = 1;
+redTeam.contextedProperties.SkinType.Value = 0;
+blueTeam.contextedProperties.SkinType.Value = 3;
 
 // * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
 LeaderBoard.PlayerLeaderBoardValues = [
- new DisplayValueHeader(`Kills`, `KILLS\nКиллы`, `KILLS\nКиллы`),
- new DisplayValueHeader(`Deaths`, `DEATHS\nСмерти`, `DEATHS\nСмерти`),
- new DisplayValueHeader(`Scores`, `SCORES\nОчки`, `SCORES\nОчки`),
- new DisplayValueHeader(`Spawns`, `SPAWNS\nСпавны`, `SPAWNS\nСпавны`)
+  new DisplayValueHeader('Kills', '<b><size=30><color=#be5f1b>K</color><color=#b65219>i</color><color=#ae4517>l</color><color=#a63815>l</color><color=#9e2b13>s</color></size></b>', '<b><size=30><color=#be5f1b>K</color><color=#b65219>i</color><color=#ae4517>l</color><color=#a63815>l</color><color=#9e2b13>s</color></size></b>'),
+  new DisplayValueHeader('Deaths', '<b><size=30><color=#be5f1b>D</color><color=#b85519>e</color><color=#b24b17>a</color><color=#ac4115>t</color><color=#a63713>h</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>D</color><color=#b85519>e</color><color=#b24b17>a</color><color=#ac4115>t</color><color=#a63713>h</color><color=#a02d11>s</color></size></b>'),
+  new DisplayValueHeader('Spawns', '<b><size=30><color=#be5f1b>S</color><color=#b85519>p</color><color=#b24b17>a</color><color=#ac4115>w</color><color=#a63713>n</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>S</color><color=#b85519>p</color><color=#b24b17>a</color><color=#ac4115>w</color><color=#a63713>n</color><color=#a02d11>s</color></size></b>'),
+  new DisplayValueHeader('Scores', '<b><size=30><color=#be5f1b>S</color><color=#b85519>c</color><color=#b24b17>o</color><color=#ac4115>r</color><color=#a63713>e</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>S</color><color=#b85519>c</color><color=#b24b17>o</color><color=#ac4115>r</color><color=#a63713>e</color><color=#a02d11>s</color></size></b>'),
+  new DisplayValueHeader('RoomID', '<b><size=30><color=#cf5515>R</color><color=#cd4412>I</color><color=#cb330f>D</color></size></b>', '<b><size=30><color=#cf5515>R</color><color=#cd4412>I</color><color=#cb330f>D</color></size></b>')
 ];
 // * Обрабатываем список лидирующих, для команд с наилучшими - значениями по смертям. * //
 LeaderBoard.TeamWeightGetter.Set(function (t) {
