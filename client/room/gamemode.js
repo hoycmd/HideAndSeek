@@ -44,6 +44,7 @@ const deadTeam = CreateNewTeam(`Dead`, `УМЕРШИЕ`, new Color(0, 0, 0, 0), 
 deadTeam.contextedProperties.SkinType.Value = 1;
 redTeam.contextedProperties.SkinType.Value = 0;
 blueTeam.contextedProperties.SkinType.Value = 3;
+redTeam.contextedProperties.StartBlocksCount.Value = 51;
 
 // * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
 LeaderBoard.PlayerLeaderBoardValues = [
@@ -51,7 +52,6 @@ LeaderBoard.PlayerLeaderBoardValues = [
   new DisplayValueHeader('Deaths', '<b><size=30><color=#be5f1b>D</color><color=#b85519>e</color><color=#b24b17>a</color><color=#ac4115>t</color><color=#a63713>h</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>D</color><color=#b85519>e</color><color=#b24b17>a</color><color=#ac4115>t</color><color=#a63713>h</color><color=#a02d11>s</color></size></b>'),
   new DisplayValueHeader('Spawns', '<b><size=30><color=#be5f1b>S</color><color=#b85519>p</color><color=#b24b17>a</color><color=#ac4115>w</color><color=#a63713>n</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>S</color><color=#b85519>p</color><color=#b24b17>a</color><color=#ac4115>w</color><color=#a63713>n</color><color=#a02d11>s</color></size></b>'),
   new DisplayValueHeader('Scores', '<b><size=30><color=#be5f1b>S</color><color=#b85519>c</color><color=#b24b17>o</color><color=#ac4115>r</color><color=#a63713>e</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>S</color><color=#b85519>c</color><color=#b24b17>o</color><color=#ac4115>r</color><color=#a63713>e</color><color=#a02d11>s</color></size></b>'),
-  new DisplayValueHeader('RoomID', '<b><size=30><color=#cf5515>R</color><color=#cd4412>I</color><color=#cb330f>D</color></size></b>', '<b><size=30><color=#cf5515>R</color><color=#cd4412>I</color><color=#cb330f>D</color></size></b>')
 ];
 // * Обрабатываем список лидирующих, для команд с наилучшими - значениями по смертям. * //
 LeaderBoard.TeamWeightGetter.Set(function (t) {
@@ -94,10 +94,10 @@ Damage.OnDeath.Add(function(p) {
   spawns.Despawn();
   spawns.Enable = false;
   spawns.RespawnEnable.Value = false;
-  if (Teams.Get('Blue').Properties.Get('Deaths').Value == 1) { 
+  if (p.Team == blueTeam) {
      WinRedTeam(); 
    } 
-  if (Teams.Get('Red').Properties.Get('Deaths').Value == 1) { 
+  if (p.Team == redTeam) { 
      WinBlueTeam(); 
    }
 });
