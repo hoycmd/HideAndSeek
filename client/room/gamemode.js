@@ -89,7 +89,13 @@ Damage.OnDeath.Add(function(p) {
  blueTeam.Remove(p);
  redTeam.Remove(p);
  deadTeam.Add(p);
-  p.Ui.Hint.Value = `\nОжидайте, конца матча!`;
+  if (blueTeam.Properties.Deaths.Value <= 2) {
+     WinRedTeam(); 
+   } 
+  if (redTeam.Properties.Deaths.Value <= 2) { 
+     WinBlueTeam(); 
+  }
+  p.Ui.Hint.Value = `Ожидайте, конца матча!`;
   const spawns = Spawns.GetContext(p);
   spawns.Despawn();
   spawns.Enable = false;
@@ -102,12 +108,6 @@ Damage.OnKill.Add(function(k,p) {
  ++p.Properties.Kills.Value;
   p.Properties.Scores.Value += 50;
    }
-    if (blueTeam.Properties.Deaths.Value == 1) {
-     WinRedTeam(); 
-   } 
-  if (redTeam.Properties.Deaths.Value == 1) { 
-     WinBlueTeam(); 
-  }
 }); 
 
 
