@@ -60,23 +60,15 @@ function CountsNotTeams(p) {
     }
   blueTeam.Remove(p);
   redTeam.Remove(p);
- if (redTeam.Properties.Get(`MaxPlayersRed`).Value == 0) {
-  WinRedTeam();
- }
- if (blueTeam.Properties.Get(`MaxPlayersBlue`).Value == 0) {
-  WinBlueTeam();
- }
 }
 function CountsYesTeams(p) {
  if (p.Team == blueTeam) {
   ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
   blueTeam.Add(p);
-  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
  }
  if (p.Team == redTeam) {
   ++redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
   redTeam.Add(p);
-  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
    }
    deadTeam.Remove(p);
 }
@@ -130,7 +122,14 @@ Damage.OnDeath.Add(function(p) {
  deadTeam.Add(p);
   p.Ui.Hint.Value = `\nОжидайте, конца матча!`;
    p.Spawns.Despawn();
+   p.Spawns.Enable = false;
    p.Spawns.RespawnEnable.Value = false;
+   if (redTeam.Properties.Deaths.Value == 1) {
+  WinRedTeam();
+ }
+ if (blueTeam.Properties.Deaths.Value == 1) {
+  WinBlueTeam();
+ }
  CountsNotTeams(p);
 });
 
