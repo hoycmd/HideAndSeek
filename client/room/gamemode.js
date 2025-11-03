@@ -63,7 +63,7 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 });
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
-Teams.OnRequestJoinTeam.Add(function(p, t) { t.Add(p); });
+Teams.OnRequestJoinTeam.Add(function(p, t) { deadTeam.Remove(p); });
   
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p, t) { p.Spawns.Spawn(); });
@@ -163,7 +163,6 @@ function SetHideAndSeek() {
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
  TeamsBalancer.IsAutoBalance = false;
- deadTeam.Remove(p);
 }
 function SetGameMode() {
  stateProp.Value = GameStateValue;
