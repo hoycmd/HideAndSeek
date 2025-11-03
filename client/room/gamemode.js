@@ -48,6 +48,38 @@ blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
 Ui.GetContext().TeamProp1.Value = { Team: `Blue`, Prop: `MaxPlayersBlue` };
 redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
 Ui.GetContext().TeamProp2.Value = { Team: `Red`, Prop: `MaxPlayersRed` };
+
+function CountsNotTeams(p) {
+ if (p.Team == blueTeam && blueTeam.Properties.Deaths.Value == 1) {
+  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
+  deadTeam.Add(p);
+ }
+ if (p.Team == redTeam && redTeam.Properties.Deaths.Value == 1) {
+  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
+  deadTeam.Add(p);
+    }
+  blueTeam.Remove(p);
+  redTeam.Remove(p);
+ if (redTeam.Properties.Get(`MaxPlayersRed`).Value == 0) {
+  WinRedTeam();
+ }
+ if (blueTeam.Properties.Get(`MaxPlayersBlue`).Value == 0) {
+  WinBlueTeam();
+ }
+}
+function CountsYesTeams(p) {
+ if (p.Team == blueTeam) {
+  ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
+  blueTeam.Add(p);
+  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
+ }
+ if (p.Team == redTeam) {
+  ++redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
+  redTeam.Add(p);
+  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
+   }
+   deadTeam.Remove(p);
+}
  
 // * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
 LeaderBoard.PlayerLeaderBoardValues = [
@@ -67,22 +99,8 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p, t) {
- blueTeam.Add(p);
- redTeam.Add(p);
- if (p.Team === blueTeam) {
-  blueTeam.Properties.Get(`MaxPlayersBlue`).Value += 1;
- }
- if (p.Team == redTeam) {
-  redTeam.Properties.Get(`MaxPlayersRed`).Value += 1; 
- }
- deadTeam.Remove(p);
-});
-
-Players.OnPlayerDisconnected.Add(function (p) {
- redTeam.Properties.Get(`MaxPlayersRed`).Value -= 1;
- if (p.Team == blueTeam) {
- blueTeam.Properties.Get(`MaxPlayersBlue`).Value -= 1;
- }
+ //t.Add(p);
+ CountsYesTeams(p);
 });
   
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
@@ -110,23 +128,11 @@ Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
  blueTeam.Remove(p);
  deadTeam.Add(p);
- if (p.Team == blueTeam) {
-  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
- }
- if (p.Team == redTeam) {
-  redTeam.Remove(p);
-  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
- }
   p.Ui.Hint.Value = `\nОжидайте, конца матча!`;
    p.Spawns.Despawn();
    p.Spawns.RespawnEnable.Value = false;
-if (blueTeam.Properties.Get(`MaxPlayersBlue`).Value == 0) {
- WinRedTeam();
- }
- if (redTeam.Properties.Get(`MaxPlayersRed`).Value == 0) {
- WinBlueTeam();
- }
-})
+ CountsNotTeams(p);
+});
 
 // * Обработчик киллов. * //
 Damage.OnKill.Add(function(k,p) {
