@@ -92,9 +92,13 @@ Damage.OnDeath.Add(function(p) {
   p.Ui.Hint.Value = `\nОжидайте, конца матча!`;
   const spawns = Spawns.GetContext(p);
   spawns.Despawn();
+  spawns.Enable = false;
   spawns.RespawnEnable.Value = false;
-   if (blueTeam.Properties.Deaths.Value == 1) { WinRedTeam(); }
-   if (redTeam.Properties.Deaths.Value == 1) { WinBlueTeam(); }
+    if (Teams.Get('Blue').Properties.Deaths.Value == 1) { 
+     WinRedTeam(); 
+   } else if (Teams.Get('Red').Properties.Deaths.Value == 1) { 
+     WinBlueTeam(); 
+   }
 });
 
 // * Обработчик киллов. * //
