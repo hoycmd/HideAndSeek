@@ -94,9 +94,10 @@ Damage.OnDeath.Add(function(p) {
   spawns.Despawn();
   spawns.Enable = false;
   spawns.RespawnEnable.Value = false;
-    if (Teams.Get('Blue').Properties.Deaths.Value == 1) { 
+  if (Teams.Get('Blue').Properties.Get('Deaths').Value == 1) { 
      WinRedTeam(); 
-   } else if (Teams.Get('Red').Properties.Deaths.Value == 1) { 
+   } 
+  if (Teams.Get('Red').Properties.Get('Deaths').Value == 1) { 
      WinBlueTeam(); 
    }
 });
