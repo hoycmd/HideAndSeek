@@ -41,38 +41,7 @@ Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 const blueTeam = CreateNewTeam(`Blue`, `ВЫЖИВШИЕ\nЛюди в комнате.`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
 const redTeam = CreateNewTeam(`Red`, `НАДЗИРАТЕЛИ\nИскатели выживших.`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
 const deadTeam = CreateNewTeam(`Dead`, `МЁРТВЫЕ\nУбитые выжившие в комнате.`, new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
-// * Интерфейс команд. * //
-const blueCount = 0;
-const redCount = 0;
-blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
-Ui.GetContext().TeamProp1.Value = { Team: `Blue`, Prop: `MaxPlayersBlue` };
-redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
-Ui.GetContext().TeamProp2.Value = { Team: `Red`, Prop: `MaxPlayersRed` };
 
-function CountsNotTeams(p) {
- if (p.Team == blueTeam && blueTeam.Properties.Deaths.Value == 1) {
-  blueTeam.Properties.Get(`MaxPlayersBlue`).Value--;
-  deadTeam.Add(p);
- }
- if (p.Team == redTeam && redTeam.Properties.Deaths.Value == 1) {
-  redTeam.Properties.Get(`MaxPlayersRed`).Value--;
-  deadTeam.Add(p);
-    }
-  blueTeam.Remove(p);
-  redTeam.Remove(p);
-}
-function CountsYesTeams(p) {
- if (p.Team == blueTeam) {
-  ++blueTeam.Properties.Get(`MaxPlayersBlue`).Value = blueCount;
-  blueTeam.Add(p);
- }
- if (p.Team == redTeam) {
-  ++redTeam.Properties.Get(`MaxPlayersRed`).Value = redCount;
-  redTeam.Add(p);
-   }
-   deadTeam.Remove(p);
-}
- 
 // * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
 LeaderBoard.PlayerLeaderBoardValues = [
  new DisplayValueHeader(`Kills`, `KILLS\nКиллы`, `KILLS\nКиллы`),
@@ -90,15 +59,10 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 });
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
-Teams.OnRequestJoinTeam.Add(function(p, t) {
- t.Add(p);
- CountsYesTeams(p);
-});
+Teams.OnRequestJoinTeam.Add(function(p, t) { t.Add(p); });
   
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
-Teams.OnPlayerChangeTeam.Add(function(p, t) {
- p.Spawns.Spawn();
-});
+Teams.OnPlayerChangeTeam.Add(function(p, t) { p.Spawns.Spawn(); });
   
 // * Обработчик бессмертия игрока, после респавна. * //
 Spawns.GetContext().OnSpawn.Add(function(p) {
@@ -119,18 +83,14 @@ Spawns.OnSpawn.Add(function(p) {
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
  blueTeam.Remove(p);
+ redTeam.Remove(p);
  deadTeam.Add(p);
   p.Ui.Hint.Value = `\nОжидайте, конца матча!`;
-   p.Spawns.Despawn();
-   p.Spawns.Enable = false;
-   p.Spawns.RespawnEnable.Value = false;
-   if (redTeam.Properties.Deaths.Value == 1) {
-  WinRedTeam();
- }
- if (blueTeam.Properties.Deaths.Value == 1) {
-  WinBlueTeam();
- }
- CountsNotTeams(p);
+  const spawns = Spawns.GetContext(p);
+  spawns.Despawn();
+  spawns.RespawnEnable.Value = false;
+   if (blueTeam.Properties.Deaths.Value == 1) { WinRedTeam(); }
+   if (redTeam.Properties.Deaths.Value == 1) { WinBlueTeam(); }
 });
 
 // * Обработчик киллов. * //
