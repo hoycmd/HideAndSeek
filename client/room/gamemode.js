@@ -99,7 +99,7 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p, t) {
- //t.Add(p);
+ t.Add(p);
  CountsYesTeams(p);
 });
   
@@ -194,6 +194,7 @@ function SetHideAndSeek() {
  mainTimer.Restart(HideAndSeekTime);
  Spawns.GetContext().Enable = true;
  TeamsBalancer.IsAutoBalance = false;
+ deadTeam.Remove(p);
  SpawnTeams();
 }
 function SetGameMode() {
