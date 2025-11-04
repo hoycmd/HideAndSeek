@@ -1,6 +1,6 @@
 {
  "Name": "<b><color=#E32636>Прятки</a></b>",
- "Description": "<b>Сильнее всего это страх с ужасом и <color=#E32636>Прятки</a> его образ\nПрячься или беги, веть жить тебе осталось <color=#E32636>недолго...</a></b>",
+ "Description": "<b>Сильнее всего это страх с ужасом и <color=share#E32636>Прятки</a> его образ\nПрячься или беги, веть жить тебе осталось <color=#E32636>недолго...</a></b>",
   "MapFilter": {
    "IsBlank": false,
   },
@@ -53,28 +53,10 @@
           {
             "Name": "Min5MatchTime",
             "DisplayName": "<b>5 Minut <color=#32636>☉</a></b>"
-           }       
+          }
         ]
-      },
-      {
-        "Name": "Blue",
-        "DisplayMame": "<b><color=#0000CD>Инвентарь</a> выживших:</b>"
-        "Default": "PNusto",
-        "Order": 7,
-        "Variants": [
-          {
-         "Name": "PNusto",
-          "DisplayName": "<b>color=#0000CD>Пус</a>той</b>",
-          },
-          {
-          "Name": "Melee",
-           "DisplayName": "<b><color=#0000CD>Ближний</a> бой</b>"
-                          }
-                      ]
-                }
-        ]
-  }
-     
-         
-    
+      }
+    ]
+   }
+}
                                    
