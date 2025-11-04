@@ -66,6 +66,16 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
   if (t === deadTeam) return; 
   t.Add(p);
+  
+ const Blue = GameMode.Parameters.GetBool('BlueTeamInventory');
+ const Inventory = Inventory.GetContext();
+
+  if (stateProp.Value == GameModeStateValue) {
+  switch (Blue) {
+    case 'Melee': blueTeam.inventory.Melee.Value = true; break;
+    case 'PNusto': blueTeam.inventory.Melee.Value = false; break;
+     }
+  }
 });
   
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
