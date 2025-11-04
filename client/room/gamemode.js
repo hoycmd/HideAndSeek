@@ -108,8 +108,6 @@ Damage.OnKill.Add(function(k,p) {
    }
 }); 
 
-
-
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
@@ -237,10 +235,6 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Spawns.SpawnPointsGroups.Add(TeamSpawnPointGroup);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
-}
-  
-function SpawnTeams() {
- for (const t of Teams) Spawns.GetContext(t).Spawn();
 }
 
 } catch (e) {
