@@ -63,7 +63,10 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 });
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
-Teams.OnRequestJoinTeam.Add(function(p, t) { if (t === deadTeam) return; t.Add(p); });
+Teams.OnRequestJoinTeam.Add(function(p, t) { 
+  if (t === deadTeam) return; 
+  t.Add(p);
+});
   
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p, t) { p.Spawns.Spawn(); });
