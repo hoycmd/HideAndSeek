@@ -66,13 +66,6 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
   if (t === deadTeam) return; 
   t.Add(p);
-  
- const Blue = GameMode.Parameters.GetBool('BlueTeamInventory');
- const Inventory = Inventory.GetContext();
-  switch (Blue) {
-    case 'Melee': blueTeam.inventory.Melee.Value = true; break;
-    case 'PNusto': blueTeam.inventory.Melee.Value = false; break;
-  }
 });
   
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
@@ -195,20 +188,20 @@ function SetGameMode() {
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
  Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint;
+  
  blueTeam.Properties.Scores.Value += WINNER_SCORES;
  redTeam.Properties.Scores.Value += LOOSER_SCORES;
  
- Spawns.GetContext().Spawn();
  Game.GameOver(redTeam);
  mainTimer.Restart(WinTeamsTime);
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
  Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;
+  
  redTeam.Properties.Scores.Value += WINNER_SCORES;
  blueTeam.Properties.Scores.Value += LOOSER_SCORES;
- 
- Spawns.GetContext().Spawn();
+  
  Game.GameOver(blueTeam);
  mainTimer.Restart(WinTeamsTime);
 }
