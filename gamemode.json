@@ -69,7 +69,10 @@
           {
           "Name": "Melee",
            "DisplayName": "<b><color=#0000CD>Ближний</a> бой</b>"
-       }
+                    }
+              ]
+         }
+      }
     ]
 }
                                    
