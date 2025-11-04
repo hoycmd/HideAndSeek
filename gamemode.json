@@ -15,6 +15,8 @@
   "Parameters": {
    "Bool": [
       {
+       "Dropdown": [
+         {
         "Name": "Blue",
         "DisplayMame": "<b><color=#0000CD>Инвентарь</a> выживших:</b>"
         "Default": "PNusto",
@@ -29,7 +31,7 @@
            "DisplayName": "<b><color=#0000CD>Ближний</a> бой</b>"
           }
          }
-    
+       ] 
         "Name": "LoosenBlocks",
         "DisplayName": "<b><color=#e32636>Слабые</a> блоки ☉</b>"
       },
