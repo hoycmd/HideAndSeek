@@ -29,8 +29,10 @@
           {
           "Name": "Melee",
            "DisplayName": "<b><color=#0000CD>Ближний</a> бой</b>"
-      },
-      {
+      }
+        ]
+         },
+         {
         "Name": "LoosenBlocks",
         "DisplayName": "<b><color=#e32636>Слабые</a> блоки ☉</b>"
       },
@@ -74,8 +76,6 @@
       }
     ]
    }
-   ]
-  }
 }
     
                                    
