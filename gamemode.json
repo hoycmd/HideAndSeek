@@ -54,22 +54,6 @@
             "Name": "Min5MatchTime",
             "DisplayName": "<b>5 Minut <color=#32636>☉</a></b>"
                }
-          ]
-      },
-      {
-       "Name": "Blue",
-        "DisplayMame": "<b><color=#0000CD>Инвентарь</a> выживших:</b>"
-        "Default": "PNusto",
-        "Order": 7,
-        "Variants": [
-          {
-         "Name": "PNusto",
-          "DisplayName": "<b>color=#0000CD>Пус</a>той</b>",
-          },
-          {
-          "Name": "Melee",
-           "DisplayName": "<b><color=#0000CD>Ближний</a> бой</b>"
-                    }
               ]
          }
        ]
