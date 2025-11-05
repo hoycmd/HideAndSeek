@@ -50,7 +50,7 @@
        "Dropdown": [
       {
         "Name": "Blue",
-        "DisplayMame": "<b><color=#0000CD>Инвентарь</a> выживших:</b>"
+        "DisplayMame": "<b><color=#0000CD>Инвентарь</a> выживших:</b>",
         "Default": "PNusto",
         "Order": 6,
         "Variants": [
