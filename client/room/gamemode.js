@@ -38,14 +38,21 @@ Damage.GetContext().GranadeTouchExplosion.Value = true;
 Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 
 // * Создаем команды, из функции - команд создания.
-const blueTeam = CreateNewTeam(`Blue`, `ВЫЖИВШИЕ`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
-const redTeam = CreateNewTeam(`Red`, `НАДЗИРАТЕЛИ`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
-const deadTeam = CreateNewTeam(`Dead`, `УМЕРШИЕ`, new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
+const blueTeam = CreateNewTeam(`Blue`, `\nВЫЖИВШИЕ`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
+const redTeam = CreateNewTeam(`Red`, `\nНАДЗИРАТЕЛИ`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
+const deadTeam = CreateNewTeam(`Dead`, `\nУМЕРШИЕ`, new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
 deadTeam.contextedProperties.SkinType.Value = 1;
 redTeam.contextedProperties.SkinType.Value = 0;
 blueTeam.contextedProperties.SkinType.Value = 3;
 redTeam.contextedProperties.StartBlocksCount.Value = 51;
-
+// * Интерфейс команд. * //
+const BLUE_TEXT_UI = '\n<b><size=220><color=#0d177c>ß</color><color=#03088c>l</color><color=#0607b0>ᴜ</color><color=#1621ae>E</color></size></b>';
+const RED_TEXT_UI = '\n<b><size=220><color=#962605>尺</color><color=#9a040c>ᴇ</color><color=#b8110b>D</color></size></b>';
+Ui.GetContext().TeamProp1.Value = { Team: 'Red', Prop: 'red_text_ui' }; 
+Ui.GetContext().TeamProp2.Value = { Team: 'Blue', Prop: 'blue_text_ui' };
+redTeam.Properties.Get('red_text_ui').Value = RED_TEXT_UI;
+blueTeam.Properties.Get('blue_text_ui').Value = BLUE_TEXT_UI;
+  
 // * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
 LeaderBoard.PlayerLeaderBoardValues = [
   new DisplayValueHeader('Kills', '<b><size=30><color=#be5f1b>K</color><color=#b65219>i</color><color=#ae4517>l</color><color=#a63815>l</color><color=#9e2b13>s</color></size></b>', '<b><size=30><color=#be5f1b>K</color><color=#b65219>i</color><color=#ae4517>l</color><color=#a63815>l</color><color=#9e2b13>s</color></size></b>'),
@@ -92,11 +99,9 @@ Damage.OnDeath.Add(function(p) {
   if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
   if (blueTeam.Count < 1) {
     WinRedTeam(); 
-    return;
   }
   if (redTeam.Count < 1) {
     WinBlueTeam();
-    return;
   }
   p.Ui.Hint.Value = `Ожидайте, конца матча!`;
   p.spawns.enable = false;
@@ -191,9 +196,9 @@ function WinBlueTeam() {
   
  blueTeam.Properties.Scores.Value += WINNER_SCORES;
  redTeam.Properties.Scores.Value += LOOSER_SCORES;
- 
+
+ Timers.GetContext().Get('Main').Restart(WinTeamsTime);
  Game.GameOver(redTeam);
- mainTimer.Restart(WinTeamsTime);
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
@@ -201,9 +206,9 @@ function WinRedTeam() {
   
  redTeam.Properties.Scores.Value += WINNER_SCORES;
  blueTeam.Properties.Scores.Value += LOOSER_SCORES;
-  
+
+ Timers.GetContext().Get('Main').Restart(WinTeamsTime);
  Game.GameOver(blueTeam);
- mainTimer.Restart(WinTeamsTime);
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
