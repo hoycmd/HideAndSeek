@@ -68,7 +68,7 @@
         "Name": "Length",
         "DisplayName": "<b><color=#e32636>Длинна</a> матча:</b>",
         "Default": "Min7MatchTime",
-        "Order": 7
+        "Order": 7,
         "Variants": [
           {
             "Name": "Min10MatchTime",
