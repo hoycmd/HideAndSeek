@@ -96,16 +96,21 @@ Spawns.OnSpawn.Add(function(p) {
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
+if (stateProp.Value == HideAndSeekStateValue && stateProp.Value == WinTeamsStateValue) {
   if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
   if (blueTeam.Count < 1) {
     WinRedTeam(); 
+    return;
   }
   if (redTeam.Count < 1) {
     WinBlueTeam();
+    return;
   }
   p.Ui.Hint.Value = `Ожидайте, конца матча!`;
   p.spawns.enable = false;
   p.spawns.Despawn();
+  }
+  p.S
 });
 
 // * Обработчик киллов. * //
@@ -197,6 +202,11 @@ function WinBlueTeam() {
  blueTeam.Properties.Scores.Value += WINNER_SCORES;
  redTeam.Properties.Scores.Value += LOOSER_SCORES;
 
+ const spawnsBlue = Spawns.GetContext(blueTeam), spawnRed = Spawns.GetContext(redTeam), spawnsDead = Spawns.GetContext(deadTeam);
+ spawnsBlue.Spawn();
+ spawnsRed.Spawn();
+ spawnDead.Despawn();
+  
  Timers.GetContext().Get('Main').Restart(WinTeamsTime);
  Game.GameOver(redTeam);
 }
@@ -207,6 +217,11 @@ function WinRedTeam() {
  redTeam.Properties.Scores.Value += WINNER_SCORES;
  blueTeam.Properties.Scores.Value += LOOSER_SCORES;
 
+ const spawnsBlue = Spawns.GetContext(blueTeam), spawnRed = Spawns.GetContext(redTeam), spawnsDead = Spawns.GetContext(deadTeam);
+ spawnsBlue.Spawn();
+ spawnsRed.Spawn();
+ spawnDead.Despawn();
+  
  Timers.GetContext().Get('Main').Restart(WinTeamsTime);
  Game.GameOver(blueTeam);
 }
