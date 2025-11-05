@@ -96,7 +96,7 @@ Spawns.OnSpawn.Add(function(p) {
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
-if (stateProp.Value == HideAndSeekStateValue && stateProp.Value == WinTeamsStateValue) {
+if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WinTeamsStateValue && stateProp.Value == GameStateValue) {
   if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
   if (blueTeam.Count < 1) {
     WinRedTeam(); 
@@ -110,7 +110,7 @@ if (stateProp.Value == HideAndSeekStateValue && stateProp.Value == WinTeamsState
   p.spawns.enable = false;
   p.spawns.Despawn();
   }
-  p.S
+  p.Spawns.RespawnTime.Value = 3;
 });
 
 // * Обработчик киллов. * //
