@@ -1,8 +1,10 @@
 {
  "Name": "<b><color=#E32636>Прятки</a></b>",
  "Description": "<b>Сильнее всего это страх с ужасом и <color=share#E32636>Прятки</a> его образ\nПрячься или беги, веть жить тебе осталось <color=#E32636>недолго...</a></b>",
+ "StartClientVersion": 510,
   "MapFilter": {
    "IsBlank": false,
+   "HasParcourEnd": false,
   },
   "MapLists": [
     {
@@ -17,22 +19,32 @@
       {
         "Name": "LoosenBlocks",
         "DisplayName": "<b><color=#e32636>Слабые</a> блоки ☉</b>"
+        "Default": false,
+        "Order": 1
       },
       {
        "Name": "PartialDeserction",
         "DisplayName": "<b><color=#e32636>Частичные</a> блоки ☉</b>"
+        "Order": 2
+        "Default": false,
       },
       {
         "Name": "MapRotation",
         "DisplayName": "<b><color=#e32636>Смена</a> карт ☉</b>"
+        "Order": 3
+        "Default": true,
       },
       {
        "Name": "Waiting2Player",
        "DisplayName": "<b><color=#e32636>Ожидание</a> 2 игрока ☉</b>"
+       "Order": 4
+       "Default": false,
       },
       {
        "Name": "FriendlyFire",
-       "DisplayName": "<b><color=#e32636>Френдли</a> фаер ☉</b>"  
+       "DisplayName": "<b><color=#e32636>Френдли</a> фаер ☉</b>" 
+       "Order": 5
+       "Default": false
         }
       ], 
        "Dropdown": [
@@ -40,10 +52,11 @@
         "Name": "Blue",
         "DisplayMame": "<b><color=#0000CD>Инвентарь</a> выживших:</b>"
         "Default": "PNusto",
+        "Order": 6,
         "Variants": [
           {
          "Name": "PNusto",
-          "DisplayName": "<b>color=#0000CD>Пус</a>той</b>",
+          "DisplayName": "<b>color=#0000CD>Пус</a>той</b>"
           },
           {
           "Name": "Melee",
@@ -55,6 +68,7 @@
         "Name": "Length",
         "DisplayName": "<b><color=#e32636>Длинна</a> матча:</b>",
         "Default": "Min7MatchTime",
+        "Order": 7
         "Variants": [
           {
             "Name": "Min10MatchTime",
