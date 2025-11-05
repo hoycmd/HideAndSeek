@@ -33,14 +33,13 @@
       {
        "Name": "FriendlyFire",
        "DisplayName": "<b><color=#e32636>Френдли</a> фаер ☉</b>"  
-        },
+        }
       ], 
        "Dropdown": [
       {
-       "Name": "Blue",
+        "Name": "Blue",
         "DisplayMame": "<b><color=#0000CD>Инвентарь</a> выживших:</b>"
         "Default": "PNusto",
-        "Order": 7,
         "Variants": [
           {
          "Name": "PNusto",
@@ -49,30 +48,29 @@
           {
           "Name": "Melee",
           "DisplayName": "<b><color=#0000CD>Ближний</a> бой</b>"
-         }
-       ]
-         },
-         {
+                      }
+            ]
+      },
+      {
         "Name": "Length",
         "DisplayName": "<b><color=#e32636>Длинна</a> матча:</b>",
         "Default": "Min7MatchTime",
-        "Order": 6,
         "Variants": [
           {
             "Name": "Min10MatchTime",
             "DisplayName": "<b>10 Mimut <color=#e32636>☉</a></b>"
-          },
-          {
+      },
+      {
             "Name": "Min7MatchTime",
             "DisplayName": "<b>7 Minut <color=#e32636>☉</a></b>"
-          },
-          {
+      },
+      {
             "Name": "Min5MatchTime",
             "DisplayName": "<b>5 Minut <color=#e32636>☉</a></b>"
-               }
+                                       }
+                              ]  
+                      }
               ]
-         }
-       ]
-  }
+       }
 }
                                    
