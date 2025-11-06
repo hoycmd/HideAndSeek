@@ -50,8 +50,7 @@ Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 // * Создаем команды, из функции - команд создания.
 const blueTeam = CreateNewTeam(`Blue`, `\nВЫЖИВШИЕ`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
 const redTeam = CreateNewTeam(`Red`, `\nНАДЗИРАТЕЛИ`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
-const deadTeam = CreateNewTeam(`Dead`, `\nУМЕРШИЕ`, new Color(0, 0, 0, 0), 3, BuildBlocksSet.Red);
-deadTeam.contextedProperties.SkinType.Value = 1;
+//deadTeam.contextedProperties.SkinType.Value = 1;
 redTeam.contextedProperties.SkinType.Value = 0;
 blueTeam.contextedProperties.SkinType.Value = 3;
 redTeam.contextedProperties.StartBlocksCount.Value = 51;
@@ -81,7 +80,7 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
-  if (t === deadTeam) return; 
+  //if (t === deadTeam) return
   t.Add(p);
  switch (GameMode.Parameters.GetBool('Blue')) {
    case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
@@ -111,15 +110,12 @@ Spawns.OnSpawn.Add(function(p) {
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
 if (stateProp.Value == GameStateValue) {
-  if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
+  if (p.Team === blueTeam) redTeam.Add(p);
   if (blueTeam.Count < 1) {
     WinRedTeam();
     return;
-  }
-  p.Ui.Hint.Value = `Ожидайте, конца матча!`;
-  p.spawns.enable = false;
-  p.spawns.Despawn();
-  }
+     }
+}
   p.Spawns.RespawnTime.Value = 3;
 });
 
@@ -145,8 +141,7 @@ mainTimer.OnTimer.Add(function() {
    SetGameMode();
    break;
   case GameStateValue:
-   WinBlueTeam();
-   Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint; 
+   WinBlueTeam(); 
    break;
   case WinTeamsStateValue:
    START_VOTE();
@@ -211,7 +206,6 @@ function SetGameMode() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = true;
 
- Spawns.GetContext(deadTeam).Despawn();
  TeamsBalancer.BalanceTeams();
  TeamsBalancer.IsAutoBalance = true;
  mainTimer.Restart(5);
@@ -221,11 +215,24 @@ function WinBlueTeam() {
  Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint; 
  blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
  redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;
+	
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
- Spawns.GetContext(deadTeam).Despawn();	
+
  Game.GameOver(redTeam);
- mainTimer.Restart(11);
+ mainTimer.Restart(6);
+}
+function WinRedTeam() {
+ stateProp.Value = WinTeamsStateValue;
+ Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;  
+ redTeam.Properties.Get('Scores').Value += WINNER_SCORES;
+ blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;
+	
+ Spawns.GetContext(blueTeam).Spawn();
+ Spawns.GetContext(redTeam).Spawn();
+
+ Game.GameOver(blueTeam);
+ mainTimer.Restart(6);
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
@@ -261,18 +268,7 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
 }
-function WinRedTeam() {
- stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;  
- redTeam.Properties.Scores.Value += WINNER_SCORES;
- blueTeam.Properties.Scores.Value += LOOSER_SCORES;
- Spawns.GetContext(blueTeam).Spawn();
- Spawns.GetContext(redTeam).Spawn();
- Spawns.GetContext(deadTeam).Despawn();
- Timers.GetContext().Get('Main').Restart(11);
- Game.GameOver(blueTeam);
-}
-
+	
 } catch (e) {
  for (const p of Players.All) { 
    p.PopUp(`${e.name}: ${e.message}: ${e.stack}`);
