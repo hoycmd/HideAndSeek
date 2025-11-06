@@ -211,7 +211,7 @@ function SetGameMode() {
  Spawns.GetContext(deadTeam).Despawn();
  TeamsBalancer.BalanceTeams();
  TeamsBalancer.IsAutoBalance = true;
- Timers.GetContext().Get('Main').Restart(5);
+ mainTimer.Restart(5);
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
