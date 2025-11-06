@@ -1,6 +1,8 @@
 import { Players, room, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as default_timer from './default_timer.js';
+import * as G from './default_inventory.js';
+
 try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 room.PopupsEnable = true;
@@ -180,7 +182,7 @@ function SetGameMode() {
  blueTeam.Ui.Hint.Value = BlueHidendIliYrunsForHint;
  redTeam.Ui.Hint.Value = RedIschetBluePlayersForHint;
 
- blueTeam.Inventory.Melee.Value = false;
+ blueTeam.Inventory.Melee.Value = G.BL();
  blueTeam.Inventory.Secondary.Value = false;
  blueTeam.Inventory.Main.Value = false;
  blueTeam.Inventory.Explosive.Value = false;
