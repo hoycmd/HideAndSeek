@@ -103,11 +103,11 @@ Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WinTeamsStateValue && stateProp.Value == GameStateValue) {
   if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
-  if (blueTeam.Count <= 1) {
+  if (Teams.Get('Blue').Count < 1 && Teams.Get('Blu').Count <= 1 && Teams.Get('Blue').Count == 1) {
     WinRedTeam();
     return;
   }
-  if (redTeam.Count <= 1) {
+  if (Teams.Get('Blue').Count < 1 && Teams.Get('Blu').Count <= 1 && Teams.Get('Blue').Count == 1) {
     WinBlueTeam();
     return;
   }
