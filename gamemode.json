@@ -60,50 +60,18 @@
                                 ]
                         },
                         {
-                                "Name": "DefaultScores",
-                                "DisplayName": "<b><i><color=Red>Список</a> МОНЕТ (при старте) - |▶</i></b>",
-                                "Default": "0 SCORES",
-                                "Order": 4,
+                                "Name": "Blue",
+                                "DisplayName": "<b><color=#0000CD>Инвентарь</a> выживших: </b>",
+                                "Default": "PNusto",
+                                "Order": 6,
                                 "Variants": [
                                         {
-                                                "Name": "0 SCORES",
-                                                "DisplayName": "<b><i><color=Red>1000</a> МОНЕТ - |▶</i></b>"
+                                                "Name": "PNusto",
+                                                "DisplayName": "<b><color=#0000CD>Пустой</a> инвентарь</b>"
                                         },
                                         {
-                                                "Name": "1000 SCORES",
-                                                "DisplayName": "<b><i><color=Red>1000</a> МОНЕТ - |▶</i></b>"
-                                        },
-                                        {
-                                                "Name": "1500 SCORES",
-                                                "DisplayName": "<b><i><color=Red>1500</a> МОНЕТ - |▶</i></b>"
-                                        },
-                                        {
-                                                "Name": "2000 SCORES",
-                                                "DisplayName": "<b><i><color=Red>2000</a> МОНЕТ - |▶</i></b>"
-                                        },
-                                        {
-                                                "Name": "3000 SCORES",
-                                                "DisplayName": "<b><i><color=Red>3000</a> МОНЕТ - |▶</i></b>"
-                                        },
-                                        {
-                                                "Name": "3500 SCORES",
-                                                "DisplayName": "<b><i><color=Red>3500</a> МОНЕТ - |▶</i></b>"
-                                        },
-                                        {
-                                                "Name": "4000 SCORES",
-                                                "DisplayName": "<b><i><color=Red>4000</a> МОНЕТ - |▶</i></b>"
-                                        },
-                                        {
-                                                "Name": "4500 SCORES",
-                                                "DisplayName": "<b><i><color=Red>4500</a> МОНЕТ - |▶</i></b>"
-                                        },
-                                        {
-                                                "Name": "5000 SCORES",
-                                                "DisplayName": "<b><i><color=Red>5000</a> МОНЕТ - |▶</i></b>"
-                                        },
-                                        {
-                                                "Name": "5500 SCORES",
-                                                "DisplayName": "<b><i><color=Red>5500</a> МОНЕТ - |▶</i></b>"
+                                                "Name": "Melee",
+                                                "DisplayName": "<b><color=#0000CD>Холодное</a> оружие</b>"
                                         }
                                 ]
                         }
