@@ -167,7 +167,7 @@ function SetWaitingMode() {
  i.Explosive.Value = false;
  i.Build.Value = false;
 
- mainTimer.Restart(WaitingPlayersTime);
+ Timers.GetContext().Get('Main').Restart(WaitingPlayersTime);
 }
 function SetHideAndSeek() {
  stateProp.Value = HideAndSeekStateValue;
@@ -186,7 +186,7 @@ function SetHideAndSeek() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 
- mainTimer.Restart(HideAndSeekTime);
+ Timers.GetContext().Get('Main').Restart(HideAndSeekTime);
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
  TeamsBalancer.IsAutoBalance = false;
@@ -208,7 +208,7 @@ function SetGameMode() {
  redTeam.Inventory.Build.Value = true;
 
  Spawns.GetContext(deadTeam).Despawn();
- mainTimer.Restart(GameModeTime);
+ Timers.GetContext().Get('Main').Restart(GameModeTime);
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
