@@ -1,6 +1,7 @@
 import { Players, room, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as d from './gamemodeParameters.js';
+
 try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 room.PopupsEnable = true;
@@ -16,7 +17,7 @@ const HideAndSeekStateValue = `HideAndSeek`;
 const GameStateValue = `GameMode`;
 const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
-const WaitingAllPlayersForHint = `Ожидание, всех - игроков...`;
+const WaitingAllPlayersForHint = `Ожидание 2 игрока...`;
 const ContextAllViborTeamsForHint = `Выберите, команду!`;
 const BlueIschetMestoHidengiliBegForHint = `Ищите место где спрятатся, или убегайте!</b>`;
 const RedSleditGdeBlueHidengIliBegaetForHint = `Следите где спрячутся выжившие, или где убегают!`;
@@ -103,7 +104,7 @@ Damage.OnDeath.Add(function(p) {
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WinTeamsStateValue && stateProp.Value == GameStateValue) {
   if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
   if (blueTeam.Count < 1) {
-    WinRedTeam(); 
+    WinRedTeam();
     return;
   }
   if (redTeam.Count < 1) {
@@ -129,7 +130,10 @@ Damage.OnKill.Add(function(k,p) {
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
-   SetHideAndSeek();
+     if (Players.All.length < 2) {
+       SetWaitingMode();
+       Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
+ } else SetHideAndSeek();
    break;
   case HideAndSeekStateValue:
    SetGameMode();
@@ -154,7 +158,15 @@ SetWaitingMode();
 function SetWaitingMode() {
  stateProp.Value = WaitingModeStateValue;
  Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
- Spawns.GetContext().Enable = false;
+ Spawns.GetContext().Enable = true;
+
+ const i = Inventory.GetContext();
+ i.Main.Value = false;
+ i.Secondary.Value = false;
+ i.Melee.Value = false;
+ i.Explosive.Value = false;
+ i.Build.Value = false;
+  
  mainTimer.Restart(WaitingPlayersTime);
 }
 function SetHideAndSeek() {
