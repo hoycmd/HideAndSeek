@@ -4,7 +4,6 @@
  "StartClientVersion": 510,
   "MapFilter": {
    "IsBlank": false,
-   "HasParcourEnd": false,
   },
   "MapLists": [
     {
