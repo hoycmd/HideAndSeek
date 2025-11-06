@@ -1,14 +1,13 @@
 import { Players, room, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
-import * as default_timer from './default_timer.js';
-import * as inventoryBlue from './default_inventory.js';
+import * as game from './damemodeParameters.js';
 
 try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 room.PopupsEnable = true;
 const WaitingPlayersTime = 11;
 const HideAndSeekTime = 31;
-const GameModeTime = default_timer.GameModeMatchTime();
+const GameModeTime = games.GameModeMatchTime();
 const WinTeamsTime = 16;
 const End0fMatchTime = 11;
 const WINNER_SCORES = 30;
