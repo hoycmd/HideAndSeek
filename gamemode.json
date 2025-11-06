@@ -1,73 +1,112 @@
 {
- "Name": "<b><color=#E32636>Прятки</a></b>",
- "Description": "<b>Сильнее всего это страх с ужасом и <color=share#E32636>Прятки</a> его образ\nПрячься или беги, веть жить тебе осталось <color=#E32636>недолго...</a></b>",
- "StartClientVersion": 510,
-  "MapFilter": {
-   "IsBlank": false,
-  },
-  "MapLists": [
-    {
-      "MapListId": 21239,
-    },
-    {
-      "MapListId": 581,
-    }
-  ],
-  "Parameters": {
-   "Bool": [
-      {
-        "Name": "LoosenBlocks",
-        "DisplayName": "<b><color=#e32636>Слабые</a> блоки ☉</b>"
-        "Default": false,
-        "Order": 1
-      },
-      {
-       "Name": "PartialDeserction",
-        "DisplayName": "<b><color=#e32636>Частичные</a> блоки ☉</b>"
-        "Order": 2
-        "Default": false,
-      },
-      {
-        "Name": "MapRotation",
-        "DisplayName": "<b><color=#e32636>Смена</a> карт ☉</b>"
-        "Order": 3
-        "Default": true,
-      },
-      {
-       "Name": "Waiting2Player",
-       "DisplayName": "<b><color=#e32636>Ожидание</a> 2 игрока ☉</b>"
-       "Order": 4
-       "Default": false,
-      },
-      {
-       "Name": "FriendlyFire",
-       "DisplayName": "<b><color=#e32636>Френдли</a> фаер ☉</b>" 
-       "Order": 5
-       "Default": false
+      "Name": "<b><color=#E32636>Прятки</a></b>",
+      "Description": "<b>Сильнее всего это страх с ужасом и <color=#E32636>Прятки</a> его образ\nПрячься или беги, веть жить тебе осталось <color=#E32636>недолго...</a></b>",
+      "MapFilter": {
+      "IsBlank": false,
+        },
+        "MapLists": [
+                {
+                        "MapListId": 23020,
+                        "Name": "<b>Карты для <color=#e32636>пряток</a></b>",
+                }
+        ],
+        "Parameters": {
+                "Bool": [
+                        {
+                                "Name": "FriendlyFire",
+                                "DisplayName": "<b><color=#7CFC00>Френдли</a> фаер</b>",
+                                "Default": true,
+                                "Order": 1
+                        },
+                        {
+                                "Name": "",
+                                "DisplayName": "<b><i><color=Red>Автоматический</a> СПАВН - |▶</i></b>",
+                                "Default": true,
+                                "Order": 2
+                        }
+
+                ],
+                "Dropdown": [
+                        {  
+                                "Name": "DefaultMaxHp",
+                                "DisplayName": "<b><i><color=Red>Список</a> ХП (при старте) - |▶</i></b>",
+                                "Default": "100 HP",
+                                "Order": 3,
+                                "Variants": [
+                                        {
+                                                "Name": "100 HP",
+                                                "DisplayName": "<b><i><color=Red>100</a> ХП - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "150 HP",
+                                                "DisplayName": "<b><i><color=Red>150</a> ХП - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "250 HP",
+                                                "DisplayName": "<b><i><color=Red>250</a> ХП - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "350 HP",
+                                                "DisplayName": "<b><i><color=Red>350</a> ХП - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "450 HP",
+                                                "DisplayName": "<b><i><color=Red>450</a> ХП - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "550 HP",
+                                                "DisplayName": "<b><i><color=Red>550</a> ХП - |▶</i></b>"
+                                        }
+                                ]
+                        },
+                        {
+                                "Name": "DefaultScores",
+                                "DisplayName": "<b><i><color=Red>Список</a> МОНЕТ (при старте) - |▶</i></b>",
+                                "Default": "0 SCORES",
+                                "Order": 4,
+                                "Variants": [
+                                        {
+                                                "Name": "0 SCORES",
+                                                "DisplayName": "<b><i><color=Red>1000</a> МОНЕТ - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "1000 SCORES",
+                                                "DisplayName": "<b><i><color=Red>1000</a> МОНЕТ - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "1500 SCORES",
+                                                "DisplayName": "<b><i><color=Red>1500</a> МОНЕТ - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "2000 SCORES",
+                                                "DisplayName": "<b><i><color=Red>2000</a> МОНЕТ - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "3000 SCORES",
+                                                "DisplayName": "<b><i><color=Red>3000</a> МОНЕТ - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "3500 SCORES",
+                                                "DisplayName": "<b><i><color=Red>3500</a> МОНЕТ - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "4000 SCORES",
+                                                "DisplayName": "<b><i><color=Red>4000</a> МОНЕТ - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "4500 SCORES",
+                                                "DisplayName": "<b><i><color=Red>4500</a> МОНЕТ - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "5000 SCORES",
+                                                "DisplayName": "<b><i><color=Red>5000</a> МОНЕТ - |▶</i></b>"
+                                        },
+                                        {
+                                                "Name": "5500 SCORES",
+                                                "DisplayName": "<b><i><color=Red>5500</a> МОНЕТ - |▶</i></b>"
+                                        }
+                                ]
+                        }
+                ]
         }
-      ], 
-       "Dropdown": [
-      {        
-        "Name": "Length",
-        "DisplayName": "<b><color=#e32636>Длинна</a> матча:</b>",
-        "Default": "Min7MatchTime",
-        "Order": 7,
-        "Variants": [
-          {
-            "Name": "Min10MatchTime",
-            "DisplayName": "<b>10 Mimut <color=#e32636>☉</a></b>"
-      },
-      {
-            "Name": "Min7MatchTime",
-            "DisplayName": "<b>7 Minut <color=#e32636>☉</a></b>"
-      },
-      {
-            "Name": "Min5Matchme",
-            "DisplayName": "<b>5 Minut <color=#e32636>☉</a></b>"
-                                       }
-                              ]  
-                      }
-              ]
-       }
 }
-                                   
