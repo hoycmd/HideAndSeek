@@ -20,5 +20,6 @@ export function InventoryBlueEvent() {
  switch (Blue) {
      case 'PNusto': SelectedDefaultInventoryBlue = false; break;
      case 'Melee': SelectedDefaultInventoryBlue = true; break;
+     } 
 }
 export const DefultInventory = SelectedDefaultInventoryBlue;
