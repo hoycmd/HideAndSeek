@@ -1,13 +1,12 @@
 import { Players, room, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
-import * as games from './damemodeParameters.js';
-
+import * as d from './gamemodeParameters.js';
 try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 room.PopupsEnable = true;
 const WaitingPlayersTime = 11;
 const HideAndSeekTime = 31;
-const GameModeTime = games.GameModeMatchTime();
+const GameModeTime = d.GameModeMatchTime();
 const WinTeamsTime = 16;
 const End0fMatchTime = 11;
 const WINNER_SCORES = 30;
@@ -74,6 +73,10 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
   if (t === deadTeam) return; 
   t.Add(p);
+ switch (GameMode.Parameters.GetBool('Blue')) {
+   case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
+   case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
+   }
 });
   
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
@@ -98,7 +101,7 @@ Spawns.OnSpawn.Add(function(p) {
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WinTeamsStateValue && stateProp.Value == GameStateValue) {
- // if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
+  if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
   if (blueTeam.Count < 1) {
     WinRedTeam(); 
     return;
@@ -110,6 +113,7 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WinTeamsState
   p.Ui.Hint.Value = `Ожидайте, конца матча!`;
   p.spawns.enable = false;
   p.spawns.Despawn();
+  }
   p.Spawns.RespawnTime.Value = 3;
 });
 
@@ -180,7 +184,7 @@ function SetGameMode() {
  blueTeam.Ui.Hint.Value = BlueHidendIliYrunsForHint;
  redTeam.Ui.Hint.Value = RedIschetBluePlayersForHint;
 
- blueTeam.Inventory.Melee.Value = inventoryBlue.BV();
+ blueTeam.Inventory.Melee.Value = false;
  blueTeam.Inventory.Secondary.Value = false;
  blueTeam.Inventory.Main.Value = false;
  blueTeam.Inventory.Explosive.Value = false;
