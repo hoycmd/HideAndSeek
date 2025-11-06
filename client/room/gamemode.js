@@ -166,7 +166,7 @@ function SetWaitingMode() {
  i.Melee.Value = false;
  i.Explosive.Value = false;
  i.Build.Value = false;
-  
+
  mainTimer.Restart(WaitingPlayersTime);
 }
 function SetHideAndSeek() {
@@ -207,11 +207,8 @@ function SetGameMode() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = true;
 
- Spawns.GetContext().Despawn();
+ Spawns.GetContext(deadTeam).Despawn();
  mainTimer.Restart(GameModeTime);
- Spawns.GetContext(blueTeam).Spawn();
- Spawns.GetContext(redTeam).Spawn();
- Soawns.GetContext(deadTeam).Despawn();
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
