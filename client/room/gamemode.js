@@ -209,7 +209,9 @@ function SetGameMode() {
 
  Spawns.GetContext().Despawn();
  mainTimer.Restart(GameModeTime);
- Spawns.GetContext().Spawn();
+ Spawns.GetContext(blueTeam).Spawn();
+ Spawns.GetContext(redTeam).Spawn();
+ Soawns.GetContext(deadTeam).Despawn();
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
