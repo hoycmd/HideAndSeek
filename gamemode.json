@@ -13,49 +13,48 @@
         "Parameters": {
                 "Bool": [
                         {
-                                "Name": "FriendlyFire",
-                                "DisplayName": "<b><color=#7CFC00>Френдли</a> фаер</b>",
+                                "Name": "MapRotation",
+                                "DisplayName": "<b><color=#7CFC00>Смена</a> карт</b>",
                                 "Default": true,
                                 "Order": 1
                         },
                         {
-                                "Name": "",
-                                "DisplayName": "<b><i><color=Red>Автоматический</a> СПАВН - |▶</i></b>",
-                                "Default": true,
+                                "Name": "FriendlyFire",
+                                "DisplayName": "<b><color=#7CFC00>Френдли</a> фаер</b>",
+                                "Default": false,
                                 "Order": 2
-                        }
+                        },
+                        {
+                                "Name": "BlocksDamage",
+                                "DisplayName": "<b><color=#7CFC00>Частичные</a> блоки</b>",
+                                "Default": false,
+                                "Order": 3
+                        },
+                        {
+                                "Name": "LoosenBlocks",
+                                "DisplayName": "<b><color=#7CFC00>Слабые</a> блоки</b>",
+                                "Default": false,
+                                "Order": 4
 
                 ],
                 "Dropdown": [
                         {  
-                                "Name": "DefaultMaxHp",
-                                "DisplayName": "<b><i><color=Red>Список</a> ХП (при старте) - |▶</i></b>",
-                                "Default": "100 HP",
-                                "Order": 3,
+                                "Name": "Length",
+                                "DisplayName": "<b><color=#7CFC00>Длинна</a> матча:</b>",
+                                "Default": "",
+                                "Order": 5,
                                 "Variants": [
                                         {
-                                                "Name": "100 HP",
+                                                "Name": "",
                                                 "DisplayName": "<b><i><color=Red>100</a> ХП - |▶</i></b>"
                                         },
                                         {
-                                                "Name": "150 HP",
+                                                "Name": "",
                                                 "DisplayName": "<b><i><color=Red>150</a> ХП - |▶</i></b>"
                                         },
                                         {
-                                                "Name": "250 HP",
-                                                "DisplayName": "<b><i><color=Red>250</a> ХП - |▶</i></b>"
-                                        },
-                                        {
-                                                "Name": "350 HP",
-                                                "DisplayName": "<b><i><color=Red>350</a> ХП - |▶</i></b>"
-                                        },
-                                        {
-                                                "Name": "450 HP",
-                                                "DisplayName": "<b><i><color=Red>450</a> ХП - |▶</i></b>"
-                                        },
-                                        {
-                                                "Name": "550 HP",
-                                                "DisplayName": "<b><i><color=Red>550</a> ХП - |▶</i></b>"
+                                                "Name": ",
+                                                "DisplayName": ""
                                         }
                                 ]
                         },
