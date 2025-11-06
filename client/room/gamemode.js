@@ -149,9 +149,6 @@ mainTimer.OnTimer.Add(function() {
    Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint; 
    break;
   case WinTeamsStateValue:
-   SetEnd0fMatch();
-   break;
-  case End0fMatchStateValue:
    START_VOTE();
   if (!GameMode.Parameters.GetBool('MapRotation')) RestartGame();
    break;
@@ -220,7 +217,6 @@ function SetGameMode() {
  mainTimer.Restart(5);
 }
 function WinBlueTeam() {
-	try {
  stateProp.Value = WinTeamsStateValue;
  Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint; 
  blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
@@ -230,9 +226,6 @@ function WinBlueTeam() {
  Spawns.GetContext(deadTeam).Despawn();	
  Game.GameOver(redTeam);
  mainTimer.Restart(11);
-	} catch (e) { for (const p of Players.All) { 
-   p.PopUp(`${e.name}: ${e.message}: ${e.stack}`);
-             } }
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
