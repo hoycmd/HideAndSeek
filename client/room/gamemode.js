@@ -140,18 +140,9 @@ mainTimer.OnTimer.Add(function() {
    SetGameMode();
    break;
   case GameStateValue:
-  mainTimer.Restart(11);
-  Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint;  
-  blueTeam.Properties.Scores.Value += WINNER_SCORES;
-  redTeam.Properties.Scores.Value += LOOSER_SCORES;
-  const spawnsBlue = Spawns.GetContext(blueTeam), spawnRed = Spawns.GetContext(redTeam), spawnsDead = Spawns.GetContext(deadTeam);
- spawnsBlue.Spawn();
- spawnsRed.Spawn();
- spawnDead.Despawn();
    WinBlueTeam();
    break;
   case WinTeamsStateValue:
-		Ui.GetContext().Hint.Value = EndingeMatchForHint;
    SetEnd0fMatch();
    break;
   case End0fMatchStateValue:
@@ -229,21 +220,25 @@ function WinBlueTeam() {
  blueTeam.Properties.Scores.Value += WINNER_SCORES;
  redTeam.Properties.Scores.Value += LOOSER_SCORES;
 
- MainTimer.Restart(11);
+
  const spawnsBlue = Spawns.GetContext(blueTeam), spawnRed = Spawns.GetContext(redTeam), spawnsDead = Spawns.GetContext(deadTeam);
  spawnsBlue.Spawn();
  spawnsRed.Spawn();
  spawnDead.Despawn();
+	
  Game.GameOver(redTeam);
+ MainTimer.Restart(11);
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
  Ui.GetContext().Hint.Value = EndingeMatchForHint;
-
- mainTimer.Restart(11);
+	
  const spawns = Spawns.GetContext();
  spawns.Enable = false;
  spawns.Despawn();
+
+Game.GameOver(blueTeam)
+ mainTimer.Restart(11);
 }
 
 function OnVoteResult(v) {
