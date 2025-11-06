@@ -248,7 +248,7 @@ function SetEnd0fMatch() {
  spawns.Enable = false;
  spawns.Despawn();
 
- mainTimer.Restart(End0fMatchTime);
+ Timers.GetContext().Get('Main').Restart(End0fMatchTime);
 }
 
 function OnVoteResult(v) {
