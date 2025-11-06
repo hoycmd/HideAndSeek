@@ -2,7 +2,14 @@ import { Players, room, Chat, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Te
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as d from './gamemodeParameters.js';
 
-// пр босс.я не могу исправить злаебучий таймер после GameStateValue в WinTeamsStateValue в победе синих и красн.я щас сдавал экзомены и щас в игре играю в тдм.есл чо пиши в лс
+// ПрИВЕТ босс. Я не могу исправить [ыыы::content_blocked] таймер после GameStateValue в WinTeamsStateValue в победе синих и краснЫХ. Я сЕЙЧАС сдавал экзАмены и сЕЙЧАС в игре играю в тдм. ЕслИ чТо пиши в ЛС.
+/*
+	Ыщ!
+	А в чём проблема-то?..
+	Сейчас у тебя должно работать так, что после GameStateValue ВСЕГДА выигрывают синие.
+	А ты чего хочешь? Опиши что происходит сейчас, а что должно происходить:
+	Ломается таймер? Нет конца игры? Что там?
+*/
 
 try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
@@ -103,14 +110,10 @@ Spawns.OnSpawn.Add(function(p) {
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
-if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WinTeamsStateValue && stateProp.Value == GameStateValue) {
+if (stateProp.Value == GameStateValue) {
   if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
-  if (Teams.Get('Blue').Count < 1 && Teams.Get('Blu').Count <= 1 && Teams.Get('Blue').Count == 1) {
+  if (blueTeam.Count < 1) {
     WinRedTeam();
-    return;
-  }
-  if (Teams.Get('Blue').Count < 1 && Teams.Get('Blu').Count <= 1 && Teams.Get('Blue').Count == 1) {
-    WinBlueTeam();
     return;
   }
   p.Ui.Hint.Value = `Ожидайте, конца матча!`;
@@ -143,7 +146,6 @@ mainTimer.OnTimer.Add(function() {
    break;
   case GameStateValue:
    WinBlueTeam();
-   mainTimer.Restart(11);
    Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint; 
    break;
   case WinTeamsStateValue:
