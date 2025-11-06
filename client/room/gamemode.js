@@ -15,7 +15,7 @@ const LOOSER_SCORES = 15;
 const WaitingModeStateValue = `WaitingMode`;
 const HideAndSeekStateValue = `HideAndSeek`;
 const GameStateValue = `GameMode`;
-const WinTeamsStateValue = `WinBlueTeam`;
+const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
 const WaitingAllPlayersForHint = `Ожидание 2 игрока...`;
 const ContextAllViborTeamsForHint = `Выберите, команду!`;
@@ -140,6 +140,10 @@ mainTimer.OnTimer.Add(function() {
    SetGameMode();
    break;
   case GameStateValue:
+  if (Teams.Get('Blue').Count < 1) {
+	  WinRedTeam();
+	  break;
+  }
    WinBlueTeam();
    break;
   case WinTeamsStateValue:
@@ -215,19 +219,14 @@ function SetGameMode() {
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint;
-  
+ Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint; 
  blueTeam.Properties.Scores.Value += WINNER_SCORES;
  redTeam.Properties.Scores.Value += LOOSER_SCORES;
-
-
- const spawnsBlue = Spawns.GetContext(blueTeam), spawnRed = Spawns.GetContext(redTeam), spawnsDead = Spawns.GetContext(deadTeam);
- spawnsBlue.Spawn();
- spawnsRed.Spawn();
- spawnDead.Despawn();
-	
+ Spawns.GetContext(blueTeam).Spawn();
+ Spawns.GetContext(redTeam).Spawn();
+ Spawns.GetContext(deadTeam).Despawn();	
  Game.GameOver(redTeam);
- mainTimer.Restart(11);
+ Timers.GetContext().Get(`Main`).Restart(11);
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
@@ -236,7 +235,7 @@ function SetEnd0fMatch() {
  const spawns = Spawns.GetContext();
  spawns.Enable = false;
  spawns.Despawn();
-
+	
 Game.GameOver(blueTeam)
  mainTimer.Restart(11);
 }
@@ -266,16 +265,13 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;
-  
+ Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;  
  redTeam.Properties.Scores.Value += WINNER_SCORES;
  blueTeam.Properties.Scores.Value += LOOSER_SCORES;
-
+ Spawns.GetContext(blueTeam).Spawn();
+ Spawns.GetContext(redTeam).Spawn();
+ Spawns.GetContext(deadTeam).Despawn();
  Timers.GetContext().Get('Main').Restart(11);
- const spawnsBlue = Spawns.GetContext(blueTeam), spawnRed = Spawns.GetContext(redTeam), spawnsDead = Spawns.GetContext(deadTeam);
- spawnsBlue.Spawn();
- spawnsRed.Spawn();
- spawnDead.Despawn();
  Game.GameOver(blueTeam);
 }
 
