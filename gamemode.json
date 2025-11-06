@@ -35,6 +35,7 @@
                                 "DisplayName": "<b><color=#7CFC00>Слабые</a> блоки</b>",
                                 "Default": false,
                                 "Order": 4
+                        }
 
                 ],
                 "Dropdown": [
