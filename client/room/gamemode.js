@@ -140,11 +140,9 @@ mainTimer.OnTimer.Add(function() {
    SetGameMode();
    break;
   case GameStateValue:
-  if (Teams.Get('Blue').Count < 1) {
-	  WinRedTeam();
-	  break;
-  }
    WinBlueTeam();
+   mainTimer.Restart(11);
+   Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint; 
    break;
   case WinTeamsStateValue:
    SetEnd0fMatch();
