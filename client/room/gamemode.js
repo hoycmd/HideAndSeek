@@ -223,8 +223,8 @@ function WinBlueTeam() {
 	try {
  stateProp.Value = WinTeamsStateValue;
  Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint; 
- blueTeam.Properties.Scores.Value += WINNER_SCORES;
- redTeam.Properties.Scores.Value += LOOSER_SCORES;
+ blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
+ redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
  Spawns.GetContext(deadTeam).Despawn();	
