@@ -235,7 +235,6 @@ function SetEnd0fMatch() {
  spawns.Enable = false;
  spawns.Despawn();
 	
-Game.GameOver(blueTeam)
  mainTimer.Restart(11);
 }
 
