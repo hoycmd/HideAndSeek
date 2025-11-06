@@ -187,7 +187,7 @@ function SetHideAndSeek() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 
- Timers.GetContext().Get('Main').Restart(HideAndSeekTime);
+ Timers.GetContext().Get('Main').Restart(5);
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
  TeamsBalancer.IsAutoBalance = false;
@@ -209,6 +209,8 @@ function SetGameMode() {
  redTeam.Inventory.Build.Value = true;
 
  Spawns.GetContext(deadTeam).Despawn();
+ TeamsBalancer.BalanceTeams();
+ TeamsBalancer.IsAutoBalance = true;
  Timers.GetContext().Get('Main').Restart(5);
 }
 function WinBlueTeam() {
@@ -218,7 +220,7 @@ function WinBlueTeam() {
  blueTeam.Properties.Scores.Value += WINNER_SCORES;
  redTeam.Properties.Scores.Value += LOOSER_SCORES;
 
- Timers.GetContext().Get(`Main`).Restart(11);
+ Timers.GetContext().Get('Main').Restart(11);
  const spawnsBlue = Spawns.GetContext(blueTeam), spawnRed = Spawns.GetContext(redTeam), spawnsDead = Spawns.GetContext(deadTeam);
  spawnsBlue.Spawn();
  spawnsRed.Spawn();
@@ -232,7 +234,7 @@ function WinRedTeam() {
  redTeam.Properties.Scores.Value += WINNER_SCORES;
  blueTeam.Properties.Scores.Value += LOOSER_SCORES;
 
- Timers.GetContext().Get(`Main`).Restart(11);
+ Timers.GetContext().Get('Main').Restart(11);
  const spawnsBlue = Spawns.GetContext(blueTeam), spawnRed = Spawns.GetContext(redTeam), spawnsDead = Spawns.GetContext(deadTeam);
  spawnsBlue.Spawn();
  spawnsRed.Spawn();
