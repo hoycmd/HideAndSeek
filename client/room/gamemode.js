@@ -141,9 +141,17 @@ mainTimer.OnTimer.Add(function() {
    break;
   case GameStateValue:
   mainTimer.Restart(11);
+  Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint;  
+  blueTeam.Properties.Scores.Value += WINNER_SCORES;
+  redTeam.Properties.Scores.Value += LOOSER_SCORES;
+  const spawnsBlue = Spawns.GetContext(blueTeam), spawnRed = Spawns.GetContext(redTeam), spawnsDead = Spawns.GetContext(deadTeam);
+ spawnsBlue.Spawn();
+ spawnsRed.Spawn();
+ spawnDead.Despawn();
    WinBlueTeam();
    break;
   case WinTeamsStateValue:
+		Ui.GetContext().Hint.Value = EndingeMatchForHint;
    SetEnd0fMatch();
    break;
   case End0fMatchStateValue:
