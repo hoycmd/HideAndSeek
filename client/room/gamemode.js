@@ -2,6 +2,8 @@ import { Players, room, Chat, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Te
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as d from './gamemodeParameters.js';
 
+// пр босс.я не могу исправить злаебучий таймер после GameStateValue в WinTeamsStateValue в победе синих и красн.я щас сдавал экзомены и щас в игре играю в тдм.есл чо пиши в лс
+
 try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 room.PopupsEnable = true;
