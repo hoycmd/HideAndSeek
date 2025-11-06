@@ -227,7 +227,7 @@ function WinBlueTeam() {
  spawnDead.Despawn();
 	
  Game.GameOver(redTeam);
- MainTimer.Restart(11);
+ mainTimer.Restart(11);
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
