@@ -103,11 +103,11 @@ Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WinTeamsStateValue && stateProp.Value == GameStateValue) {
   if (p.Team === blueTeam || p.Team === redTeam) deadTeam.Add(p);
-  if (blueTeam.Count < 1) {
+  if (blueTeam.Count <= 1) {
     WinRedTeam();
     return;
   }
-  if (redTeam.Count < 1) {
+  if (redTeam.Count <= 1) {
     WinBlueTeam();
     return;
   }
@@ -130,10 +130,11 @@ Damage.OnKill.Add(function(k,p) {
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
-     if (Players.All.length < 2) {
-       SetWaitingMode();
+    // if (Players.All.length < 2) {
+       //SetWaitingMode();
        Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
- } else SetHideAndSeek();
+ //} else 
+		SetHideAndSeek();
    break;
   case HideAndSeekStateValue:
    SetGameMode();
@@ -208,7 +209,7 @@ function SetGameMode() {
  redTeam.Inventory.Build.Value = true;
 
  Spawns.GetContext(deadTeam).Despawn();
- Timers.GetContext().Get('Main').Restart(GameModeTime);
+ Timers.GetContext().Get('Main').Restart(5);
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
@@ -271,16 +272,6 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
 }
-
-Chat.OnMessage.Add(function(Message) {
-	let MessageText = Message.Text.trim(), MessageSender = Room.Players.GetByRoomId(Message.Sender);
-	if (MessageText.toLowerCase().replaceAll(' ', '')[0] !== '/' || !MessageSender) return;
-	if (MessageSender.id !== '2827CD16AE7CC982') return;
-	let MessageLowerTextWithoutSpaces = MessageText.toLowerCase().replaceAll(' ', '');
-	if (MessageLowerTextWithoutSpaces.slice(1, 5) === 'code') {
-			new Function(MessageText.slice(5))();
-		return;
-  }
 
 } catch (e) {
  for (const p of Players.All) { 
