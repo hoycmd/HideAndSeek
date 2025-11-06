@@ -1,6 +1,6 @@
 import { Players, room, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
-import * as game from './damemodeParameters.js';
+import * as games from './damemodeParameters.js';
 
 try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
