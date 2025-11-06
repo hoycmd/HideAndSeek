@@ -73,8 +73,6 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
   if (t === deadTeam) return; 
   t.Add(p);
-
-const Inventory = Inventory.GetContext();
  switch (GameMode.Parameters.GetBool('Blue')) {
    case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
    case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
