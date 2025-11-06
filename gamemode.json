@@ -41,20 +41,20 @@
                         {  
                                 "Name": "Length",
                                 "DisplayName": "<b><color=#7CFC00>Длинна</a> матча:</b>",
-                                "Default": "",
+                                "Default": "Min7MatchTime",
                                 "Order": 5,
                                 "Variants": [
                                         {
-                                                "Name": "",
-                                                "DisplayName": "<b><i><color=Red>100</a> ХП - |▶</i></b>"
+                                                "Name": "Min10MatchTime",
+                                                "DisplayName": "<b>10 Minut <color=#7CFC00>۝</a></b>"
                                         },
                                         {
-                                                "Name": "",
-                                                "DisplayName": "<b><i><color=Red>150</a> ХП - |▶</i></b>"
+                                                "Name": "Min5Matchme",
+                                                "DisplayName": "<b>7 Minut <color=#7CFC00>۝</a></b>"
                                         },
                                         {
-                                                "Name": ",
-                                                "DisplayName": ""
+                                                "Name": "Min7MatchTime",
+                                                "DisplayName": "<b>5 Munit <color=#7CFC00>۝</a></b>"
                                         }
                                 ]
                         },
