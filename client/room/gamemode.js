@@ -181,10 +181,7 @@ function SetGameMode() {
  blueTeam.Ui.Hint.Value = BlueHidendIliYrunsForHint;
  redTeam.Ui.Hint.Value = RedIschetBluePlayersForHint;
 
- if (GameMode.Parameters.GetBool('Blue')) {
- blueTeam.Inventory.Melee.Value = true;
- }
- if (!GameMode.Parameters.GetBool('Blue')) blueTeam.inventory.Melee.Value = false;
+ blueTeam.Inventory.Melee.Value = inventoryBlue.BV();
  blueTeam.Inventory.Secondary.Value = false;
  blueTeam.Inventory.Main.Value = false;
  blueTeam.Inventory.Explosive.Value = false;
