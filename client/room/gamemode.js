@@ -28,7 +28,7 @@ const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
 const WaitingAllPlayersForHint = `Ожидание 2 игрока...`;
 const ContextAllViborTeamsForHint = `Выберите, команду!`;
-const BlueIschetMestoHidengiliBegForHint = `Ищите место где спрятатся, или убегайте!</b>`;
+const BlueIschetMestoHidengiliBegForHint = `Ищите место где спрятатся, или убегайте!`;
 const RedSleditGdeBlueHidengIliBegaetForHint = `Следите где спрячутся выжившие, или где убегают!`;
 const BlueHidendIliYrunsForHint = `Прячьтесь в укромном месте, или убегайте от надзирателей!`;
 const RedIschetBluePlayersForHint = `Найдите, всех выживших!`;
@@ -182,7 +182,7 @@ function SetHideAndSeek() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 	
- mainTimer.Restart(5);
+ mainTimer.Restart(41);
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
  TeamsBalancer.IsAutoBalance = false;
@@ -205,7 +205,7 @@ function SetGameMode() {
 
  TeamsBalancer.BalanceTeams();
  TeamsBalancer.IsAutoBalance = true;
- mainTimer.Restart(5);
+ mainTimer.Restart(GameModeTime);
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
@@ -222,7 +222,7 @@ inv.Main.Value = false;
 inv.Explosive.Value = false;
 inv.Build.Value = false;
 
- mainTimer.Restart(9);
+ mainTimer.Restart(6);
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
