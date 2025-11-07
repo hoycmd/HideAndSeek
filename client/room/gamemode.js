@@ -138,12 +138,12 @@ mainTimer.OnTimer.Add(function() {
    SetGameMode();
    break;
   case GameStateValue:
-   WinBlueTeam(); 
-   Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint; 
-  blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
-  redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;
+   WinBlueTeam();
    break;
   case WinTeamsStateValue:
+   SetEnd0fMatch();
+   break;
+ case End0fMatchStateValue:
    if (!GameMode.Parameters.GetBool('MapRotation')) RestartGame();
    START_VOTE();
    break;
