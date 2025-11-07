@@ -157,12 +157,12 @@ function SetWaitingMode() {
  Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
  Spawns.GetContext().Enable = true;
 
-const inv = Invetory.GetContext();
-inv.Melee.Value = false;
-inv.Secondary.Value = false;
-inv.Main.Value = false;
-inv.Explosive.Value = false;
-inv.Build.Value = false;
+ const set = Invetory.GetContext();
+ set.Melee.Value = false;
+ set.Secondary.Value = false;
+ set.Main.Value = false;
+ set.Explosive.Value = false;
+ set.Build.Value = false;
 
  mainTimer.Restart(WaitingPlayersTime);
 }
