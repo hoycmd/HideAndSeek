@@ -111,7 +111,7 @@ Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
 if (stateProp.Value == GameStateValue) {
   if (p.Team === blueTeam) redTeam.Add(p);
-  if (blueTeam.Count <= 1 && redTeam.Count >= 1) {
+  if (blueTeam.Count < 1 && blueTeam.Properties.Deaths.Value == 1) {
     WinRedTeam();
     return;
      }
