@@ -139,6 +139,9 @@ mainTimer.OnTimer.Add(function() {
 	case GameStateValue:
 		WinBlueTeam();
 		break;
+    case WinTeamsStateValue:
+		SetEnd0fMatch();
+		break;
 	case EndOfMatchStateValue:
 		RestartGame();
 		break;
