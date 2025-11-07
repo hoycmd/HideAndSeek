@@ -111,14 +111,10 @@ Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
 if (stateProp.Value == GameStateValue) {
   if (p.Team === blueTeam) redTeam.Add(p);
-  if (Teams.Get('Blue').Count < 1) {
+  if (Teams.Get('Blue').Count <= 1) {
     WinRedTeam();
     return;
      }
-  if (Teams.Get('Blue').length == 0) {
-	WinRedTeam();
-	return;
-}
   p.Spawns.RespawnTime.Value = 3;
 });
 
