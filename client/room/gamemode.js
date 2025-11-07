@@ -156,15 +156,7 @@ function SetWaitingMode() {
  stateProp.Value = WaitingModeStateValue;
  Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
  Spawns.GetContext().Enable = true;
-
- const i = Inventory.GetContext();
- i.Main.Value = false;
- i.Secondary.Value = false;
- i.Melee.Value = false;
- i.Explosive.Value = false;
- i.Build.Value = false;
-
- Timers.GetContext().Get(`Main`).Restart(WaitingPlayersTime);
+ mainTimer.Restart(WaitingPlayersTime);
 }
 function SetHideAndSeek() {
  stateProp.Value = HideAndSeekStateValue;
