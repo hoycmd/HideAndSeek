@@ -81,11 +81,7 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 // * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
   //if (t === deadTeam) return
-  t.Add(p);
- switch (GameMode.Parameters.GetBool('Blue')) {
-   case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
-   case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
-   }
+ t.Add(p);
 });
   
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
@@ -192,7 +188,7 @@ function SetGameMode() {
  blueTeam.Ui.Hint.Value = BlueHidendIliYrunsForHint;
  redTeam.Ui.Hint.Value = RedIschetBluePlayersForHint;
 
- blueTeam.Inventory.Melee.Value = false;
+ blueTeam.Inventory.Melee.Value = d.Blue();
  blueTeam.Inventory.Secondary.Value = false;
  blueTeam.Inventory.Main.Value = false;
  blueTeam.Inventory.Explosive.Value = false;
