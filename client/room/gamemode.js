@@ -216,7 +216,7 @@ function WinBlueTeam() {
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
 
- const inv = Invetory.GetContext();
+ const inv = Inventory.GetContext();
 inv.Melee.Value = false;
 inv.Secondary.Value = false;
 inv.Main.Value = false;
@@ -234,7 +234,7 @@ function WinRedTeam() {
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
 
- const inv = Invetory.GetContext();
+ const inv = Inventory.GetContext();
 inv.Melee.Value = false;
 inv.Secondary.Value = false;
 inv.Main.Value = false;
