@@ -1,6 +1,5 @@
 import { Players, room, Chat, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
-import * as d from './gamemodeParameters.js';
 
 // ПрИВЕТ босс. Я не могу исправить [ыыы::content_blocked] таймер после GameStateValue в WinTeamsStateValue в победе синих и краснЫХ. Я сЕЙЧАС сдавал экзАмены и сЕЙЧАС в игре играю в тдм. ЕслИ чТо пиши в ЛС.
 /*
@@ -15,7 +14,6 @@ try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 room.PopupsEnable = true;
 const WaitingPlayersTime = 11;
-const DEF = d.InventoryBlueEvent();
 const HideAndSeekTime = 31;
 const GameModeTime = d.GameModeMatchTime();
 const WinTeamsTime = 16;
