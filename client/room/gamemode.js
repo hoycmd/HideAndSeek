@@ -211,6 +211,8 @@ function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
  redTeam.Ui.Hint.Value =  BlueWinnerTeamLoosersRedForHint;
  blueTeam.Ui.Hint.Value =  BlueWinnerTeamLoosersRedForHint;
+ blueTeam.Properties.Scores.Value += WINNER_SCORES;
+ redTeam.Properties.Scores.Value += LOOSERS_SCORES;
 	
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
@@ -226,9 +228,10 @@ inv.Build.Value = false;
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;  
- redTeam.Properties.Get('Scores').Value += WINNER_SCORES;
- blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;
+ blueTeam.Ui.Hint.Value = RedWinnerTeamLoosersBlueForHint;  
+ blueTeam.Ui.Hint.Value = RedWinnerTeamLoosersBlueForHint;
+ redTeam.Properties.Scores.Value += WINNER_SCORES;
+ blueTeam.Properties.Scores.Value += LOOSER_SCORES;
 	
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
@@ -244,10 +247,11 @@ inv.Build.Value = false;
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
- Ui.GetContext().Hint.Value = EndingeMatchForHint;
+ redTeam.Ui.Hint = EndingeMatchForHint;
+ blueTeam.Ui.Hint.Value = EndingeMatchForHint;
 	
  const spawns = Spawns.GetContext();
- spawns.Enable = false;
+ spawns.enable = false;
  spawns.Despawn();
 	
  mainTimer.Restart(11);
