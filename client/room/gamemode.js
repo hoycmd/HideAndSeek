@@ -15,6 +15,7 @@ try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 room.PopupsEnable = true;
 const WaitingPlayersTime = 11;
+const DEF = d.InventoryBlueEvent();
 const HideAndSeekTime = 31;
 const GameModeTime = d.GameModeMatchTime();
 const WinTeamsTime = 16;
@@ -188,7 +189,7 @@ function SetGameMode() {
  blueTeam.Ui.Hint.Value = BlueHidendIliYrunsForHint;
  redTeam.Ui.Hint.Value = RedIschetBluePlayersForHint;
 
- blueTeam.Inventory.Melee.Value = d.InventoryBlueEvent();
+ blueTeam.Inventory.Melee.Value = DEF;
  blueTeam.Inventory.Secondary.Value = false;
  blueTeam.Inventory.Main.Value = false;
  blueTeam.Inventory.Explosive.Value = false;
