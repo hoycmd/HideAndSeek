@@ -129,23 +129,23 @@ Damage.OnKill.Add(function(k,p) {
 
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
-	switch (stateProp.Value) {
-	case WaitingStateValue:
-		SetHideAndSeek();
-		break;
-	case HideAndSeekStateValue:
-		SetGameMode();
-		break;
-	case GameStateValue:
-		WinBlueTeam();
-		break;
-    case WinTeamsStateValue:
-		SetEnd0fMatch();
-		break;
-	case EndOfMatchStateValue:
-		RestartGame();
-		break;
-	}
+ switch (stateProp.Value) {
+  case WaitingModeStateValue:
+  SetHideAndSeek();
+   break;
+  case HideAndSeekStateValue:
+   SetGameMode();
+   break;
+  case GameStateValue:
+   WinBlueTeam();
+   break;
+  case WinTeamsStateValue:
+   SetEnd0fMatch();
+   break;
+ case End0fMatchStateValue:
+   RestartGame();
+   break;
+       }
 });
 
 // * Первеночальное, игровое состояние игры. * //
@@ -156,6 +156,14 @@ function SetWaitingMode() {
  stateProp.Value = WaitingModeStateValue;
  Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
  Spawns.GetContext().Enable = true;
+
+const inv = Invetory.GetContext();
+inv.Melee.Value = false;
+inv.Secondary.Value = false;
+inv.Main.Value = false;
+inv.Explosive.Value = false;
+inv.Build.Value = false;
+
  mainTimer.Restart(WaitingPlayersTime);
 }
 function SetHideAndSeek() {
@@ -215,7 +223,7 @@ inv.Secondary.Value = false;
 inv.Main.Value = false;
 inv.Explosive.Value = false;
 inv.Build.Value = false;
-	
+
  mainTimer.Restart(9);
 }
 function WinRedTeam() {
