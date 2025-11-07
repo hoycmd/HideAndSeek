@@ -28,7 +28,7 @@ const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
 const WaitingAllPlayersForHint = `Ожидание 2 игрока...`;
 const ContextAllViborTeamsForHint = `Выберите, команду!`;
-const BlueIschetMestoHidengiliBegForHint = `Ищите место где спрятатся, или убегайте!`;
+const BlueIschetMestoHidengiliBegForHint = `Ищите место где спрятатся, или убегайте!</b>`;
 const RedSleditGdeBlueHidengIliBegaetForHint = `Следите где спрячутся выжившие, или где убегают!`;
 const BlueHidendIliYrunsForHint = `Прячьтесь в укромном месте, или убегайте от надзирателей!`;
 const RedIschetBluePlayersForHint = `Найдите, всех выживших!`;
@@ -82,9 +82,9 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
   //if (t === deadTeam) return
   t.Add(p);
-// switch (GameMode.Parameters.GetBool('Blue')) {
-  // case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
-   //case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
+ switch (GameMode.Parameters.GetBool('Blue')) {
+   case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
+   case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
    }
 });
   
@@ -111,10 +111,11 @@ Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
 if (stateProp.Value == GameStateValue) {
   if (p.Team === blueTeam) redTeam.Add(p);
-  if (Teams.Get('Blue').Count <= 1) {
+  if (blueTeam.Count <= 1 && redTeam.Count >= 1) {
     WinRedTeam();
     return;
      }
+}
   p.Spawns.RespawnTime.Value = 3;
 });
 
@@ -181,7 +182,7 @@ function SetHideAndSeek() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 	
- mainTimer.Restart(41);
+ mainTimer.Restart(5);
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
  TeamsBalancer.IsAutoBalance = false;
@@ -204,48 +205,51 @@ function SetGameMode() {
 
  TeamsBalancer.BalanceTeams();
  TeamsBalancer.IsAutoBalance = true;
- mainTimer.Restart(GameModeTime);
+ mainTimer.Restart(5);
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
- redTeam.Ui.Hint.Value = BlueWinnerTeamLoosersRedForHint;
- blueTeam.Ui.Hint.Value = BlueWinnerTeamLoosersRedForHint;
+ redTeam.Ui.Hint.Value =  BlueWinnerTeamLoosersRedForHint;
+ blueTeam.Ui.Hint.Value =  BlueWinnerTeamLoosersRedForHint;
 	
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
- Inventory.GetContext().Melee.Value = false;
- Inventory.GetContext().Secondary.Value = false;
- Inventory.GetContext().Main.Value = false;
- Inventory.GetContext().Explosive.Value = false;
- Inventory.GetContext().Build.Value = false;
 
- mainTimer.Restart(6);
+ const inv = Inventory.GetContext();
+inv.Melee.Value = false;
+inv.Secondary.Value = false;
+inv.Main.Value = false;
+inv.Explosive.Value = false;
+inv.Build.Value = false;
+
+ mainTimer.Restart(9);
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
- blueTeam.Ui.Hint.Value = RedWinnerTeamLoosersBlueForHint;  
- redTeam.Ui.Hint.Value = RedWinnerTeamLoosersBlueForHint;
+ Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;  
+ redTeam.Properties.Get('Scores').Value += WINNER_SCORES;
+ blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;
 	
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
- Inventory.GetContext().Melee.Value = false;
- Inventory.GetContext().Secondary.Value = false;
- Inventory.GetContext().Main.Value = false;
- Inventory.GetContext().Explosive.Value = false;
- Inventory.GetContext().Build.Value = false;
+
+ const inv = Inventory.GetContext();
+inv.Melee.Value = false;
+inv.Secondary.Value = false;
+inv.Main.Value = false;
+inv.Explosive.Value = false;
+inv.Build.Value = false;
 
  mainTimer.Restart(6);
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
- redTeam.Ui.Hint.Value = EndingeMatchForHint;
- blueTeam.Ui.Hint.Value = EndingeMatchForHint;
+ Ui.GetContext().Hint.Value = EndingeMatchForHint;
 	
  const spawns = Spawns.GetContext();
- spawns.enable = false;
+ spawns.Enable = false;
  spawns.Despawn();
-
- Game.GameOver(LeaberBoard.GetTeams());
+	
  mainTimer.Restart(11);
 }
 
@@ -277,6 +281,4 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
  for (const p of Players.All) { 
    p.PopUp(`${e.name}: ${e.message}: ${e.stack}`);
              }
-}
-  
- 
+	 }
