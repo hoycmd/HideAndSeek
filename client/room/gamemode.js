@@ -182,7 +182,7 @@ function SetHideAndSeek() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 	
- mainTimer.Restart(5);
+ mainTimer.Restart(41);
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
  TeamsBalancer.IsAutoBalance = false;
@@ -205,7 +205,7 @@ function SetGameMode() {
 
  TeamsBalancer.BalanceTeams();
  TeamsBalancer.IsAutoBalance = true;
- mainTimer.Restart(5);
+ mainTimer.Restart(GameModeTime);
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
@@ -214,15 +214,13 @@ function WinBlueTeam() {
 	
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
+ Inventory.GetContext().Melee.Value = false;
+ Inventory.GetContext().Secondary.Value = false;
+ Inventory.GetContext().Main.Value = false;
+ Inventory.GetContext().Explosive.Value = false;
+ Inventory.GetContext().Build.Value = false;
 
- const inv = Inventory.GetContext();
-inv.Melee.Value = false;
-inv.Secondary.Value = false;
-inv.Main.Value = false;
-inv.Explosive.Value = false;
-inv.Build.Value = false;
-
- mainTimer.Restart(9);
+ mainTimer.Restart(6);
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
@@ -231,13 +229,11 @@ function WinRedTeam() {
 	
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
-
- const inv = Inventory.GetContext();
-inv.Melee.Value = false;
-inv.Secondary.Value = false;
-inv.Main.Value = false;
-inv.Explosive.Value = false;
-inv.Build.Value = false;
+ Inventory.GetContext().Melee.Value = false;
+ Inventory.GetContext().Secondary.Value = false;
+ Inventory.GetContext().Main.Value = false;
+ Inventory.GetContext().Explosive.Value = false;
+ Inventory.GetContext().Build.Value = false;
 
  mainTimer.Restart(6);
 }
