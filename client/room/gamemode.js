@@ -245,7 +245,8 @@ function SetEnd0fMatch() {
  const spawns = Spawns.GetContext();
  spawns.enable = false;
  spawns.Despawn();
-	
+
+ Game.GameOver(LeaberBoard.GetTeams());
  mainTimer.Restart(11);
 }
 
