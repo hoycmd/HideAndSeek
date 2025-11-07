@@ -219,7 +219,13 @@ function WinBlueTeam() {
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
 
- Game.GameOver(redTeam);
+ const inv = Invetory.GetContext();
+inv.Melee.Value = false;
+inv.Secondary.Value = false;
+inv.Main.Value = false;
+inv.Explosive.Value = false;
+inv.Build.Value = false;
+	
  mainTimer.Restart(9);
 }
 function WinRedTeam() {
@@ -231,7 +237,13 @@ function WinRedTeam() {
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
 
- Game.GameOver(blueTeam);
+ const inv = Invetory.GetContext();
+inv.Melee.Value = false;
+inv.Secondary.Value = false;
+inv.Main.Value = false;
+inv.Explosive.Value = false;
+inv.Build.Value = false;
+
  mainTimer.Restart(6);
 }
 function SetEnd0fMatch() {
@@ -254,7 +266,7 @@ NewGameVote.OnResult.Add(OnVoteResult);
 function START_VOTE() {
  NewGameVote.Start({
   Variants: [{ MapId: 0 }],
-  Timer: VoteTime
+  Timer: 15
  }, MapRotation ? 3 : 0);
 }
 
