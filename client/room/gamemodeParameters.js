@@ -1,4 +1,4 @@
-
+к
 import { GameMode } from 'pixel_combats/room';
 
 // * Константы имён, объектов. * //
@@ -13,12 +13,4 @@ export function GameModeMatchTime() {
         case 'Min5MatchTime': return 301;
     }   
     return 421;
-}
-
-export function InventoryBlueEvent() {
- switch (Blue) {
-     case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
-     case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
-     } 
-    break;
 }
