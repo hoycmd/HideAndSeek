@@ -132,7 +132,7 @@ mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
       // Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
- SetHideAndSeek();
+  SetHideAndSeek();
    break;
   case HideAndSeekStateValue:
    SetGameMode();
@@ -185,7 +185,7 @@ function SetHideAndSeek() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 	
- Timers.GetContext().Get(`Main`).Restart(5);
+ mainTimer.Restart(5);
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
  TeamsBalancer.IsAutoBalance = false;
@@ -213,8 +213,8 @@ function SetGameMode() {
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
  Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint; 
- blueTeam.Properties.Scores.Value += WINNER_SCORES;
- redTeam.Properties.Scores.Value += LOOSER_SCORES;
+ blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
+ redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;
 	
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
@@ -231,6 +231,7 @@ function WinRedTeam() {
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
 
+ Game.GameOver(blueTeam);
  mainTimer.Restart(6);
 }
 function SetEnd0fMatch() {
