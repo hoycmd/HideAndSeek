@@ -1,9 +1,8 @@
-к
+
 import { GameMode } from 'pixel_combats/room';
 
 // * Константы имён, объектов. * //
 const length = GameMode.Parameters.GetString('GameLength');
-const Blue = GameMode.Parameters.GetString('BlueEvent');
 
 // * Длинна, матча. * //
 export function GameModeMatchTime() {
