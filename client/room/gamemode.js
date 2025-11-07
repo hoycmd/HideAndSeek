@@ -82,9 +82,9 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
   //if (t === deadTeam) return
   t.Add(p);
- switch (GameMode.Parameters.GetBool('Blue')) {
-   case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
-   case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
+// switch (GameMode.Parameters.GetBool('Blue')) {
+  // case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
+   //case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
    }
 });
   
@@ -111,10 +111,13 @@ Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
 if (stateProp.Value == GameStateValue) {
   if (p.Team === blueTeam) redTeam.Add(p);
-  if (blueTeam.Count < 1) {
+  if (Teams.Get('Blue').Count < 1) {
     WinRedTeam();
     return;
      }
+  if (Teams.Get('Blue').length == 0) {
+	WinRedTeam();
+	return;
 }
   p.Spawns.RespawnTime.Value = 3;
 });
