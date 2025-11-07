@@ -18,8 +18,8 @@ export function GameModeMatchTime() {
 let SelectedDefaultInventoryBlue;
 export function InventoryBlueEvent() {
  switch (Blue) {
-     case 'PNusto': SelectedDefaultInventoryBlue = false; break;
-     case 'Melee': SelectedDefaultInventoryBlue = true; break;
+     case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
+     case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
      } 
 }
 export const DefultInventory = SelectedDefaultInventoryBlue;
