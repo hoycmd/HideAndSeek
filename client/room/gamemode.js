@@ -243,7 +243,7 @@ inv.Build.Value = false;
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
- redTeam.Ui.Hint = EndingeMatchForHint;
+ redTeam.Ui.Hint.Value = EndingeMatchForHint;
  blueTeam.Ui.Hint.Value = EndingeMatchForHint;
 	
  const spawns = Spawns.GetContext();
