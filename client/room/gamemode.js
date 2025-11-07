@@ -210,19 +210,18 @@ function SetGameMode() {
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
  Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint; 
- blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
- redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;
+ blueTeam.Properties.Scores.Value += WINNER_SCORES;
+ redTeam.Properties.Scores.Value += LOOSER_SCORES;
 	
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
+ Inventory.GetContext().Melee.Value = false;
+ Inventory.GetContext().Secondary.Value = false;
+ Inventory.GetContext().Main.Value = false;
+ Inventory.GetContext().Explosive.Value = false;
+ Inventory.GetContext().Build.Value = false;
 
- const inv = Inventory.GetContext();
-inv.Melee.Value = false;
-inv.Secondary.Value = false;
-inv.Main.Value = false;
-inv.Explosive.Value = false;
-inv.Build.Value = false;
-
+ Game.GameOver(Teams.Get('Red'));
  mainTimer.Restart(9);
 }
 function WinRedTeam() {
