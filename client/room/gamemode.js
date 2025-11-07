@@ -112,7 +112,7 @@ Damage.OnDeath.Add(function(p) {
 if (stateProp.Value == GameStateValue) {
   if (p.Team === blueTeam) { 
 	  redTeam.Add(p);
-	if (blueTeam.Count < 1) WinRedTeam();
+ WinRedTeam();
   }
 }
   p.Spawns.RespawnTime.Value = 3;
