@@ -131,11 +131,8 @@ Damage.OnKill.Add(function(k,p) {
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
-    // if (Players.All.length < 2) {
-       //SetWaitingMode();
-       Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
- //} else 
-		SetHideAndSeek();
+      // Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
+ SetHideAndSeek();
    break;
   case HideAndSeekStateValue:
    SetGameMode();
@@ -144,8 +141,8 @@ mainTimer.OnTimer.Add(function() {
    WinBlueTeam(); 
    break;
   case WinTeamsStateValue:
+   if (!GameMode.Parameters.GetBool('MapRotation')) RestartGame();
    START_VOTE();
-  if (!GameMode.Parameters.GetBool('MapRotation')) RestartGame();
    break;
        }
 });
@@ -166,7 +163,7 @@ function SetWaitingMode() {
  i.Explosive.Value = false;
  i.Build.Value = false;
 
- Timers.GetContext().Get('Main').Restart(WaitingPlayersTime);
+ Timers.GetContext().Get(`Main`).Restart(WaitingPlayersTime);
 }
 function SetHideAndSeek() {
  stateProp.Value = HideAndSeekStateValue;
@@ -184,8 +181,8 @@ function SetHideAndSeek() {
  redTeam.Inventory.Main.Value = false;
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
-
- Timers.GetContext().Get('Main').Restart(5);
+	
+ Timers.GetContext().Get(`Main`).Restart(5);
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
  TeamsBalancer.IsAutoBalance = false;
@@ -219,7 +216,6 @@ function WinBlueTeam() {
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
 
- Game.GameOver(redTeam);
  mainTimer.Restart(6);
 }
 function WinRedTeam() {
@@ -231,7 +227,6 @@ function WinRedTeam() {
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
 
- Game.GameOver(blueTeam);
  mainTimer.Restart(6);
 }
 function SetEnd0fMatch() {
