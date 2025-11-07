@@ -15,11 +15,10 @@ export function GameModeMatchTime() {
     return 421;
 }
 
-let SelectedDefaultInventoryBlue;
 export function InventoryBlueEvent() {
  switch (Blue) {
      case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
      case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
      } 
+    break;
 }
-export const DefultInventory = SelectedDefaultInventoryBlue;
