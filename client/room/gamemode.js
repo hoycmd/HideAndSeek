@@ -110,9 +110,10 @@ Spawns.OnSpawn.Add(function(p) {
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
 if (stateProp.Value == GameStateValue) {
-  if (p.Team === blueTeam) { 
+  if (p.Team === blueTeam && Teams.Get('Blue').Count <= 1) { 
 	  redTeam.Add(p);
- WinRedTeam();
+   WinRedTeam();
+	return;
   }
 }
   p.Spawns.RespawnTime.Value = 3;
