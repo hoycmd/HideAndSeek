@@ -147,7 +147,6 @@ mainTimer.OnTimer.Add(function() {
    break;
        }
 });
-
 // * Первеночальное, игровое состояние игры. * //
 SetWaitingMode();
 
@@ -157,12 +156,11 @@ function SetWaitingMode() {
  Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
  Spawns.GetContext().Enable = true;
 
- const set = Invetory.GetContext();
- set.Melee.Value = false;
- set.Secondary.Value = false;
- set.Main.Value = false;
- set.Explosive.Value = false;
- set.Build.Value = false;
+ Invetory.GetContext().Melee.Value = false;
+ Invetory.GetContext().Secondary.Value = false;
+ Invetory.GetContext().Main.Value = false;
+ Invetory.GetContext().Explosive.Value = false;
+ Invetory.GetContext().Build.Value = false;
 
  mainTimer.Restart(WaitingPlayersTime);
 }
