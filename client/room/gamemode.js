@@ -219,7 +219,7 @@ function WinBlueTeam() {
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
 
- mainTimer.Restart(6);
+ mainTimer.Restart(9);
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
