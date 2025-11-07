@@ -129,25 +129,20 @@ Damage.OnKill.Add(function(k,p) {
 
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
- switch (stateProp.Value) {
-  case WaitingModeStateValue:
-      // Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
-  SetHideAndSeek();
-   break;
-  case HideAndSeekStateValue:
-   SetGameMode();
-   break;
-  case GameStateValue:
-   WinBlueTeam();
-   break;
-  case WinTeamsStateValue:
-   SetEnd0fMatch();
-   break;
- case End0fMatchStateValue:
-   if (!GameMode.Parameters.GetBool('MapRotation')) RestartGame();
-   START_VOTE();
-   break;
-       }
+	switch (stateProp.Value) {
+	case WaitingStateValue:
+		SetHideAndSeek();
+		break;
+	case HideAndSeekStateValue:
+		SetGameMode();
+		break;
+	case GameStateValue:
+		WinBlueTeam();
+		break;
+	case EndOfMatchStateValue:
+		RestartGame();
+		break;
+	}
 });
 
 // * Первеночальное, игровое состояние игры. * //
