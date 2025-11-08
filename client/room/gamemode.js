@@ -113,7 +113,7 @@ if (stateProp.Value == HideAndSeekStateValue) return;
   if (p.Team === Teams.Get('Blue')) {
     Teams.Get('Red').Add(p);
 } else {
-	  if (p.Properties.Deaths.Value == 1) {
+	  if (Teams.Get('Blue').Properties.Get('Deaths').Value === 1) {
 		  WinRedTeam();
 	  }
 	  return;
