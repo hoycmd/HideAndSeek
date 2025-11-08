@@ -227,11 +227,12 @@ inv.Main.Value = false;
 inv.Explosive.Value = false;
 inv.Build.Value = false;
 
- mainTimer.Restart(6);
+ mainTimer.Restart(11);
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;  
+ redTeam.Ui.Hint.Value = RedWinnerTeamLoosersBlueForHint;  
+ blueTeam.Ui.Hint.Value = RedWinnerTeamLoosersBlueForHint;
  redTeam.Properties.Get('Scores').Value += WINNER_SCORES;
  blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;
 	
@@ -245,7 +246,7 @@ inv.Main.Value = false;
 inv.Explosive.Value = false;
 inv.Build.Value = false;
 
- mainTimer.Restart(6);
+ mainTimer.Restart(11);
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
@@ -255,7 +256,7 @@ function SetEnd0fMatch() {
  spawns.Enable = false;
  spawns.Despawn();
 	
- mainTimer.Restart(11);
+ mainTimer.Restart(6);
 }
 
 function OnVoteResult(v) {
