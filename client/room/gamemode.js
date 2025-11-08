@@ -112,14 +112,14 @@ Damage.OnDeath.Add(function(p) {
 if (stateProp.Value == HideAndSeekStateValue) return; 
   if (p.Team === Teams.Get('Blue')) {
     Teams.Get('Red').Add(p);
-} else {
-	  if (Teams.Get('Blue').Properties.Get('Deaths').Value === 1) {
-		  WinRedTeam();
-	    return;
+if (Teams.Get('Blue').Properties.Get('Deaths').Value === 1 && Teams.Get('Blue').Count < 1) {
+	 WinRedTeam();
+	return;
 	  }
-  }
+}
 if (stateProp.Value == HideAndSeekStateVlue) {
   p.Spawns.RespawnTime.Value = 3;
+	return;
 }
   p.Spawns.RwspawnEnable.Value = false;
 });
