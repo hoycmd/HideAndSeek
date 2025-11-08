@@ -1,7 +1,7 @@
-import { Players, room, Chat, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
+import { Players, room, Chat, Permissions, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as d from './gamemodeParameters.js';
- Game.RestartGame();
+ 
 // ПрИВЕТ босс. Я не могу исправить [ыыы::content_blocked] таймер после GameStateValue в WinTeamsStateValue в победе синих и краснЫХ. Я сЕЙЧАС сдавал экзАмены и сЕЙЧАС в игре играю в тдм. ЕслИ чТо пиши в ЛС.
 /*
 	Ыщ!
