@@ -136,6 +136,9 @@ Damage.OnKill.Add(function(k,p) {
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
+if (Players.All.length < 1) {
+	SetWaitingMode();
+} else 
   SetHideAndSeek();
    break;
   case HideAndSeekStateValue:
