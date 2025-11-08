@@ -216,8 +216,8 @@ function SetGameMode() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 
- TeamsBalancer.BalanceTeams();
- TeamsBalancer.IsAutoBalance = true;
+// TeamsBalancer.BalanceTeams();
+// TeamsBalancer.IsAutoBalance = true;
  mainTimer.Restart(GameModeTime);
 }
 function WinBlueTeam() {
