@@ -130,8 +130,10 @@ Damage.OnKill.Add(function(k,p) {
 
 const t = Timers.GetContext().Get('t');
 t.OnTimer.Add(function (t) {
+if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  if (blueTeam.Count < 1 && redTeam.Count >= 1) WinRedTeam();
+    }
 });
 t.RestartLoop(11);
 	
@@ -259,10 +261,10 @@ function SetEnd0fMatch() {
  redTeam.Ui.Hint.Value = EndingeMatchForHint;
  blueTeam.Ui.Hint.Value = EndingeMatchForHint;
 	
- const spawns = Spawns.GetContext();
- spawns.enable = false;
- spawns.Despawn();
-	
+ Spawns.GetContext().Despawn();
+ Spawns.GetContext().Enable = false;
+
+ Game.GameOver(LeaberBoard.GetTeams());
  mainTimer.Restart(6);
 }
 
