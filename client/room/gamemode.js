@@ -141,9 +141,9 @@ t.RestartLoop(11);
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
-//if (Players.All.length < 2) {
-	//SetWaitingMode();
-//} else 
+if (Players.All.length < 2) {
+	SetWaitingMode();
+} else 
 	SetHideAndSeek();
    break;
   case HideAndSeekStateValue:
