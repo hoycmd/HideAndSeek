@@ -112,6 +112,8 @@ Damage.OnDeath.Add(function(p) {
 if (stateProp.Value == HideAndSeekStateValue) return; 
   if (p.Team === Teams.Get('Blue')) {
     Teams.Get('Red').Add(p);
+ blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+ if (blueTeam.Count < 1 && redTeam.Count >= 1) WinRedTeam();
 }
 if (stateProp.Value == HideAndSeekStateVlue) {
   p.Spawns.RespawnTime.Value = 3;
@@ -119,13 +121,6 @@ if (stateProp.Value == HideAndSeekStateVlue) {
 }
   p.Spawns.RwspawnEnable.Value = false;
 });
-
-const t = Timers.GetContext().Get('t');
-t.OnTimer.Add(function (t) {
- blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
- if (blueTeam.Count < 1 && redTeam.Count >= 1) WinRedTeam();
-});
-t.RestartLoop(1);
 
 // * Обработчик киллов. * //
 Damage.OnKill.Add(function(k,p) {
