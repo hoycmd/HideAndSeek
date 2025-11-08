@@ -109,9 +109,9 @@ Spawns.OnSpawn.Add(function(p) {
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
-if (stateProp.Value == GameStateValue) {
-  if (p.Team === blueTeam && Teams.Get('Blue').Count <= 1) { 
-	  redTeam.Add(p);
+if (stateProp.Value == HideAndSeekStateValue) {
+  if (p.Team == blueTeam) redTeam.Add(p);
+  if (Teams.Get('Blue').Count < 1) { 
    WinRedTeam();
 	return;
   }
