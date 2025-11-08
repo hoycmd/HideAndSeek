@@ -115,10 +115,13 @@ if (stateProp.Value == HideAndSeekStateValue) return;
 } else {
 	  if (Teams.Get('Blue').Properties.Get('Deaths').Value === 1) {
 		  WinRedTeam();
+	    return;
 	  }
-	  return;
   }
+if (stateProp.Value == HideAndSeekStateVlue) {
   p.Spawns.RespawnTime.Value = 3;
+}
+  p.Spawns.RwspawnEnable.Value = false;
 });
 
 // * Обработчик киллов. * //
