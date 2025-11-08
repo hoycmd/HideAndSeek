@@ -187,7 +187,7 @@ function SetHideAndSeek() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 	
- mainTimer.Restart(4);
+ mainTimer.Restart(41);
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
  TeamsBalancer.IsAutoBalance = false;
@@ -250,10 +250,11 @@ inv.Build.Value = false;
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
- Ui.GetContext().Hint.Value = EndingeMatchForHint;
+ redTeam.Ui.Hint.Value = EndingeMatchForHint;
+ blueTeam.Ui.Hint.Value = EndingeMatchForHint;
 	
  const spawns = Spawns.GetContext();
- spawns.Enable = false;
+ spawns.enable = false;
  spawns.Despawn();
 	
  mainTimer.Restart(6);
