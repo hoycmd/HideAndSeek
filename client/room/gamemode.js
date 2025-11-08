@@ -209,7 +209,7 @@ function SetGameMode() {
  redTeam.Inventory.Secondary.Value = true;
  redTeam.Inventory.Main.Value = false;
  redTeam.Inventory.Explosive.Value = false;
- redTeam.Inventory.Build.Value = true;
+ redTeam.Inventory.Build.Value = false;
 
  TeamsBalancer.BalanceTeams();
  TeamsBalancer.IsAutoBalance = true;
