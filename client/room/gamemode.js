@@ -128,11 +128,12 @@ Damage.OnKill.Add(function(k,p) {
    }
 }); 
 
-const t = Timers.GetContext().Get('t');
+const t = Timers.GetContext().Get(mainTimer);
 t.OnTimer.Add(function (t) {
 blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  if (blueTeam.Count < 1 && redTeam.Count >= 1) WinRedTeam();
 });
+t.RestartLoop(11);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
