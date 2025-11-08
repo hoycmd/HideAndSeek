@@ -109,13 +109,10 @@ Spawns.OnSpawn.Add(function(p) {
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
-if (stateProp.Value == HideAndSeekStateValue) {
-  if (p.Team == blueTeam) redTeam.Add(p);
-  if (Teams.Get('Blue').Count < 1) { 
-   WinRedTeam();
-	return;
-  }
-}
+if (stateProp.Value == HideAndSeekStateValue) 
+  if (p.Team == blueTeam) {
+	  redTeam.Add(p);
+} else if (p.Properties.Deaths.Value == 1) WinRedTeam();
   p.Spawns.RespawnTime.Value = 3;
 });
 
