@@ -112,8 +112,6 @@ Damage.OnDeath.Add(function(p) {
 if (stateProp.Value == HideAndSeekStateValue) return; 
   if (p.Team === Teams.Get('Blue')) {
     Teams.Get('Red').Add(p);
- blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
- if (blueTeam.Count < 1 && redTeam.Count >= 1) WinRedTeam();
 }
 if (stateProp.Value == HideAndSeekStateVlue) {
   p.Spawns.RespawnTime.Value = 3;
@@ -130,6 +128,12 @@ Damage.OnKill.Add(function(k,p) {
    }
 }); 
 
+const t = Timers.GetContext().Get('t');
+t.OnTimer.Add(function (t) {
+blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+ if (blueTeam.Count < 1 && redTeam.Count >= 1) WinRedTeam();
+});
+	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
