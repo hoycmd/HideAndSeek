@@ -135,6 +135,7 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
  if (blueTeam.Count < 1 && redTeam.Count >= 1) WinRedTeam();
     }
 });
+t.RestartLoop(11);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
