@@ -112,7 +112,6 @@ Damage.OnDeath.Add(function(p) {
 if (stateProp.Value == HideAndSeekStateValue) return; 
   if (p.Team === Teams.Get('Blue')) {
     Teams.Get('Red').Add(p);
-	t.RestartLoop(11);
 }
 if (stateProp.Value == HideAndSeekStateVlue) {
   p.Spawns.RespawnTime.Value = 3;
