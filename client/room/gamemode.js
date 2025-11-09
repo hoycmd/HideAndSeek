@@ -1,15 +1,6 @@
 import { Players, room, Chat, Permissions, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as d from './gamemodeParameters.js';
- 
-// ПрИВЕТ босс. Я не могу исправить [ыыы::content_blocked] таймер после GameStateValue в WinTeamsStateValue в победе синих и краснЫХ. Я сЕЙЧАС сдавал экзАмены и сЕЙЧАС в игре играю в тдм. ЕслИ чТо пиши в ЛС.
-/*
-	Ыщ!
-	А в чём проблема-то?..
-	Сейчас у тебя должно работать так, что после GameStateValue ВСЕГДА выигрывают синие.
-	А ты чего хочешь? Опиши что происходит сейчас, а что должно происходить:
-	Ломается таймер? Нет конца игры? Что там?
-*/
 
 try {
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
