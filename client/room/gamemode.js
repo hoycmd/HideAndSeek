@@ -92,12 +92,12 @@ Spawns.OnSpawn.Add(function(p) {
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
-if (stateProp.Value == HideAndSeekStateValue) return; 
-if (p.Team === Teams.Get('Blue')) {
- Teams.Get('Red').Add(p);
-if (Teams.Get('Blue').Count < 1) {
+if (stateProp.Value != HideAndSeekStateValue) return; 
+if (stateProp.Value == GameStateValue && p.Team == blueTeam) {
+ redTeam.Add(p);
+}
+if (blueTeam.MaxCount < p.Properties.Deaths.Value == 1) {
 	 WinRedTeam();
-      }
 }
   p.Spawns.RespawnTime.Value = 3;
 });
@@ -169,7 +169,7 @@ function SetHideAndSeek() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 	
- mainTimer.Restart(41);
+ mainTimer.Restart(4);
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
  TeamsBalancer.IsAutoBalance = false;
