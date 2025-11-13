@@ -1,4 +1,4 @@
-import { Players, room, Chat, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
+import { Players, room, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as d from './gamemodeParameters.js';
 
@@ -18,7 +18,7 @@ const HideAndSeekStateValue = `HideAndSeek`;
 const GameStateValue = `Game`;
 const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
-const WaitingAllPlayersForHint = `Ожидание 2 игрока...`;
+const WaitingAllPlayersForHint = `Нужно кол-во игроков: ${(3 - Players.Count)}`;
 const ContextAllViborTeamsForHint = `Выберите, команду!`;
 const BlueIschetMestoHidengiliBegForHint = `Ищите место где спрятатся, или убегайте!`;
 const RedSleditGdeBlueHidengIliBegaetForHint = `Следите где спрячутся выжившие, или где убегают!`;
@@ -116,8 +116,10 @@ mainTimer.OnTimer.Add(function() {
   case WaitingModeStateValue:
 if (Players.Count < 2) {
 	SetWaitingMode();
-} else 
+	Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
+} else {
 	SetHideAndSeek();
+}
    break;
   case HideAndSeekStateValue:
    SetGameMode();
@@ -128,7 +130,7 @@ if (Players.Count < 2) {
   case WinTeamsStateValue:
    SetEnd0fMatch();
    break;
- case End0fMatchStateValue:
+ case End0fMatchStateValue:    
    RestartGame();
    break;
        }
