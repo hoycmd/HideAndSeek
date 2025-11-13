@@ -1,8 +1,9 @@
-import { Players, room, Chat, Permissions, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
+import { Players, room, Chat, Inventory, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as d from './gamemodeParameters.js';
 
 try {
+	
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 room.PopupsEnable = true;
 const WaitingPlayersTime = 11;
@@ -41,7 +42,6 @@ Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 // * Создаем команды, из функции - команд создания.
 const blueTeam = CreateNewTeam(`Blue`, `\nВЫЖИВШИЕ`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
 const redTeam = CreateNewTeam(`Red`, `\nНАДЗИРАТЕЛИ`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
-//deadTeam.contextedProperties.SkinType.Value = 1;
 redTeam.contextedProperties.SkinType.Value = 0;
 blueTeam.contextedProperties.SkinType.Value = 3;
 redTeam.contextedProperties.StartBlocksCount.Value = 51;
@@ -70,15 +70,7 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 });
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
-Teams.OnRequestJoinTeam.Add(function(p, t) { 
-  //if (t === deadTeam) return
-  t.Add(p);
- switch (GameMode.Parameters.GetBool('Blue')) {
-   case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
-   case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
-   }
-});
-  
+Teams.OnRequestJoinTeam.Add(function(p, t) { t.Add(p); });  
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p, t) { p.Spawns.Spawn(); });
   
@@ -101,16 +93,13 @@ Spawns.OnSpawn.Add(function(p) {
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
 if (stateProp.Value == HideAndSeekStateValue) return; 
-  if (p.Team === Teams.Get('Blue')) {
-    Teams.Get('Red').Add(p);
- if (Teams.Get('Blue').Count < 1) {
+if (p.Team === Teams.Get('Blue')) {
+ Teams.Get('Red').Add(p);
+if (Teams.Get('Blue').Count < 1) {
 	 WinRedTeam();
-    }
- return;
+      }
 }
-if (stateProp.Value == HideAndSeekStateVlue) {
   p.Spawns.RespawnTime.Value = 3;
- }
 });
 
 // * Обработчик киллов. * //
@@ -120,21 +109,12 @@ Damage.OnKill.Add(function(k,p) {
   p.Properties.Scores.Value += 50;
    }
 }); 
-
-const t = Timers.GetContext().Get('t');
-t.OnTimer.Add(function (t) {
-if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
- blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
- if (blueTeam.Count < 1 && redTeam.Count >= 1) WinRedTeam();
-    }
-});
-t.RestartLoop(11);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
-if (Players.All.length < 2) {
+if (Players.Count < 2) {
 	SetWaitingMode();
 } else 
 	SetHideAndSeek();
@@ -160,7 +140,6 @@ SetWaitingMode();
 // * Состояние, игровых режимов игры. * //
 function SetWaitingMode() {
  stateProp.Value = WaitingModeStateValue;
- Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
  Spawns.GetContext().Enable = true;
 
  Inventory.GetContext().Melee.Value = false;
