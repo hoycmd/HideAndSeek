@@ -93,10 +93,9 @@ Spawns.OnSpawn.Add(function(p) {
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
 if (stateProp.Value != HideAndSeekStateValue) return; 
-if (stateProp.Value == GameStateValue && p.Team == blueTeam) {
- redTeam.Add(p);
-}
-if (blueTeam.MaxCount < p.Properties.Deaths.Value == 1) {
+if (p.Team === Teams.Get('Blue')) {
+ Teams.Get('Red').Add(p);
+if (Teams.Get('Blue').Properties.Get('Deaths').Value < 1) {
 	 WinRedTeam();
 }
   p.Spawns.RespawnTime.Value = 3;
