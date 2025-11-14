@@ -91,10 +91,13 @@ Spawns.OnSpawn.Add(function(p) {
 
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
- const bluePlayer = p.blueTeam;
-  if (bluePlayer.Count < 1) WinRedTeam(); return; }
-  if (p.Team == redTeam) return;
-  if (p.Team == blueTeam) redTeam.Add(p);
+  if (p.Team == blueTeam) {
+	redTeam.Add(p);
+  if (p.blueTeam.All.length == 0) {
+	WinRedTeam();
+	  return;
+     }
+  }
   p.Spawns.RespawnTime.Value = 3;
 });
 
