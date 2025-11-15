@@ -112,6 +112,15 @@ Damage.OnKill.Add(function(k,p) {
   p.Properties.Scores.Value += 50;
    }
 }); 
+
+deadTimer.OnTimer.Add(function () {
+ blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+   if (blueTeam.Count < 1 || blueTeam.Count == 0) {
+	 WinRedTeam();
+	   return;
+	}
+  });
+deadTimer.RestartLoop(11);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
@@ -138,15 +147,6 @@ mainTimer.OnTimer.Add(function() {
    break;
        }
 });
-
-deadTimer.OnTimer.Add(function () {
- blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
-   if (blueTeam.Count < 1 || blueTeam.Count == 0) {
-	 WinRedTeam();
-	   return;
-	}
-  });
-deadTimer.RestartLoop(11);
 	
 // * Первеночальное, игровое состояние игры. * //
 SetWaitingMode();
