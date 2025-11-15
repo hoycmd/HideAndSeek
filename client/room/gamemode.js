@@ -49,8 +49,8 @@ redTeam.contextedProperties.StartBlocksCount.Value = 51;
 // * Интерфейс команд. * //
 const BLUE_TEXT_UI = '\n<b><size=220><color=#0d177c>ß</color><color=#03088c>l</color><color=#0607b0>ᴜ</color><color=#1621ae>E</color></size></b>';
 const RED_TEXT_UI = '\n<b><size=220><color=#962605>尺</color><color=#9a040c>ᴇ</color><color=#b8110b>D</color></size></b>';
-Ui.GetContext().TeamProp1.Value = { Team: 'Red', Prop: 'Deaths' }; 
-Ui.GetContext().TeamProp2.Value = { Team: 'Blue', Prop: 'Deaths' };
+Ui.GetContext().TeamProp1.Value = { Team: blueTeam, Prop: 'Deaths' }; 
+Ui.GetContext().TeamProp2.Value = { Team: redTeam, Prop: 'Deaths' };
   
 // * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
 LeaderBoard.PlayerLeaderBoardValues = [
@@ -71,8 +71,10 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 // * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
   if (stateProp.Value == GameStateValue) redTeam.Add(p);
+	  ++redTeam.Count;
    else {
 	blueTeam.Add(p);
+	++blueTeam.Count;
 	p.Spawns.Spawn();
    }
 });  
@@ -98,8 +100,10 @@ Spawns.OnSpawn.Add(function(p) {
 Damage.OnDeath.Add(function(p) {
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
  ++p.Properties.Deaths.Value;
-  if (p.Team == blueTeam) redTeam.Add(p);
-  if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p);
+  if (p.Team == blueTeam) {
+	const sp = blueTeam.Players[blueTeam.Players.length - 1];
+	  redTeam.Add(sp);
+  }
 	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 	redTesm.Properties.Get('Deaths').Value = redTeam.Count;
 }
@@ -118,7 +122,7 @@ deadTimer.OnTimer.Add(function () {
 blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
-   if (blueTeam.Count < 1 || blueTeam.Count == 0) {
+   if (blueTeam.Count < 1 || blueTeam.Count == 0 && redTeam.Count >= 1) {
 	 WinRedTeam();
 	          }
     } 
