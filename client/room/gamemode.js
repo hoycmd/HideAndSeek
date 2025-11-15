@@ -128,12 +128,12 @@ deadTimer.RestartLoop(11);
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
-//if (Players.Count < 2) {
-	//SetWaitingMode();
-    Ui.GetContext().Hint.Value = WaitingAllPlayersForHint
- //} else {
+if (Players.Count < 2) {
+	SetWaitingMode();
+    Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
+ } else {
 	SetHideAndSeek();
-//}
+}
    break;
   case HideAndSeekStateValue:
    SetGameMode();
@@ -156,6 +156,7 @@ SetWaitingMode();
 // * Состояние, игровых режимов игры. * //
 function SetWaitingMode(p) {
  stateProp.Value = WaitingModeStateValue;
+ Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
  Spawns.GetContext().Enable = true;
 
  Inventory.GetContext().Melee.Value = false;
