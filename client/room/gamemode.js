@@ -120,11 +120,10 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
    if (blueTeam.Count < 1 || blueTeam.Count == 0) {
 	 WinRedTeam();
-	   return;
 	          }
     } 
 });
-deadTimer.RestartLoop(1);
+deadTimer.RestartLoop(2);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
