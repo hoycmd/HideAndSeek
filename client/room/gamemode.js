@@ -73,8 +73,10 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 // * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
   if (stateProp.Value == GameStateValue) redTeam.Add(p);
+  ++redTeam.Count;
    else {
 	blueTeam.Add(p);
+	++blueTeam.Count;
 	p.Spawns.Spawn();
    }
 });  
@@ -95,12 +97,22 @@ Timers.OnPlayerTimer.Add(function(t) {
 Spawns.OnSpawn.Add(function(p) {
  ++p.Properties.Spawns.Value;
 });
+
+Players.OnPlayerDisconnected.Add(function (p) {
+ if (p.Team == blueTeam) blueTeam.Count--;
+ if (p.Team == redTeam) redTeam.Count--;
+});
+Teams.OnRemove.Add(function (p) {
+ if (p.Team == blueTeam) blueTeam.Count--;
+ if (p.Team == redTeam) redTeam.Count--;
+});
 	
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
  ++p.Properties.Deaths.Value;
   if (p.Team == blueTeam) redTeam.Add(p);
+  ++redTeam.Count;
   if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p);
 	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 }
