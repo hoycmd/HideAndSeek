@@ -114,7 +114,7 @@ Damage.OnKill.Add(function(k,p) {
    }
 }); 
 
-deadTimer.OnTimer.Add(function () {
+deadTimer.OnTimer.Add(function (t) {
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
    if (blueTeam.Count < 1 || blueTeam.Count == 0) {
@@ -122,7 +122,7 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
 	          }
     } 
 });
-deadTimer.RestartLoop(2);
+t.RestartLoop(1);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
