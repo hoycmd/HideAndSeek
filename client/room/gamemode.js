@@ -98,15 +98,13 @@ Spawns.OnSpawn.Add(function(p) {
  ++p.Properties.Spawns.Value;
 });
 
-Teams.OnRemove.Add(function (t) {
- if (t.Name == blueTeam) {
+Players.OnPlayerDisconnected.Add(function (p) {
+ if (p.Team == blueTeam) {
 	 blueTeam.Count--;
-	 return;
- }
- if (t.Name == redTeam) {
+    }
+ if (p.Team == redTeam) {
 	 redTeam.Count--;
-	return;
-}
+    }
 });
 	
 // * Обработчик смертей. * //
