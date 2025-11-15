@@ -119,7 +119,7 @@ mainTimer.OnTimer.Add(function() {
   case WaitingModeStateValue:
 //if (Players.Count < 2) {
 	//SetWaitingMode();
-	//Ui.GetContext().Hint.Value = WaitingAllPlayersForHint
+    Ui.GetContext().Hint.Value = WaitingAllPlayersForHint
  //} else {
 	SetHideAndSeek();
 //}
@@ -164,7 +164,7 @@ function SetWaitingMode() {
 
  mainTimer.Restart(WaitingPlayersTime);
  TeamsBalancer.IsAutoBalance = false;
- blueTeamAll();
+ blueTeamAll(p);
 }
 function SetHideAndSeek() {
  stateProp.Value = HideAndSeekStateValue;
@@ -183,7 +183,7 @@ function SetHideAndSeek() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 	
- mainTimer.Restart(4);
+ mainTimer.Restart(41);
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
 }
@@ -252,7 +252,7 @@ function SetEnd0fMatch() {
 
  Game.GameOver(LeaberBoard.GetTeams());
  mainTimer.Restart(6);
- blueTeamAll();
+ blueTeamAll(p);
 }
 
 function OnVoteResult(v) {
@@ -278,7 +278,7 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
 }
-function blueTeamAll() {
+function blueTeamAll(p) {
  for (const p of Players.All) {
 	if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);
     }
