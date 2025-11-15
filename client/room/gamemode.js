@@ -49,10 +49,10 @@ redTeam.contextedProperties.StartBlocksCount.Value = 51;
 // * Интерфейс команд. * //
 const BLUE_TEXT_UI = '\n<b><size=220><color=#0d177c>ß</color><color=#03088c>l</color><color=#0607b0>ᴜ</color><color=#1621ae>E</color></size></b>';
 const RED_TEXT_UI = '\n<b><size=220><color=#962605>尺</color><color=#9a040c>ᴇ</color><color=#b8110b>D</color></size></b>';
-//Ui.GetContext().TeamProp1.Value = { Team: 'Red', Prop: '' }; 
-//Ui.GetContext().TeamProp2.Value = { Team: 'Blue', Prop: 'blue_text_ui' };
-//redTeam.Properties.Get('Deaths').Value = redTeam.Count;
-//blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+Ui.GetContext().TeamProp1.Value = { Team: 'Red', Prop: 'red_text_ui' }; 
+Ui.GetContext().TeamProp2.Value = { Team: 'Blue', Prop: 'blue_text_ui' };
+redTeam.Properties.Get('red_text_ui').Value = RED_TEXT_UI;
+blueTeam.Properties.Get('blue_text_ui').Value = BLUE_TEXT_UI;
   
 // * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
 LeaderBoard.PlayerLeaderBoardValues = [
