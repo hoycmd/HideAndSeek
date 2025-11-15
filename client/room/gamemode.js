@@ -70,12 +70,13 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
-  if (stateProp.Value == GameStateValue) redTeam.Add(p);
-	  ++redTeam.Count;
+  if (stateProp.Value == GameStateValue) 
+	  redTeam.Add(p);
+	  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
    else {
 	blueTeam.Add(p);
-	++blueTeam.Count;
 	p.Spawns.Spawn();
+	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
    }
 });  
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
@@ -101,8 +102,7 @@ Damage.OnDeath.Add(function(p) {
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
  ++p.Properties.Deaths.Value;
   if (p.Team == blueTeam) {
-	const sp = blueTeam.Players[blueTeam.Players.length - 1];
-	  redTeam.Add(sp);
+	 redTeam.Add(p);
   }
 	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 	redTesm.Properties.Get('Deaths').Value = redTeam.Count;
