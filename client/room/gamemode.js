@@ -98,12 +98,12 @@ Spawns.OnSpawn.Add(function(p) {
  ++p.Properties.Spawns.Value;
 });
 
-Teams.OnRemove.Add(function (p) {
- if (p.Team == blueTeam) {
+Teams.OnRemove.Add(function (t) {
+ if (t.Name == blueTeam) {
 	 blueTeam.Count--;
 	 return;
  }
- if (p.Team == redTeam) {
+ if (t.Name == redTeam) {
 	 redTeam.Count--;
 	return;
 }
