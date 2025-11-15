@@ -149,7 +149,7 @@ mainTimer.OnTimer.Add(function() {
 });
 	
 // * Первеночальное, игровое состояние игры. * //
-SetWaitingMode(p);
+SetWaitingMode();
 
 // * Состояние, игровых режимов игры. * //
 function SetWaitingMode(p) {
