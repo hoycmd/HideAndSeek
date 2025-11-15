@@ -51,8 +51,8 @@ const BLUE_TEXT_UI = '\n<b><size=220><color=#0d177c>ß</color><color=#03088c>l</
 const RED_TEXT_UI = '\n<b><size=220><color=#962605>尺</color><color=#9a040c>ᴇ</color><color=#b8110b>D</color></size></b>';
 Ui.GetContext().TeamProp1.Value = { Team: 'Red', Prop: 'red_text_ui' }; 
 Ui.GetContext().TeamProp2.Value = { Team: 'Blue', Prop: 'blue_text_ui' };
-redTeam.Properties.Get('red_text_ui').Value = RED_TEXT_UI;
-blueTeam.Properties.Get('blue_text_ui').Value = BLUE_TEXT_UI;
+redTeam.Properties.Get('red_text_ui').Value = redTeam.Count;
+blueTeam.Properties.Get('blue_text_ui').Value = blueTeam.Count;
   
 // * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
 LeaderBoard.PlayerLeaderBoardValues = [
