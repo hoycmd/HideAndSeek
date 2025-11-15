@@ -143,7 +143,7 @@ if (Players.Count < 3) {
    WinBlueTeam();
    break;
   case WinTeamsStateValue:
-   SetEnd0fMatch(p);
+   SetEnd0fMatch();
    break;
  case End0fMatchStateValue:    
    RestartGame();
@@ -246,7 +246,7 @@ inv.Build.Value = false;
 
  mainTimer.Restart(11);
 }
-function SetEnd0fMatch(p) {
+function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
  redTeam.Ui.Hint.Value = EndingeMatchForHint;
  blueTeam.Ui.Hint.Value = EndingeMatchForHint;
@@ -255,8 +255,7 @@ function SetEnd0fMatch(p) {
  Spawns.GetContext().Enable = false;
 
  Game.GameOver(LeaberBoard.GetTeams());
- mainTimer.Restart(6);
- blueTeamAll(p);
+ mainTimer.Restart(11);
 }
 
 function OnVoteResult(v) {
