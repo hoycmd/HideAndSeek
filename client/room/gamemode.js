@@ -28,6 +28,7 @@ const BlueWinnerTeamLoosersRedForHint = `Выжившие смогли прод�
 const RedWinnerTeamLoosersBlueForHint = `Надзиратели, нашли всех выживших!`;
 const EndingeMatchForHint = `Конец, матча!`;
 const mainTimer = Timers.GetContext().Get(`Main`);
+const deadTimer = Timers.GetContext().Get('Timer');
 const stateProp = Properties.GetContext().Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
@@ -94,16 +95,6 @@ Timers.OnPlayerTimer.Add(function(t) {
 Spawns.OnSpawn.Add(function(p) {
  ++p.Properties.Spawns.Value;
 });
-
-
-const t = Timers.GetContext().Get('t');
-  t.OnTimer.Add(function () {
-   blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
-    if (blueTeam.Count < 1) {
-	 WinRedTeam();
-	}
-  });
-t.RestartLoop(11);
 	
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
@@ -147,6 +138,15 @@ mainTimer.OnTimer.Add(function() {
    break;
        }
 });
+
+deadTimer.OnTimer.Add(function () {
+ blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+   if (blueTeam.Count < 1 || blueTeam.Count == 0) {
+	 WinRedTeam();
+	   return;
+	}
+  });
+deadTimer.RestartLoop(11);
 	
 // * Первеночальное, игровое состояние игры. * //
 SetWaitingMode();
@@ -203,7 +203,7 @@ function SetGameMode() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 
-TeamsBalancer.BalanceTeams();
+ TeamsBalancer.BalanceTeams();
  mainTimer.Restart(GameModeTime);
 }
 function WinBlueTeam() {
