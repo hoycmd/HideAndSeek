@@ -97,15 +97,6 @@ Timers.OnPlayerTimer.Add(function(t) {
 Spawns.OnSpawn.Add(function(p) {
  ++p.Properties.Spawns.Value;
 });
-
-Players.OnPlayerDisconnected.Add(function (p) {
- if (p.Team == blueTeam) {
-	 blueTeam.Count--;
-    }
- if (p.Team == redTeam) {
-	 redTeam.Count--;
-    }
-});
 	
 // * Обработчик смертей. * //
 Damage.OnDeath.Add(function(p) {
