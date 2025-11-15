@@ -129,7 +129,7 @@ deadTimer.RestartLoop(11);
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
-if (Players.Count < 2) {
+if (Players.Count < 3) {
 	SetWaitingMode();
     Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
  } else {
