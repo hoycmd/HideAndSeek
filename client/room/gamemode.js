@@ -90,23 +90,22 @@ Spawns.OnSpawn.Add(function(p) {
 });
 
 
-// * Обработчик смертей. * //
-Damage.OnDeath.Add(function(p) {
-  if (p.Team == null) continue;
- ++p.Properties.Deaths.Value;
-  if (p.Team == blueTeam) redTeam.Add(p);
-	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
-  p.Spawns.RespawnTime.Value = 3;
-});
-
 const t = Timers.GetContext().Get('t');
-  t.OnTimer.Add(function (t) {
+  t.OnTimer.Add(function () {
    blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
     if (blueTeam.Count < 1) {
 	 WinRedTeam();
 	}
   });
 t.RestartLoop(11);
+	
+// * Обработчик смертей. * //
+Damage.OnDeath.Add(function(p) {
+ ++p.Properties.Deaths.Value;
+  if (p.Team == blueTeam) redTeam.Add(p);
+	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+  p.Spawns.RespawnTime.Value = 3;
+});
 
 // * Обработчик киллов. * //
 Damage.OnKill.Add(function(k,p) {
