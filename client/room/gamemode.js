@@ -140,7 +140,7 @@ mainTimer.OnTimer.Add(function() {
    WinBlueTeam();
    break;
   case WinTeamsStateValue:
-   SetEnd0fMatch();
+   SetEnd0fMatch(p);
    break;
  case End0fMatchStateValue:    
    RestartGame();
@@ -149,10 +149,10 @@ mainTimer.OnTimer.Add(function() {
 });
 	
 // * Первеночальное, игровое состояние игры. * //
-SetWaitingMode();
+SetWaitingMode(p);
 
 // * Состояние, игровых режимов игры. * //
-function SetWaitingMode() {
+function SetWaitingMode(p) {
  stateProp.Value = WaitingModeStateValue;
  Spawns.GetContext().Enable = true;
 
@@ -242,7 +242,7 @@ inv.Build.Value = false;
 
  mainTimer.Restart(11);
 }
-function SetEnd0fMatch() {
+function SetEnd0fMatch(p) {
  stateProp.Value = End0fMatchStateValue;
  redTeam.Ui.Hint.Value = EndingeMatchForHint;
  blueTeam.Ui.Hint.Value = EndingeMatchForHint;
