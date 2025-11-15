@@ -70,7 +70,13 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 });
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
-Teams.OnRequestJoinTeam.Add(function(p, t) { t.Add(p); });  
+Teams.OnRequestJoinTeam.Add(function(p, t) { 
+  if (stateProp.Value == GameStateValue) redTeam.Add(p);
+   else {
+	blueTeam.Add(p);
+	p.Spawns.Spawn();
+   }
+});  
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p, t) { p.Spawns.Spawn(); });
   
@@ -103,6 +109,7 @@ t.RestartLoop(11);
 Damage.OnDeath.Add(function(p) {
  ++p.Properties.Deaths.Value;
   if (p.Team == blueTeam) redTeam.Add(p);
+	else if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p);
 	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
   p.Spawns.RespawnTime.Value = 3;
 });
@@ -156,6 +163,8 @@ function SetWaitingMode() {
  Inventory.GetContext().Build.Value = false;
 
  mainTimer.Restart(WaitingPlayersTime);
+ TeamsBalancer.IsAutoBalance = false;
+ blueTeamAll();
 }
 function SetHideAndSeek() {
  stateProp.Value = HideAndSeekStateValue;
@@ -177,7 +186,6 @@ function SetHideAndSeek() {
  mainTimer.Restart(4);
  Spawns.GetContext().Enable = true;
  Spawns.GetContext().Spawn();
- TeamsBalancer.IsAutoBalance = false;
 }
 function SetGameMode() {
  stateProp.Value = GameStateValue;
@@ -195,14 +203,13 @@ function SetGameMode() {
  redTeam.Inventory.Explosive.Value = false;
  redTeam.Inventory.Build.Value = false;
 
-// TeamsBalancer.BalanceTeams();
-// TeamsBalancer.IsAutoBalance = true;
+TeamsBalancer.BalanceTeams();
  mainTimer.Restart(GameModeTime);
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
- redTeam.Ui.Hint.Value =  BlueWinnerTeamLoosersRedForHint;
- blueTeam.Ui.Hint.Value =  BlueWinnerTeamLoosersRedForHint;
+ redTeam.Ui.Hint.Value = BlueWinnerTeamLoosersRedForHint;
+ blueTeam.Ui.Hint.Value = BlueWinnerTeamLoosersRedForHint;
 	
  Spawns.GetContext(blueTeam).Spawn();
  Spawns.GetContext(redTeam).Spawn();
@@ -245,6 +252,7 @@ function SetEnd0fMatch() {
 
  Game.GameOver(LeaberBoard.GetTeams());
  mainTimer.Restart(6);
+ blueTeamAll();
 }
 
 function OnVoteResult(v) {
@@ -269,6 +277,11 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Spawns.SpawnPointsGroups.Add(TeamSpawnPointGroup);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
+}
+function blueTeamAll() {
+ for (const p of Players.All) {
+	if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);
+    }
 }
 	
 } catch (e) {
