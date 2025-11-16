@@ -73,14 +73,16 @@ Teams.OnRequestJoinTeam.Add(function(p, t) {
 	blueTeam.Add(p);
 	p.Spawns.Spawn();
   }
-blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+}); 
+Teams.OnRequestJoinTeam.Add(function (p, t) {
+ blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 blueTeam.Spawns.SpawnPointsGroups.Add(1);
 redTeam.Spawns.SpawnPointsGroups.Add(2);
 redTeam.ContextedProperties.SkinType.Value = 0;
 blueTeam.ContextedProperties.SkinType.Value = 3;
 redTeam.ContextedProperties.StartBlocksCount.Value = 51;
-});  
+});
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p, t) { p.Spawns.Spawn(); });
   
