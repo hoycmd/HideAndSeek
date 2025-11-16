@@ -103,7 +103,6 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
   if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p);
 	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 }
-  p.Spawns.RespawnTime.Value = 3;
 });
 
 // * Обработчик киллов. * //
