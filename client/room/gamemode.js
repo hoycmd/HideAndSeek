@@ -122,13 +122,15 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
  if (blueTeam.Properties.Get('Deaths').Value == 1) {
 	 redTeam.Add(p);
+	 ++redTeam.Properties.Get('Deaths').Value = redTeam.Count;
+	 blueTeam.Properties.Get('Deaths').Value = blueTeam.Count--;
  } 
    if (blueTeam.Count < 1 || blueTeam.Count == 0 && redTeam.Count >= 1) {
 	 WinRedTeam();
 	   return;
 	          }
 else 
-	if (mainTimer <= 0 && mainTimer < 0 && mainTimer == 0) {
+	if (stateProp.Value == GameStateValue && mainTimer <= 0 && mainTimer < 0 && mainTimer == 0) {
 		WinBlueTeam();
 		return;
 	          }
