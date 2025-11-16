@@ -114,7 +114,7 @@ Damage.OnKill.Add(function(k,p) {
    }
 }); 
 
-deadTimer.OnTimer.Add(function () {
+deadTimer.OnTimer.Add(function (time) {
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
    if (blueTeam.Count < 1 || blueTeam.Count == 0) {
@@ -123,18 +123,18 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
 	          }
     } 
 });
-deadTimer.RestartLoop(11);
+time.RestartLoop(11);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
-if (Players.Count < 3) {
-	SetWaitingMode();
-    Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
- } else {
+//if (Players.Count < 3) {
+	//SetWaitingMode();
+    //Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
+// } else {
 	SetHideAndSeek();
-}
+//}
    break;
   case HideAndSeekStateValue:
    SetGameMode();
