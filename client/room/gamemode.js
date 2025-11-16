@@ -43,14 +43,15 @@ Ui.GetContext().MainTimerId.Value = mainTimer.Id;
 // * Создаем команды, из функции - команд создания.
 const blueTeam = CreateNewTeam(`Blue`, `\nВЫЖИВШИЕ`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
 const redTeam = CreateNewTeam(`Red`, `\nНАДЗИРАТЕЛИ`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
-redTeam.contextedProperties.SkinType.Value = 0;
-blueTeam.contextedProperties.SkinType.Value = 3;
 blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 redTeam.Properties.Get('Deaths').Value = redTeam.Count;
+redTeam.contextedProperties.SkinType.Value = 0;
+blueTeam.contextedProperties.SkinType.Value = 3;
+
 contextedProperties.GetContext(redTeam).StartBlocksCount.Value = 51;
 // * Интерфейс команд. * //
 const BLUE_TEXT_UI = '\n<b><size=220><color=#0d177c>ß</color><color=#03088c>l</color><color=#0607b0>ᴜ</color><color=#1621ae>E</color></size></b>';
-const RED_TEXT_UI = '\n<b><size=220><color=#962605>尺</color><color=#9a040c>ᴇ</color><color=#b8110b>D</color></size></b>';
+const RED_TEXT_UI = '\n<b><size=220><color=#962605>尺</color><color=#9a040c>ᴇ</color><color=#8110b>D</color></size></b>';
 Ui.GetContext().TeamProp1.Value = { Team: 'Red', Prop: 'Deaths' }; 
 Ui.GetContext().TeamProp2.Value = { Team: 'Blue', Prop: 'Deaths' };
   
@@ -119,6 +120,9 @@ deadTimer.OnTimer.Add(function (time) {
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
+ if (blueTeam.Properties.Get('Deaths').Value == 1) {
+	 redTeam.Add(p);
+ } 
    if (blueTeam.Count < 1 || blueTeam.Count == 0 && redTeam.Count >= 1) {
 	 WinRedTeam();
 	   return;
@@ -130,7 +134,7 @@ else
 	          }
     } 
 });
-deadTimer.RestartLoop(12);
+deadTimer.Restart(11);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
