@@ -123,7 +123,8 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
 	          }
     } 
 });
-time.RestartLoop(11);
+deadTimer.RestartLoop(11);
+deadTimer.Restart(11);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
