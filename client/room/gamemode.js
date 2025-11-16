@@ -105,6 +105,7 @@ if (stateProp.Value == GameStateValue && p.Team == blueTeam) {
 	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
     redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 	 return;
+     }
 }
 blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
