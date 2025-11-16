@@ -101,9 +101,6 @@ Spawns.OnSpawn.Add(function(p) {
 Damage.OnDeath.Add(function(p) {
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
  ++p.Properties.Deaths.Value;
-  if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p);
-	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
-	redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 }
  Spawns.GetContext(p).Spawn();
 });
@@ -136,7 +133,7 @@ else
 	          }
     } 
 });
-deadTimer.Restart(11);
+deadTimer.RestartLoop(11);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
