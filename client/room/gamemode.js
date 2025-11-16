@@ -130,8 +130,7 @@ if (blueTeam.Count < 1 || blueTeam.Count == 0 && redTeam.Count >= 1) {
 if (stateProp.Value == GameStateValue && mainTimer <= 0 && mainTimer < 0 && mainTimer == 0 && blueTeam.Count >= 1) {
  WinBlueTeam();
 	return;
-}
-if 
+          }       
     } 
 });
 Time.RestartLoop(1);
