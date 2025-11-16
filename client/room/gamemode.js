@@ -61,7 +61,22 @@ Ui.GetContext().TeamProp2.Value = { Team: 'Blue', Prop: 'Deaths' };
   
 // * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
 LeaderBoard.PlayerLeaderBoardValues = [
-  new DisplayValueHeader('Kills', '<b><size=30><color=#be5f1b>K</color><color=#b65219>i</color><color=#ae4517>l</color><color=#a63815>l</color><color=#9e2b13>s</color></size></b>', '<b><size=30><color=#be5f1b>K</color><color=#b65219>i</color><color=#ae4517>l</color><color=#a63815>l</clor><color=#9e2b13>s</color></size></b>'),
+ 
+Room.Damage.GetContext().FriendlyFire.Value = Room.GameMode.Parameters.GetBool('FriendlyFire');   // * РќР°РЅРѕСЃРёРј СѓСЂРѕРЅ РїРѕ СЃРІРѕРёРј, РµСЃР»Рё РІРєР»СЋС‡РёС‚СЊ - РІ РёРіСЂРѕРІРѕРј СЂРµР¶РёРјРµ. * //  
+Room.Damage.GetContext().DamageOut.Value = true;     // * РЈСЂРѕРЅ РєРѕРјР°РЅРґР°Рј. * //
+Room.TeamsBalancer.IsAutoBalance = true;     // * РђРІС‚РѕРјРѕС‚РёС‡РµСЃРєРёР№ Р±Р°Р»Р°РЅСЃРµСЂ РєРѕРјР°РЅРґ. * //
+Room.Damage.GetContext().GranadeTouchExplosion.Value = true;    // * РџРѕРІСЂРµР¶РґРµРЅРёРµ, РµСЃР»Рё РїР°РїР°СЃС‚СЊ РіСЂР°РЅР°С‚РѕР№ РІ РёРіСЂРѕРєР°. * //
+Room.Ui.GetContext().MainTimerId.Value = MainTimer.Id;   // * РРЅРґРёС„РёРєР°С‚РѕСЂ, РѕСЃРЅРѕРІРЅРѕРіРѕ С‚Р°Р№РјРµСЂР°. * //
+Room.room.PopupsEnable = true; // * Р Р°Р·СЂРµС€РµРЅРёРµ, РЅР° РїРѕСЏРІР»РµРЅРёРµ РїРѕРїР°РїРѕРІ. * //
+
+// * Р—Р°С…РѕРґ РІ Р»СЋР±СѓСЋ РєР°СЃС‚РѕРјРЅСѓСЋ РєРѕРјР°РЅРґСѓ, РґР»СЏ РѕС‚РІРµС‚Р° РЅР° Р·Р°РїСЂРѕСЃ РёРіСЂРѕРєР°. * //
+Room.Teams.OnRequestJoinTeam.Add(function (p, t) { t.Add(p); p.Properties.Get('RoomID').Value = p.IdInRoom; });
+// * РџРѕСЃР»Рµ Р·Р°С…РѕРґР° РІ РєРѕРјР°РЅРґСѓ РёРіСЂРѕРєР°, СЂРµСЃРїР°РІРЅРёРј РЅР° С‚РѕС‡РєРµ СЃРїР°РІРЅРїРѕРёРЅС‚Р° РІ РєРѕРјР°РЅРґРµ. * //
+Room.Teams.OnPlayerChangeTeam.Add(function (p) { p.Spawns.Spawn()});
+	
+// * Р”Р°РЅРЅС‹Рµ Р»РёРґРµСЂР±РѕСЂРґР° РєРѕРјР°РЅРґ, РєРѕС‚РѕСЂС‹Рµ РїСЂРёРіРѕРґСЏС‚СЃСЏ РІ РєР»Р°СЃСЃРёС‡РµСЃРєРѕРј РјР°С‚С‡Рµ. * //
+Room.LeaderBoard.PlayerLeaderBoardValues = [
+  new DisplayValueHeader('Kills', '<b><size=30><color=#be5f1b>K</color><color=#b65219>i</color><color=#ae4517>l</color><color=#a63815>l</color><color=#9e2b13>s</color></size></b>', '<b><size=30><color=#be5f1b>K</color><color=#b65219>i</color><color=#ae4517>l</color><color=#a63815>l</color><color=#9e2b13>s</color></size></b>'),
   new DisplayValueHeader('Deaths', '<b><size=30><color=#be5f1b>D</color><color=#b85519>e</color><color=#b24b17>a</color><color=#ac4115>t</color><color=#a63713>h</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>D</color><color=#b85519>e</color><color=#b24b17>a</color><color=#ac4115>t</color><color=#a63713>h</color><color=#a02d11>s</color></size></b>'),
   new DisplayValueHeader('Spawns', '<b><size=30><color=#be5f1b>S</color><color=#b85519>p</color><color=#b24b17>a</color><color=#ac4115>w</color><color=#a63713>n</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>S</color><color=#b85519>p</color><color=#b24b17>a</color><color=#ac4115>w</color><color=#a63713>n</color><color=#a02d11>s</color></size></b>'),
   new DisplayValueHeader('Scores', '<b><size=30><color=#be5f1b>S</color><color=#b85519>c</color><color=#b24b17>o</color><color=#ac4115>r</color><color=#a63713>e</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>S</color><color=#b85519>c</color><color=#b24b17>o</color><color=#ac4115>r</color><color=#a63713>e</color><color=#a02d11>s</color></size></b>'),
