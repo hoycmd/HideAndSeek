@@ -77,6 +77,9 @@ Teams.OnRequestJoinTeam.Add(function(p, t) {
 	blueTeam.Add(p);
 	p.Spawns.Spawn();
    }
+ if (p.Team == blueTeam) {
+	 blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+ } else redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 });  
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p, t) { p.Spawns.Spawn(); });
