@@ -133,7 +133,7 @@ if (stateProp.Value == GameStateValue && mainTimer <= 0 && mainTimer < 0 && main
           }       
     } 
 });
-Time.RestartLoop(1);
+Timer.RestartLoop(1);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
