@@ -47,7 +47,7 @@ blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 redTeam.contextedProperties.SkinType.Value = 0;
 blueTeam.contextedProperties.SkinType.Value = 3;
-contextedProperties.GetContext(redTeam).StartBlocksCount.Value = 51;
+redTeam.contextedProperties.StartBlocksCount.Value = 51;
 // * Интерфейс команд. * //
 const BLUE_TEXT_UI = '\n<b><size=220><color=#0d177c>ß</color><color=#03088c>l</color><color=#0607b0>ᴜ</color><color=#1621ae>E</color></size></b>';
 const RED_TEXT_UI = '\n<b><size=220><color=#962605>尺</color><color=#9a040c>ᴇ</color><color=#8110b>D</color></size></b>';
@@ -74,10 +74,8 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
   if (stateProp.Value == GameStateValue) {
 	  redTeam.Add(p);
-	  redTeam.Properties.Get('Deaths').Value = redTeam.Count++;
   } else {
 	blueTeam.Add(p);
-	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count++;
 	p.Spawns.Spawn();
    }
 });  
@@ -97,6 +95,8 @@ Timers.OnPlayerTimer.Add(function(t) {
 // * Обработчик спавнов. * //
 Spawns.OnSpawn.Add(function(p) {
  ++p.Properties.Spawns.Value;
+ blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 });
 	
 // * Обработчик смертей. * //
@@ -105,13 +105,11 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
  ++p.Properties.Deaths.Value;
 if (stateProp.Value == GameStateValue && p.Team == blueTeam) {
 	redTeam.Add(p);
-	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
-    redTeam.Properties.Get('Deaths').Value = redTeam.Count;
-	 return;
+	return;
      }
 }
-blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
- redTeam.Properties.Get('Deaths').Value = redTeam.Count;
+  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
  Spawns.GetContext(p).Spawn();
 });
 
