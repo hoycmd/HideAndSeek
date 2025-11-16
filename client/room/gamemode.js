@@ -136,7 +136,7 @@ else
 	          }
     } 
 });
-deadTimer.RestartLoop(11);
+deadTimer.RestartLoop(1);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
@@ -261,8 +261,7 @@ inv.Build.Value = false;
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
- redTeam.Ui.Hint.Value = EndingeMatchForHint;
- blueTeam.Ui.Hint.Value = EndingeMatchForHint;
+ Ui.GetContext().Hint.Value = EndingeMatchForHint;
 	
  Spawns.GetContext().Despawn();
  Spawns.GetContext().Enable = false;
