@@ -47,7 +47,6 @@ blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 redTeam.contextedProperties.SkinType.Value = 0;
 blueTeam.contextedProperties.SkinType.Value = 3;
-
 contextedProperties.GetContext(redTeam).StartBlocksCount.Value = 51;
 // * Интерфейс команд. * //
 const BLUE_TEXT_UI = '\n<b><size=220><color=#0d177c>ß</color><color=#03088c>l</color><color=#0607b0>ᴜ</color><color=#1621ae>E</color></size></b>';
@@ -101,7 +100,14 @@ Spawns.OnSpawn.Add(function(p) {
 Damage.OnDeath.Add(function(p) {
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
  ++p.Properties.Deaths.Value;
+if (stateProp.Value == GameStateValue && p.Team == blueTeam) {
+	redTeam.Add(p);
+	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+    redTeam.Properties.Get('Deaths').Value = redTeam.Count;
+	 return;
 }
+blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+ redTeam.Properties.Get('Deaths').Value = redTeam.Count;
  Spawns.GetContext(p).Spawn();
 });
 
@@ -117,11 +123,6 @@ deadTimer.OnTimer.Add(function (time) {
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
- if (blueTeam.Properties.Get('Deaths').Value == 1) {
-	 redTeam.Add(p);
-	 ++redTeam.Properties.Get('Deaths').Value = redTeam.Count;
-	 blueTeam.Properties.Get('Deaths').Value = blueTeam.Count--;
- } 
    if (blueTeam.Count < 1 || blueTeam.Count == 0 && redTeam.Count >= 1) {
 	 WinRedTeam();
 	   return;
