@@ -158,8 +158,9 @@ mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
 if (Players.Count < 3) {
+if (Players.Count == 1) Ui.GetContext().Hint.Value = "Что-бы начать игру, нужно: 2 игроков";
+if (Players.Count == 2) Ui.GetContext().Hint.Value = "Что-бы начать игру, нужен 1 игрок";
 	SetWaitingMode();
-    Ui.GetContext().Hint.Value = 'Всего игроков нужно 3';
  } else {
 	SetHideAndSeek();
 }
@@ -173,8 +174,9 @@ if (Players.Count < 3) {
   case WinTeamsStateValue:
    SetEnd0fMatch();
    break;
- case End0fMatchStateValue:    
-   RestartGame();
+ case End0fMatchStateValue: 
+  START_VOTE();
+  if (!GameMode.Parameters.GetBool('MapRotation')) RestartGame();
    break;
        }
 });
@@ -224,6 +226,14 @@ function SetGameMode() {
  blueTeam.Ui.Hint.Value = BlueHidendIliYrunsForHint;
  redTeam.Ui.Hint.Value = RedIschetBluePlayersForHint;
 
+ if (GameMode.Parameters.GetBool('Blue')) {
+ const inventory = Inventory.GetContext(blueTeam);
+ inventory.Main.Value = false;
+ inventory.Secondary.Value = false;
+ inventory.Melee.Value = true;
+ inventory.Explosive.Value = false;
+ inventory.Build.Value = false;
+ }
  blueTeam.Inventory.Melee.Value = false;
  blueTeam.Inventory.Secondary.Value = false;
  blueTeam.Inventory.Main.Value = false;
@@ -240,48 +250,49 @@ function SetGameMode() {
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
- redTeam.Ui.Hint.Value = BlueWinnerTeamLoosersRedForHint;
- blueTeam.Ui.Hint.Value = BlueWinnerTeamLoosersRedForHint;
-	
- Spawns.GetContext(blueTeam).Spawn();
- Spawns.GetContext(redTeam).Spawn();
+ Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint;
+ blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
+ redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
 
- const inv = Inventory.GetContext();
-inv.Melee.Value = false;
-inv.Secondary.Value = false;
-inv.Main.Value = false;
-inv.Explosive.Value = false;
-inv.Build.Value = false;
+ const inventory = Inventory.GetContext();
+ inventory.Melee.Value = false;
+ inventory.Secondary.Value = false;
+ inventory.Main.Value = false;
+ inventory.Explosive.Value = false;
+ inventory.Build.Value = false;
 
+ Spawns.GetContext().Spawn();
+ Damage.GetContext().DamageOut.Value = false;
+ Damage.GetContext().FriendlyFire.Value = false;
  mainTimer.Restart(11);
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
- redTeam.Ui.Hint.Value = RedWinnerTeamLoosersBlueForHint;  
- blueTeam.Ui.Hint.Value = RedWinnerTeamLoosersBlueForHint;
+ Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;  
  redTeam.Properties.Get('Scores').Value += WINNER_SCORES;
- blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;
-	
- Spawns.GetContext(blueTeam).Spawn();
- Spawns.GetContext(redTeam).Spawn();
+ blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
 
- const inv = Inventory.GetContext();
-inv.Melee.Value = false;
-inv.Secondary.Value = false;
-inv.Main.Value = false;
-inv.Explosive.Value = false;
-inv.Build.Value = false;
+ const inventory = Inventory.GetContext();
+ inventory.Melee.Value = false;
+ inventory.Secondary.Value = false;
+ inventory.Main.Value = false;
+ inventory.Explosive.Value = false;
+ inventory.Build.Value = false;
 
+ Spawns.GetContext().Spawn();
+ Damage.GetContext().DamageOut.Value = false;
+ Damage.GetContext().FriendlyFire.Value = false;
  mainTimer.Restart(11);
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
  Ui.GetContext().Hint.Value = EndingeMatchForHint;
 	
- Spawns.GetContext().Despawn();
- Spawns.GetContext().Enable = false;
+ const spawns = Spawns.GetContext();
+ spawns.enable = false;
+ spawns.Despawn();
 
- Game.GameOver(LeaberBoard.GetTeams());
+ Game.GameOver(LeaderBoard.GetTeams());
  mainTimer.Restart(11);
 }
 
