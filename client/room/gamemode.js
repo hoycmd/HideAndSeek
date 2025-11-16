@@ -74,10 +74,10 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 Teams.OnRequestJoinTeam.Add(function(p, t) { 
   if (stateProp.Value == GameStateValue) {
 	  redTeam.Add(p);
-	  ++redTeam.Properties.Get('Deaths').Value = redTeam.Count;
+	  redTeam.Properties.Get('Deaths').Value = redTeam.Count++;
   } else {
 	blueTeam.Add(p);
-	++blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count++;
 	p.Spawns.Spawn();
    }
 });  
