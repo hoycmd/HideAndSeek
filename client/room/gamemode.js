@@ -159,7 +159,7 @@ mainTimer.OnTimer.Add(function() {
   case WaitingModeStateValue:
 if (Players.Count < 3) {
 	SetWaitingMode();
-    Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
+    Ui.GetContext().Hint.Value = 'Всего игроков нужно 3';
  } else {
 	SetHideAndSeek();
 }
