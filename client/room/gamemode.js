@@ -18,7 +18,7 @@ const HideAndSeekStateValue = `HideAndSeek`;
 const GameStateValue = `Game`;
 const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
-const WaitingAllPlayersForHint = `Нужно кол-во игроков: ${(3 - Players.Count)}`;
+const WaitingAllPlayersForHint = `Нужно кол-во игроков: ${(4 - Players.Count)}`;
 const ContextAllViborTeamsForHint = `Выберите, команду!`;
 const BlueIschetMestoHidengiliBegForHint = `Ищите место где спрятатся, или убегайте!`;
 const RedSleditGdeBlueHidengIliBegaetForHint = `Следите где спрячутся выжившие, или где убегают!`;
@@ -136,18 +136,18 @@ else
 	          }
     } 
 });
-deadTimer.RestartLoop(1);
+deadTimer.RestartLoop(11);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
-//if (Players.Count < 3) {
-	//SetWaitingMode();
-    //Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
-// } else {
+if (Players.Count < 3) {
+	SetWaitingMode();
+    Ui.GetContext().Hint.Value = WaitingAllPlayersForHint;
+ } else {
 	SetHideAndSeek();
-//}
+}
    break;
   case HideAndSeekStateValue:
    SetGameMode();
