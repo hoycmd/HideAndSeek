@@ -54,6 +54,8 @@ const redTeam = CreateNewTeam(`Red`, `\nНАДЗИРАТЕЛИ`, new Color(125/2
 // * Интерфейс команд. * //
 const BLUE_TEXT_UI = '\n<b><size=220><color=#0d177c>ß</color><color=#03088c>l</color><color=#0607b0>ᴜ</color><color=#1621ae>E</color></size></b>';
 const RED_TEXT_UI = '\n<b><size=220><color=#962605>尺</color><color=#9a040c>ᴇ</color><color=#8110b>D</color></size></b>';
+	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 Ui.GetContext().TeamProp1.Value = { Team: 'Red', Prop: 'Deaths' }; 
 Ui.GetContext().TeamProp2.Value = { Team: 'Blue', Prop: 'Deaths' };
   
@@ -83,8 +85,6 @@ Teams.OnRequestJoinTeam.Add(function(p, t) {
   }
 }); 
 Teams.OnRequestJoinTeam.Add(function (p, t) {
- blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
-redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 blueTeam.Spawns.SpawnPointsGroups.Add(1);
 redTeam.Spawns.SpawnPointsGroups.Add(2);
 redTeam.ContextedProperties.SkinType.Value = 0;
@@ -92,7 +92,15 @@ blueTeam.ContextedProperties.SkinType.Value = 3;
 redTeam.ContextedProperties.StartBlocksCount.Value = 51;
 });
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
-Teams.OnPlayerChangeTeam.Add(function(p, t) { p.Spawns.Spawn(); });
+Teams.OnPlayerChangeTeam.Add(function(p, t) {
+	p.Spawns.Spawn();
+	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+redTeam.Properties.Get('Deaths').Value = redTeam.Count;
+});
+Players.OnPlayerDisconnected.Add(function(p) {
+blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+redTeam.Properties.Get('Deaths').Value = redTeam.Count;
+});
   
 // * Обработчик бессмертия игрока, после респавна. * //
 Spawns.GetContext().OnSpawn.Add(function(p) {
