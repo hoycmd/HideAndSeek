@@ -250,7 +250,8 @@ function SetGameMode() {
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = "Hint/LoserTeamRed";
+ blueTeam.Ui.Hint.Value = "Hint/LoserTeamRed";
+ redTeam.Ui.Hint.Value = "Hint/LoserTeamRed";
  blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
  redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
 
@@ -268,7 +269,8 @@ function WinBlueTeam() {
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = "Hint/LoserTeamBlue";
+ blueTeam.Ui.Hint.Value = "Hint/LoserTeamBlue";
+ redTeam.Ui.Hint.Value = "Hint/LoserTeamBlue";
  redTeam.Properties.Get('Scores').Value += WINNER_SCORES;
  blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
 
