@@ -224,8 +224,8 @@ function SetHideAndSeek() {
 }
 function SetGameMode() {
  stateProp.Value = GameStateValue;
- blueTeam.Ui.Hint.Value = BlueHidendIliYrunsForHint;
- redTeam.Ui.Hint.Value = RedIschetBluePlayersForHint;
+ blueTeam.Ui.Hint.Value = "Hint/HidensBlueTeam";
+ redTeam.Ui.Hint.Value = "Hint/SearchTeamBlue";
 
  if (GameMode.Parameters.GetBool('Blue')) {
  const inventory = Inventory.GetContext(blueTeam);
@@ -251,7 +251,7 @@ function SetGameMode() {
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = BlueWinnerTeamLoosersRedForHint;
+ Ui.GetContext().Hint.Value = "Hint/LoserTeamRed";
  blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
  redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
 
@@ -269,7 +269,7 @@ function WinBlueTeam() {
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = RedWinnerTeamLoosersBlueForHint;  
+ Ui.GetContext().Hint.Value = "Hint/LoserTeamBlue";
  redTeam.Properties.Get('Scores').Value += WINNER_SCORES;
  blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
 
@@ -287,7 +287,7 @@ function WinRedTeam() {
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
- Ui.GetContext().Hint.Value = EndingeMatchForHint;
+ Ui.GetContext().Hint.Value = "Hint/EndMatch";
 	
  const spawns = Spawns.GetContext();
  spawns.enable = false;
