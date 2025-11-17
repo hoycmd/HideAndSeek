@@ -1,8 +1,8 @@
 {
-  "Statistics/Kills": "<b><size=30><color=#be5f1b>K</color><color=#b65219>i</color><color=#ae4517>l</color><color=#a63815>l</color><color=#9e2b13>s</color></size></b>",
-  "Statistics/Deaths": "<b><size=30><color=#be5f1b>D</color><color=#b85519>e</color><color=#b24b17>a</color><color=#ac4115>t</color><color=#a63713>h</color><color=#a02d11>s</color></size></b>",
-  "Statistics/Spawns": "<b><size=30><color=#be5f1b>S</color><color=#b85519>p</color><color=#b24b17>a</color><color=#ac4115>w</color><color=#a63713>n</color><color=#a02d11>s</color></size></b>",
-  "Statistics/Scores": "<b><size=30><color=#be5f1b>S</color><color=#b85519>c</color><color=#b24b17>o</color><color=#ac4115>r</color><color=#a63713>e</color><color=#a02d11>s</color></size></b>",
+  "Statistics/Kills": "<b><size=30><color=#be5f1b>К</color><color=#b65219>и</color><color=#ae4517>л</color><color=#a63815>л</color><color=#9e2b13>ы</color></size></b>",
+  "Statistics/Deaths": "<b><size=30><color=#be5f1b>С</color><color=#b85519>м</color><color=#b24b17>е</color><color=#ac4115>р</color><color=#a63713>т</color><color=#a02d11>и</color></size></b>",
+  "Statistics/Spawns": "<b><size=30><color=#be5f1b>С</color><color=#b85519>п</color><color=#b24b17>а</color><color=#ac4115>в</color><color=#a63713>н</color><color=#a02d11>ы</color></size></b>",
+  "Statistics/Scores": "<b><size=30><color=#be5f1b>О</color><color=#b85519>ч</color><color=#b24b17>к</color><color=#ac4115>и</color><color=#a63713></color><color=#a02d11></color></size></b>",
   
   "Hint/WaitingPlayersCount2": "Что-бы начать игру, нужно: 2 игроков",
   "Hint/WaitingPlayerCount1": "Что-бы начать игру, нужен: 1 игрок",
