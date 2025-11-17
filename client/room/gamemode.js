@@ -203,8 +203,8 @@ function SetWaitingMode(p) {
 function SetHideAndSeek() {
  stateProp.Value = HideAndSeekStateValue;
  Ui.GetContext().Hint.Value = ContextAllViborTeamsForHint;
- blueTeam.Ui.Hint.Value = BlueIschetMestoHidengiliBegForHint;
- redTeam.Ui.Hint.Value = RedSleditGdeBlueHidengIliBegaetForHint;
+ blueTeam.Ui.Hint.Value = "Hint/SearchPlaceBlue";
+ redTeam.Ui.Hint.Value = "Hint/SearchWhereHidBlue";
  
  blueTeam.Inventory.Melee.Value = false;
  blueTeam.Inventory.Secondary.Value = false;
