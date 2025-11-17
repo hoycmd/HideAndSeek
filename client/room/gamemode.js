@@ -170,6 +170,7 @@ if (Players.Count == 1) Ui.GetContext().Hint.Value = "Hint/WaitingPlayersCount2"
 if (Players.Count == 2) Ui.GetContext().Hint.Value = "Hint/WaitingPlayerCount1";
 	SetWaitingMode();
  } else {
+	Ui.GetContext().Hint.Value = "Hint/MatchGame";
 	SetHideAndSeek();
 }
    break;
