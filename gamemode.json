@@ -1,6 +1,6 @@
 {
-      "Name": "<b><color=#E32636>Прятки</a></b>",
-      "Description": "<b>Сильнее всего это страх с ужасом и <color=#E32636>Прятки</a> его образ\nПрячься или беги, веть жить тебе осталось <color=#E32636>недолго...</a></b>",
+      "Name": "mode.name",
+      "Description": "mode.displayname",
       "MapFilter": {
       "IsBlank": false,
         },
