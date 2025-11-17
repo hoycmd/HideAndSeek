@@ -1,6 +1,8 @@
 {
   "Hint/WaitingPlayersCount2": "To start the game, you need: 2 players",
   "Hint/WaitingPlayerCount1": "To start the game, you need: 1 player",
+  "Hint/SearchPlaceBlue": "Find a secluded place and hide!",
+  "Hint/SearchWhereHidBlue": "Watch where the survivors are hiding!",
   "Hint/HidensBlueTeam": "Hide from the guards!",
   "Hint/SearchTeamBlue": "Find all survivors!",
   "Hint/LoserTeamBlue": "The guards found all the survivors!",
