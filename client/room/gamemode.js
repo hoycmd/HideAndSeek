@@ -219,7 +219,6 @@ function SetHideAndSeek() {
 	
  mainTimer.Restart(41);
  Spawns.GetContext().Enable = true;
- TeamsBalancer.IsAutoBalance = true;
  Spawns.GetContext().Spawn();
 }
 function SetGameMode() {
