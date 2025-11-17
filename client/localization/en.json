@@ -1,1 +1,7 @@
-
+{
+  "Hint/HidensBlueTeam": "Hide from the guards!",
+  "Hint/SearchTeamBlue": "Find all survivors!",
+  "Hint/LoserTeamBlue": "The guards found all the survivors!",
+  "Hint/LoserTeamRed": "The survivors were able to hold out with the guards!",
+  "Hint/EndMatch": "End of the match!"
+}
