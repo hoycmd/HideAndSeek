@@ -7,7 +7,7 @@
         "MapLists": [
                 {
                         "MapListId": 23020,
-                        "Name": "<b>Карты для <color=#e32636>пряток</a></b>",
+                        "Name": "map.listMap",
                 }
         ],
         "Parameters": {
