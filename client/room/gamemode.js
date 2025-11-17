@@ -158,7 +158,7 @@ mainTimer.OnTimer.Add(function() {
   case WaitingModeStateValue:
 if (Players.Count < 3) {
 if (Players.Count == 1) Ui.GetContext().Hint.Value = "Hint/WaitingPlayersCount2";
-if (Players.Count == 2) Ui.GetContext().Hint.Value = "Hint/WaitingPlayerCount1"
+if (Players.Count == 2) Ui.GetContext().Hint.Value = "Hint/WaitingPlayerCount1";
 	SetWaitingMode();
  } else {
 	SetHideAndSeek();
@@ -186,8 +186,8 @@ SetWaitingMode();
 // * Состояние, игровых режимов игры. * //
 function SetWaitingMode(p) {
  stateProp.Value = WaitingModeStateValue;
- if (Players.Count == 1) Ui.GetContext().Hint.Value = "Что-бы начать игру, нужно: 2 игроков";
- if (Players.Count == 2) Ui.GetContext().Hint.Value = "Что-бы начать игру, нужен 1 игрок";
+ if (Players.Count == 1) Ui.GetContext().Hint.Value = "Hint/WaitingPlayersCount2";
+ if (Players.Count == 2) Ui.GetContext().Hint.Value =  "Hint/WaitingPlayerCount1";
  Spawns.GetContext().Enable = true;
 
  Inventory.GetContext().Melee.Value = false;
