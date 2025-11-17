@@ -186,6 +186,8 @@ SetWaitingMode();
 // * Состояние, игровых режимов игры. * //
 function SetWaitingMode(p) {
  stateProp.Value = WaitingModeStateValue;
+ if (Players.Count == 1) Ui.GetContext().Hint.Value = "Что-бы начать игру, нужно: 2 игроков";
+ if (Players.Count == 2) Ui.GetContext().Hint.Value = "Что-бы начать игру, нужен 1 игрок";
  Spawns.GetContext().Enable = true;
 
  Inventory.GetContext().Melee.Value = false;
