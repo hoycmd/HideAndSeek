@@ -54,14 +54,11 @@ const redTeam = CreateNewTeam(`Red`, `\nНАДЗИРАТЕЛИ`, new Color(125/2
 // * Интерфейс команд. * //
 const BLUE_TEXT_UI = '\n<b><size=220><color=#0d177c>ß</color><color=#03088c>l</color><color=#0607b0>ᴜ</color><color=#1621ae>E</color></size></b>';
 const RED_TEXT_UI = '\n<b><size=220><color=#962605>尺</color><color=#9a040c>ᴇ</color><color=#8110b>D</color></size></b>';
-	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 Ui.GetContext().TeamProp1.Value = { Team: 'Red', Prop: 'Deaths' }; 
 Ui.GetContext().TeamProp2.Value = { Team: 'Blue', Prop: 'Deaths' };
   
-// * Вносим в лидерборд значения, которые необходимо вводить в таблицу. * //
-LeaderBoard.PlayerLeaderBoardValues = [
- 
 Room.Damage.GetContext().FriendlyFire.Value = Room.GameMode.Parameters.GetBool('FriendlyFire');   // * РќР°РЅРѕСЃРёРј СѓСЂРѕРЅ РїРѕ СЃРІРѕРёРј, РµСЃР»Рё РІРєР»СЋС‡РёС‚СЊ - РІ РёРіСЂРѕРІРѕРј СЂРµР¶РёРјРµ. * //  
 Room.Damage.GetContext().DamageOut.Value = true;     // * РЈСЂРѕРЅ РєРѕРјР°РЅРґР°Рј. * //
 Room.TeamsBalancer.IsAutoBalance = true;     // * РђРІС‚РѕРјРѕС‚РёС‡РµСЃРєРёР№ Р±Р°Р»Р°РЅСЃРµСЂ РєРѕРјР°РЅРґ. * //
