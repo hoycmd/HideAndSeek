@@ -150,7 +150,7 @@ if (stateProp.Value == GameStateValue && mainTimer <= 0 && mainTimer < 0 && main
           }       
     } 
 });
-Timer.RestartLoop(1);
+Timer.RestartLoop(11);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(function() {
@@ -219,6 +219,7 @@ function SetHideAndSeek() {
 	
  mainTimer.Restart(41);
  Spawns.GetContext().Enable = true;
+ TeamsBalancer.IsAutoBalance = true;
  Spawns.GetContext().Spawn();
 }
 function SetGameMode() {
