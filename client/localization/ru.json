@@ -1,1 +1,8 @@
+{
+  "Hint/HidensBlueTeam": "Прячьтесь от надзирателей!",
+  "Hint/SearchTeamBlue": "Найдите всех выживших!",
+  "Hint/LoserTeamBlue": "Надзиратели нашли всех выживших!",
+  "Hint/LoserTeamRed": "Выжившие смогли продержаться с надзирателями!",
+  "Hint/EndMatch": "Конец матча!"
+}
 
