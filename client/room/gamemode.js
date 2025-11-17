@@ -60,10 +60,10 @@ Ui.GetContext().TeamProp1.Value = { Team: 'Red', Prop: 'Deaths' };
 Ui.GetContext().TeamProp2.Value = { Team: 'Blue', Prop: 'Deaths' };	
 // * Р”Р°РЅРЅС‹Рµ Р»РёРґРµСЂР±РѕСЂРґР° РєРѕРјР°РЅРґ, РєРѕС‚РѕСЂС‹Рµ РїСЂРёРіРѕРґСЏС‚СЃСЏ РІ РєР»Р°СЃСЃРёС‡РµСЃРєРѕРј РјР°С‚С‡Рµ. * //
 LeaderBoard.PlayerLeaderBoardValues = [
-  new DisplayValueHeader('Kills', '<b><size=30><color=#be5f1b>K</color><color=#b65219>i</color><color=#ae4517>l</color><color=#a63815>l</color><color=#9e2b13>s</color></size></b>', '<b><size=30><color=#be5f1b>K</color><color=#b65219>i</color><color=#ae4517>l</color><color=#a63815>l</color><color=#9e2b13>s</color></size></b>'),
-  new DisplayValueHeader('Deaths', '<b><size=30><color=#be5f1b>D</color><color=#b85519>e</color><color=#b24b17>a</color><color=#ac4115>t</color><color=#a63713>h</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>D</color><color=#b85519>e</color><color=#b24b17>a</color><color=#ac4115>t</color><color=#a63713>h</color><color=#a02d11>s</color></size></b>'),
-  new DisplayValueHeader('Spawns', '<b><size=30><color=#be5f1b>S</color><color=#b85519>p</color><color=#b24b17>a</color><color=#ac4115>w</color><color=#a63713>n</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>S</color><color=#b85519>p</color><color=#b24b17>a</color><color=#ac4115>w</color><color=#a63713>n</color><color=#a02d11>s</color></size></b>'),
-  new DisplayValueHeader('Scores', '<b><size=30><color=#be5f1b>S</color><color=#b85519>c</color><color=#b24b17>o</color><color=#ac4115>r</color><color=#a63713>e</color><color=#a02d11>s</color></size></b>', '<b><size=30><color=#be5f1b>S</color><color=#b85519>c</color><color=#b24b17>o</color><color=#ac4115>r</color><color=#a63713>e</color><color=#a02d11>s</color></size></b>'),
+  new DisplayValueHeader("Kills", "Statistics/Kills", "Statistics/Kills"),
+  new DisplayValueHeader("Deaths", "Statistics/Deaths", "Statistics/Deaths"),
+  new DisplayValueHeader("Spawns", "Statistics/Spawns", "Statistics/Spawns"),
+  new DisplayValueHeader("Scores", "Statistics/Scores", "Statistics/Scores")
 ];
 // * Обрабатываем список лидирующих, для команд с наилучшими - значениями по смертям. * //
 LeaderBoard.TeamWeightGetter.Set(function (t) {
