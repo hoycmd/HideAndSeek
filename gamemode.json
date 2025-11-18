@@ -63,7 +63,8 @@
                               "DisplayName": "<b><i><color=#0095B6>Раздел игроков</a></i></b>",
                               "Default": true,
                               "Order": 6
-                              
+                        },
+                        {
                                 "Name": "Blue",
                                 "DisplayName": "<b><color=#0000CD>Инвентарь</a> выживших: </b>",
                                 "Default": "PNusto",
