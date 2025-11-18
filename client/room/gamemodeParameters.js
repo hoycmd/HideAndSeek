@@ -1,5 +1,5 @@
 
-import { GameMode } from 'pixel_combats/room';
+import { GameMode, Inventory } from 'pixel_combats/room';
 
 // * Константы имён, объектов. * //
 const length = GameMode.Parameters.GetString('GameLength');
@@ -12,4 +12,11 @@ export function GameModeMatchTime() {
         case 'Min5MatchTime': return 301;
     }   
     return 421;
+}
+
+export function SetInventoryBlue() {
+ switch (GameMode.Parameters.GetString('Blue')) {
+     case 'PNusto': blueTeam.Inventory.Melee.Value = false; break;
+     case 'Melee': blueTeam.Inventory.Melee.Value = true; break;
+   }
 }
