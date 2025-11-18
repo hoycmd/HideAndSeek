@@ -41,7 +41,7 @@
                 "Dropdown": [
                         {  
                                 "Name": "Length",
-                                "DisplayName": "params.LengthGame",                       "Default": "Min7MatchTime",
+                                "DisplayName": "params.GameLength",                       "Default": "Min7MatchTime",
                                 "Order": 5,
                                 "Variants": [
                                         {
@@ -59,10 +59,15 @@
                                 ]
                         },
                         {
+                              "Name": "BlueTeam",
+                              "DisplayName": "<b><i><color=#0095B6>Раздел игроков</a></i></b>",
+                              "Default": true,
+                              "Order": 6
+                              
                                 "Name": "Blue",
                                 "DisplayName": "<b><color=#0000CD>Инвентарь</a> выживших: </b>",
                                 "Default": "PNusto",
-                                "Order": 6,
+                                "Order": 7,
                                 "Variants": [
                                         {
                                                 "Name": "PNusto",
