@@ -14,6 +14,9 @@
 
   "params.FriendliFire": "<b><color=#e32636>Френдли</a> фаер</b>",
   "params.LoosenBlocks": "<b><color=#e32636>Слабые</a> блоки</b>",
+  "params.PartialDesertction": "<b><color=#e32636>Частичные</a> блоки",
+  "params.MapRotation": "<b><color=#e32636>Ротация</a> карты</b>",
+  
   "Hint/MatchGame": "Матч сейчас начнется!",
   "Hint/WaitingPlayersCount2": "Что-бы начать игру, нужно: 2 игроков",
   "Hint/WaitingPlayerCount1": "Что-бы начать игру, нужен: 1 игрок",
