@@ -59,24 +59,18 @@
                                 ]
                         },
                         {
-                              "Name": "BlueTeam",
-                              "DisplayName": "<b><i><color=#0095B6>Раздел игроков</a></i></b>",
-                              "Default": true,
-                              "Order": 6
-                        },
-                        {
                                 "Name": "Blue",
-                                "DisplayName": "<b><color=#0000CD>Инвентарь</a> выживших: </b>",
+                                "DisplayName": "<b><color=#0095B6>Инвентарь</a> выживших:</b>",
                                 "Default": "PNusto",
                                 "Order": 7,
                                 "Variants": [
                                         {
                                                 "Name": "PNusto",
-                                                "DisplayName": "<b><color=#0000CD>Пустой</a> инвентарь</b>"
+                                                "DisplayName": "<b><color=#0095B6>Пустой</a> инвентарь</b>"
                                         },
                                         {
                                                 "Name": "Melee",
-                                                "DisplayName": "<b><color=#0000CD>Холодное</a> оружие</b>"
+                                                "DisplayName": "<b><color=#0095B6>Н</a>о<color=#0095B6>ж</a></b>"
                                         }
                                 ]
                         }
