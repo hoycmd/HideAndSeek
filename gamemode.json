@@ -41,8 +41,7 @@
                 "Dropdown": [
                         {  
                                 "Name": "Length",
-                                "DisplayName": "<b><color=#7CFC00>Длинна</a> матча:</b>",
-                                "Default": "Min7MatchTime",
+                                "DisplayName": "params.LengthGame",                       "Default": "Min7MatchTime",
                                 "Order": 5,
                                 "Variants": [
                                         {
