@@ -16,7 +16,7 @@
   "params.LoosenBlocks": "<b><color=#e32636>Слабые</a> блоки</b>",
   "params.PartialDesertction": "<b><color=#e32636>Частичные</a> блоки</b>",
   "params.MapRotation": "<b><color=#e32636>Ротация</a> карты</b>",
-  "params.GameLength": "<b><color=#e32636>Length</a> match:</b>",
+  "params.GameLength": "<b><color=#e32636>Длинна</a> матча:</b>",
   
   "Hint/MatchGame": "Матч сейчас начнется!",
   "Hint/WaitingPlayersCount2": "Что-бы начать игру, нужно: 2 игроков",
