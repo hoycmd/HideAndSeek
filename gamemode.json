@@ -14,25 +14,25 @@
                 "Bool": [
                         {
                                 "Name": "MapRotation",
-                                "DisplayName": "<b><color=#7CFC00>Смена</a> карт</b>",
+                                "DisplayName": "params.MapRotation",
                                 "Default": true,
                                 "Order": 1
                         },
                         {
                                 "Name": "FriendlyFire",
-                                "DisplayName": "<b><color=#7CFC00>Френдли</a> фаер</b>",
+                                "DisplayName": "params.FriendlyFire",
                                 "Default": false,
                                 "Order": 2
                         },
                         {
                                 "Name": "BlocksDamage",
-                                "DisplayName": "<b><color=#7CFC00>Частичные</a> блоки</b>",
+                                "DisplayName": "params.PartialDesertction",
                                 "Default": false,
                                 "Order": 3
                         },
                         {
                                 "Name": "LoosenBlocks",
-                                "DisplayName": "<b><color=#7CFC00>Слабые</a> блоки</b>",
+                                "DisplayName": "params.LoosenBlocks",
                                 "Default": false,
                                 "Order": 4
                         }
