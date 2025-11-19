@@ -238,7 +238,6 @@ function SetGameMode() {
  blueTeam.Ui.Hint.Value = "Hint/HidensBlueTeam";
  redTeam.Ui.Hint.Value = "Hint/SearchTeamBlue";
 
- d.SetInventoryBlue();
  blueTeam.Inventory.Secondary.Value = false;
  blueTeam.Inventory.Main.Value = false;
  blueTeam.Inventory.Explosive.Value = false;
