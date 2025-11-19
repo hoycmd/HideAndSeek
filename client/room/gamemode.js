@@ -1,7 +1,6 @@
-import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote, MapEditor } from 'pixel_combats/room';
+import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as d from './gamemodeParameters.js';
-import * as vote_types from 'pixel_combats/types/new_game_vote';
 
 try {
 
@@ -22,7 +21,6 @@ const WinTeamsTime = 16;
 const End0fMatchTime = 11;
 const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
-const VoteTime = 15;
 const WaitingModeStateValue = `WaitingMode`;
 const HideAndSeekStateValue = `HideAndSeek`;
 const GameStateValue = `Game`;
@@ -187,6 +185,7 @@ if (Players.Count > blueTeam.Count) Ui.GetContext().Hint.Value = "Hint/MatchGame
    break;
  case End0fMatchStateValue: 
   START_VOTE();
+  if (!GameMode.Parameters.GetBool('MapRotation')) RestartGame();
    break;
        }
 });
@@ -238,6 +237,7 @@ function SetGameMode() {
  blueTeam.Ui.Hint.Value = "Hint/HidensBlueTeam";
  redTeam.Ui.Hint.Value = "Hint/SearchTeamBlue";
 
+ d.SetInventoryBlue();
  blueTeam.Inventory.Secondary.Value = false;
  blueTeam.Inventory.Main.Value = false;
  blueTeam.Inventory.Explosive.Value = false;
@@ -308,11 +308,10 @@ if (v.Result === null) return;
 NewGameVote.OnResult.Add(OnVoteResult);
 
 function START_VOTE() {
- var variants [ 
-	new vote_types.SameVariant(),
-	new vote_types.OnlyUniqueVariants(true, false)];	
-if (MapRotation) variants.push(new vote_types.FromOfficialMapLists(3));	
-NewGameVote.Start(variants, VoteTime);
+ NewGameVote.Start({
+  Variants: [{ MapId: 0 }],
+  Timer: 15
+ }, MapRotation ? 3 : 0);
 }
 
 function RestartGame() {
@@ -335,4 +334,4 @@ function blueTeamAll(p) {
  for (const p of Players.All) { 
    p.PopUp(`${e.name}: ${e.message}: ${e.stack}`);
              }
- }
+}
