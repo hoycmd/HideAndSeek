@@ -309,10 +309,13 @@ if (v.Result === null) return;
 NewGameVote.OnResult.Add(OnVoteResult);
 
 function START_VOTE() {
- NewGameVote.Start({
-  Variants: [{ MapId: 0 }],
-  Timer: 15
- }, MapRotation ? 3 : 0);
+ var variants = [
+		new vote_types.SameVariant(),	// базовый вариант (тоже самое, что было)
+		new vote_types.OnlyUniqueVariants(true, false)]; // уникальность по картам, но не по спискам карт	
+		// если ротация карт включена, то добавляем 3 карты из всех официальных списков
+	if (MapRotation) variants.push(new vote_types.FromOfficialMapLists(3));
+	// запускаем голосование по запросам
+	NewGameVote.Start(variants, 15);
 }
 
 function RestartGame() {
