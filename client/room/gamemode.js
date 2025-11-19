@@ -22,6 +22,7 @@ const WinTeamsTime = 16;
 const End0fMatchTime = 11;
 const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
+const VoteTime = 15;
 const WaitingModeStateValue = `WaitingMode`;
 const HideAndSeekStateValue = `HideAndSeek`;
 const GameStateValue = `Game`;
