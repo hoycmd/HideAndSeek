@@ -1,5 +1,4 @@
-const { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } = room_lib;
-import * as room_lib from 'pixel_combats/room';
+import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote, MapEditor } from 'pixel_combats/room';
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as d from './gamemodeParameters.js';
 import * as vote_types from 'pixel_combats/types/new_game_vote';
@@ -308,10 +307,10 @@ if (v.Result === null) return;
 NewGameVote.OnResult.Add(OnVoteResult);
 
 function START_VOTE() {
- const variants [ 
+ var variants [ 
 	new vote_types.SameVariant(),
-	new vote_types.OnlyUniqueVariants(true, false)];
-if (MapRotation) variants.push(new vote_types.FromOfficialMapLists(3));
+	new vote_types.OnlyUniqueVariants(true, false)];	
+if (MapRotation) variants.push(new vote_types.FromOfficialMapLists(3));	
 NewGameVote.Start(variants, VoteTime);
 }
 
