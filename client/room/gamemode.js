@@ -1,6 +1,7 @@
 import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as d from './gamemodeParameters.js';
+import * as vote_types from './pixel_combats/types/new_game_vote';
 
 try {
 
@@ -185,7 +186,6 @@ if (Players.Count > blueTeam.Count) Ui.GetContext().Hint.Value = "Hint/MatchGame
    break;
  case End0fMatchStateValue: 
   START_VOTE();
-  if (!GameMode.Parameters.GetBool('MapRotation')) RestartGame();
    break;
        }
 });
@@ -308,10 +308,11 @@ if (v.Result === null) return;
 NewGameVote.OnResult.Add(OnVoteResult);
 
 function START_VOTE() {
- NewGameVote.Start({
-  Variants: [{ MapId: 0 }],
-  Timer: 15
- }, MapRotation ? 3 : 0);
+ const variants [ 
+	new vote_types.SameVariant(),
+	new vote_types.OnlyUniqueVariants(true, false)];
+if (MapRotation) variants.push(new vote_types.FromOfficialMapLists(3));
+NewGameVote.Start(variants, VoteTime);
 }
 
 function RestartGame() {
