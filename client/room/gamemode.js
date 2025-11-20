@@ -136,13 +136,12 @@ Damage.OnKill.Add(function(k,p) {
    }
 }); 
 
-const S = Timers.GetContext().Get('Scores');
-S.OnTimer.Add(function () {
+scores_timer.OnTimer.Add(function () {
  for (const p of Players.All) {
 if (p.Team == null) continue;
 	p.Properties.Scores.Value += 5;
    }
-  S.Restart(10);
+  scores_timer.Restart(10);
 });
 	
 const Timer = Timers.GetContext().Get('Timer');
