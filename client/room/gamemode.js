@@ -208,7 +208,6 @@ if (Players.Count > blueTeam.Count) Ui.GetContext().Hint.Value = "Hint/MatchGame
  Inventory.GetContext().Build.Value = false;
 
  mainTimer.Restart(4);
- scores_timer.Stop();
  TeamsBalancer.IsAutoBalance = false;
  blueTeamAll(p);
 }
