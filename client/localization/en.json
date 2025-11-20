@@ -20,7 +20,7 @@
 
   "params.5Minut": "<b><color=#e32636>5</a> minut</b>",
   "params.7Minut": "<b><color=#e32636>7</a> minut</b>",
-  "params.10Minut": "<b><color#e32636>10</a> minut</b>",
+  "params.10Minut": "<b><color=#e32636>10</a> minut</b>",
   
   "Hint/MatchGame": "The match is about to begin!",
   "Hint/WaitingPlayersCount2": "To start the game, you need: 2 players",
