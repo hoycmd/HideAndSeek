@@ -41,20 +41,20 @@
                 "Dropdown": [
                         {  
                                 "Name": "Length",
-                                "DisplayName": "params.GameLength",                       "Default": "Min7MatchTime",
+                                "DisplayName": "params.GameLength",                       
+                                "Default": "Min7MatchTime",
                                 "Order": 5,
                                 "Variants": [
                                         {
                                                 "Name": "Min10MatchTime",
-                                                "DisplayName": "<b>10 Minut <color=#7CFC00>۝</a></b>"
+                                                "DisplayName": "params.10Minut"
                                         },
                                         {
                                                 "Name": "Min5Matchme",
-                                                "DisplayName": "<b>7 Minut <color=#7CFC00>۝</a></b>"
-                                        },
+                                                "DisplayName": "params.5Minut"                                   },
                                         {
                                                 "Name": "Min7MatchTime",
-                                                "DisplayName": "<b>5 Munit <color=#7CFC00>۝</a></b>"
+                                                "DisplayName": "params.7Minut"
                                         }
                                 ]
                         },
