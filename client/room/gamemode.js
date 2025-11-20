@@ -38,6 +38,7 @@ const RedWinnerTeamLoosersBlueForHint = `Надзиратели, нашли вс
 const EndingeMatchForHint = `Конец, матча!`;
 const mainTimer = Timers.GetContext().Get(`Main`);
 const deadTimer = Timers.GetContext().Get('Timer');
+const scores_timer = Timers.GetContext().Get(`Scores`);
 const stateProp = Properties.GetContext().Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
