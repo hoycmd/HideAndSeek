@@ -17,6 +17,10 @@
   "params.PartialDesertction": "<b><color=#e32636>Частичные</a> блоки</b>",
   "params.MapRotation": "<b><color=#e32636>Ротация</a> карты</b>",
   "params.GameLength": "<b><color=#e32636>Длинна</a> матча:</b>",
+
+  "params.5Minut": "<b><color=#e32636>5</a> минут</b>",
+  "params.7Minut": "<b><color=#e32636>7</a> минут</b>",
+  "params.10Minut": "<b><color#e32636>10</a> минут</b>",
   
   "Hint/MatchGame": "Матч сейчас начнется!",
   "Hint/WaitingPlayersCount2": "Что-бы начать игру, нужно: 2 игроков",
