@@ -186,7 +186,6 @@ if (Players.Count > blueTeam.Count) Ui.GetContext().Hint.Value = "Hint/MatchGame
    break;
  case End0fMatchStateValue: 
   START_VOTE();
-  if (!GameMode.Parameters.GetBool('MapRotation')) RestartGame();
    break;
        }
 });
@@ -254,10 +253,10 @@ function SetGameMode() {
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
- blueTeam.Ui.Hint.Value = "Hint/LoserTeamRed";
- redTeam.Ui.Hint.Value = "Hint/LoserTeamRed";
+ Ui.GetContext().Hint.Value = "Hint/LoserTeamRed";
  blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
  redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
+ scores_timer.Stop();
 
  const inventory = Inventory.GetContext();
  inventory.Melee.Value = false;
@@ -273,10 +272,10 @@ function WinBlueTeam() {
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
- blueTeam.Ui.Hint.Value = "Hint/LoserTeamBlue";
- redTeam.Ui.Hint.Value = "Hint/LoserTeamBlue";
+ Ui.GetContext().Hint.Value = "Hint/LoserTeamBlue";
  redTeam.Properties.Get('Scores').Value += WINNER_SCORES;
  blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
+ scores_timer.Stop();
 
  const inventory = Inventory.GetContext();
  inventory.Melee.Value = false;
@@ -293,6 +292,7 @@ function WinRedTeam() {
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
  Ui.GetContext().Hint.Value = "Hint/EndMatch";
+ scores_timer.Stop();
 	
  const spawns = Spawns.GetContext();
  spawns.enable = false;
@@ -331,6 +331,8 @@ function blueTeamAll(p) {
 	if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);
     }
 }
+
+scores_timer.RestartLoop(40);
 	
 } catch (e) {
  for (const p of Players.All) { 
