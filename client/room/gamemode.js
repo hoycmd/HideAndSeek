@@ -1,6 +1,6 @@
 import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
-import * as d from './gamemodeParameters.js';
+import * as timer from './gamemodeParameters.js/default_timer.js';
 import * as vote_types from 'pixel_combats/types/new_game_vote';
 
 try {
@@ -17,7 +17,7 @@ try {
 room.PopupsEnable = true;
 const WaitingPlayersTime = 11;
 const HideAndSeekTime = 31;
-const GameModeTime = d.GameModeMatchTime();
+const GameModeTime = timer.game_mode_length_time();
 const WinTeamsTime = 16;
 const End0fMatchTime = 11;
 const WINNER_SCORES = 30;
@@ -27,15 +27,6 @@ const HideAndSeekStateValue = `HideAndSeek`;
 const GameStateValue = `Game`;
 const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
-const WaitingAllPlayersForHint = `Нужно кол-во игроков: ${(4 - Players.Count)}`;
-const ContextAllViborTeamsForHint = `Выберите, команду!`;
-const BlueIschetMestoHidengiliBegForHint = `Ищите место где спрятатся, или убегайте!`;
-const RedSleditGdeBlueHidengIliBegaetForHint = `Следите где спрячутся выжившие, или где убегают!`;
-const BlueHidendIliYrunsForHint = `Прячьтесь в укромном месте, или убегайте от надзирателей!`;
-const RedIschetBluePlayersForHint = `Найдите, всех выживших!`;
-const BlueWinnerTeamLoosersRedForHint = `Выжившие смогли продержатся, с надзирателями!`;
-const RedWinnerTeamLoosersBlueForHint = `Надзиратели, нашли всех выживших!`;
-const EndingeMatchForHint = `Конец, матча!`;
 const mainTimer = Timers.GetContext().Get(`Main`);
 const deadTimer = Timers.GetContext().Get('Timer');
 const scores_timer = Timers.GetContext().Get(`Scores`);
