@@ -1,16 +1,9 @@
-	
 import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as vote_types from 'pixel_combats/types/new_game_vote';
 import * as timer from 'default_timer.js';
 
-/*
-<< TnT >>
-Привет БОСС, тут нужно просто пофиксить Count, что-бы оно виднелись в табе, ну типо когда заходит игрок или уходит, я просто хз как это делать, ибо мой интелект щас занят разработкой карты.
-
-<< Boss >>
-Введите текст...
-*/
+try {
 	
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 room.PopupsEnable = true;
