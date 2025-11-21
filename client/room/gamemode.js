@@ -1,6 +1,6 @@
 import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
-import * as d from './gamemodeParameters.js';
+import * as d from './default_timer.js';
 import * as vote_types from 'pixel_combats/types/new_game_vote';
 
 try {
