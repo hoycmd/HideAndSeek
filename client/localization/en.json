@@ -12,7 +12,7 @@
   "Statistics/Spawns": "<b><size=30><color=#be5f1b>S</color><color=#b85519>p</color><color=#b24b17>a</color><color=#ac4115>w</color><color=#a63713>n</color><color=#a02d11>s</color></size></b>",
   "Statistics/Scores": "<b><size=30><color=#be5f1b>S</color><color=#b85519>c</color><color=#b24b17>o</color><color=#ac4115>r</color><color=#a63713>e</color><color=#a02d11>s</color></size></b>",
 
-  "params.FriendlyFire": "<b><color=#e32636>Friendly/a> fire</b>",
+  "params.FriendlyFire": "<b><color=#e32636>Friendly</a> fire</b>",
   "params.LoosenBlocks": "<b><color=#e32636>Weak</a> blocks</b>",
   "params.PartialDesertction": "<b><color=#e32636>Partial</a> blocks</b>",
   "params.MapRotation": "<b><color=#e32636>Rotation</a> map</b>",
