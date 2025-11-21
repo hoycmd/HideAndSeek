@@ -152,7 +152,7 @@ mainTimer.OnTimer.Add(function() {
 if (Players.Count < 3) {
 if (Players.Count == 1) Ui.GetContext().Hint.Value = "Hint/WaitingPlayersCount2";
 if (Players.Count == 2) Ui.GetContext().Hint.Value = "Hint/WaitingPlayerCount1";
-if (Players.Count > blueTeam.Count) Ui.GetContext().Hint.Value = "Hint/MatchGame";
+Ui.GetContext().Hint.Value = "Hint/MatchGame";
 	SetWaitingMode();
  } else {
 	SetHideAndSeek();
@@ -182,7 +182,7 @@ function SetWaitingMode(p) {
  stateProp.Value = WaitingModeStateValue;
  if (Players.Count == 1) Ui.GetContext().Hint.Value = "Hint/WaitingPlayersCount2";
  if (Players.Count == 2) Ui.GetContext().Hint.Value =  "Hint/WaitingPlayerCount1";
-if (Players.Count > blueTeam.Count) Ui.GetContext().Hint.Value = "Hint/MatchGame";
+ Ui.GetContext().Hint.Value = "Hint/MatchGame";
 	
  Inventory.GetContext().Melee.Value = false;
  Inventory.GetContext().Secondary.Value = false;
