@@ -1,15 +1,23 @@
 import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
+import * as d from './gamemodeParameters.js';
 import * as vote_types from 'pixel_combats/types/new_game_vote';
-import * as timer from 'default_timer.js';
 
 try {
+
+/*
+<< TnT >>
+Привет БОСС, тут нужно просто пофиксить Count, что-бы оно виднелись в табе, ну типо когда заходит игрок или уходит, я просто хз как это делать, ибо мой интелект щас занят разработкой карты.
+
+<< Boss >>
+Введите текст...
+*/
 	
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 room.PopupsEnable = true;
 const WaitingPlayersTime = 11;
 const HideAndSeekTime = 31;
-const GameModeTime = timer.game_mode_length_time();
+const GameModeTime = d.GameModeMatchTime();
 const WinTeamsTime = 16;
 const End0fMatchTime = 11;
 const WINNER_SCORES = 30;
@@ -19,9 +27,17 @@ const HideAndSeekStateValue = `HideAndSeek`;
 const GameStateValue = `Game`;
 const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
+const WaitingAllPlayersForHint = `Нужно кол-во игроков: ${(4 - Players.Count)}`;
+const ContextAllViborTeamsForHint = `Выберите, команду!`;
+const BlueIschetMestoHidengiliBegForHint = `Ищите место где спрятатся, или убегайте!`;
+const RedSleditGdeBlueHidengIliBegaetForHint = `Следите где спрячутся выжившие, или где убегают!`;
+const BlueHidendIliYrunsForHint = `Прячьтесь в укромном месте, или убегайте от надзирателей!`;
+const RedIschetBluePlayersForHint = `Найдите, всех выживших!`;
+const BlueWinnerTeamLoosersRedForHint = `Выжившие смогли продержатся, с надзирателями!`;
+const RedWinnerTeamLoosersBlueForHint = `Надзиратели, нашли всех выживших!`;
+const EndingeMatchForHint = `Конец, матча!`;
 const mainTimer = Timers.GetContext().Get(`Main`);
 const deadTimer = Timers.GetContext().Get('Timer');
-const scores_timer = Timers.GetContext().Get(`Scores`);
 const stateProp = Properties.GetContext().Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
@@ -120,12 +136,13 @@ Damage.OnKill.Add(function(k,p) {
    }
 }); 
 
-scores_timer.OnTimer.Add(function () {
+const S = Timers.GetContext().Get('Scores');
+S.OnTimer.Add(function () {
  for (const p of Players.All) {
 if (p.Team == null) continue;
 	p.Properties.Scores.Value += 5;
    }
-  scores_timer.Restart(10);
+  S.Restart(10);
 });
 	
 const Timer = Timers.GetContext().Get('Timer');
@@ -169,6 +186,7 @@ if (Players.Count > blueTeam.Count) Ui.GetContext().Hint.Value = "Hint/MatchGame
    break;
  case End0fMatchStateValue: 
   START_VOTE();
+  if (!GameMode.Parameters.GetBool('MapRotation')) RestartGame();
    break;
        }
 });
@@ -220,7 +238,7 @@ function SetGameMode() {
  blueTeam.Ui.Hint.Value = "Hint/HidensBlueTeam";
  redTeam.Ui.Hint.Value = "Hint/SearchTeamBlue";
 
- blueTeam.Inventory.Melee.Value = false;
+ d.SetInventoryBlue();
  blueTeam.Inventory.Secondary.Value = false;
  blueTeam.Inventory.Main.Value = false;
  blueTeam.Inventory.Explosive.Value = false;
@@ -236,10 +254,10 @@ function SetGameMode() {
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = "Hint/LoserTeamRed";
+ blueTeam.Ui.Hint.Value = "Hint/LoserTeamRed";
+ redTeam.Ui.Hint.Value = "Hint/LoserTeamRed";
  blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
  redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
- scores_timer.Stop();
 
  const inventory = Inventory.GetContext();
  inventory.Melee.Value = false;
@@ -255,10 +273,10 @@ function WinBlueTeam() {
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
- Ui.GetContext().Hint.Value = "Hint/LoserTeamBlue";
+ blueTeam.Ui.Hint.Value = "Hint/LoserTeamBlue";
+ redTeam.Ui.Hint.Value = "Hint/LoserTeamBlue";
  redTeam.Properties.Get('Scores').Value += WINNER_SCORES;
  blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
- scores_timer.Stop();
 
  const inventory = Inventory.GetContext();
  inventory.Melee.Value = false;
@@ -275,7 +293,6 @@ function WinRedTeam() {
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
  Ui.GetContext().Hint.Value = "Hint/EndMatch";
- scores_timer.Stop();
 	
  const spawns = Spawns.GetContext();
  spawns.enable = false;
@@ -314,11 +331,9 @@ function blueTeamAll(p) {
 	if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);
     }
 }
-
-scores_timer.RestartLoop(40);
 	
 } catch (e) {
  for (const p of Players.All) { 
    p.PopUp(`${e.name}: ${e.message}: ${e.stack}`);
              }
-}
+	 }
