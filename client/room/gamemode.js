@@ -152,7 +152,6 @@ mainTimer.OnTimer.Add(function() {
 if (Players.Count < 3) {
 if (Players.Count == 1) Ui.GetContext().Hint.Value = "Hint/WaitingPlayersCount2";
 if (Players.Count == 2) Ui.GetContext().Hint.Value = "Hint/WaitingPlayerCount1";
-Ui.GetContext().Hint.Value = "Hint/MatchGame";
 	SetWaitingMode();
  } else {
 	SetHideAndSeek();
@@ -180,8 +179,6 @@ SetWaitingMode();
 // * Состояние, игровых режимов игры. * //
 function SetWaitingMode(p) {
  stateProp.Value = WaitingModeStateValue;
- if (Players.Count == 1) Ui.GetContext().Hint.Value = "Hint/WaitingPlayersCount2";
- if (Players.Count == 2) Ui.GetContext().Hint.Value =  "Hint/WaitingPlayerCount1";
  Ui.GetContext().Hint.Value = "Hint/MatchGame";
 	
  Inventory.GetContext().Melee.Value = false;
@@ -192,7 +189,7 @@ function SetWaitingMode(p) {
 
  mainTimer.Restart(4);
  TeamsBalancer.IsAutoBalance = false;
- Spawns.GetContext().Enable = true;
+ Spawns.GetContext().enable = true;
  blueTeamAll(p);
 }
 function SetHideAndSeek() {
@@ -221,7 +218,7 @@ function SetGameMode() {
  blueTeam.Ui.Hint.Value = "Hint/HidensBlueTeam";
  redTeam.Ui.Hint.Value = "Hint/SearchTeamBlue";
 
- d.SetInventoryBlue();
+ blueTeam.Inventory.Melee.Value = false;
  blueTeam.Inventory.Secondary.Value = false;
  blueTeam.Inventory.Main.Value = false;
  blueTeam.Inventory.Explosive.Value = false;
@@ -314,6 +311,8 @@ function blueTeamAll(p) {
 	if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);
     }
 }
+
+S.RestartLoop(40);
 	
 } catch (e) {
  for (const p of Players.All) { 
