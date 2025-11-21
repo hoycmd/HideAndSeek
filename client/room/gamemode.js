@@ -4,14 +4,6 @@ import * as timer from './default_timer.js';
 import * as vote_types from 'pixel_combats/types/new_game_vote';
 
 try {
-
-/*
-<< TnT >>
-Привет БОСС, тут нужно просто пофиксить Count, что-бы оно виднелись в табе, ну типо когда заходит игрок или уходит, я просто хз как это делать, ибо мой интелект щас занят разработкой карты.
-
-<< Boss >>
-Введите текст...
-*/
 	
 // * Задаём константы, которые будут работать в режиме, для работоспособность игровых режимов. * //
 room.PopupsEnable = true;
@@ -191,8 +183,7 @@ function SetWaitingMode(p) {
  if (Players.Count == 1) Ui.GetContext().Hint.Value = "Hint/WaitingPlayersCount2";
  if (Players.Count == 2) Ui.GetContext().Hint.Value =  "Hint/WaitingPlayerCount1";
 if (Players.Count > blueTeam.Count) Ui.GetContext().Hint.Value = "Hint/MatchGame";
- Spawns.GetContext().Enable = true;
-
+	
  Inventory.GetContext().Melee.Value = false;
  Inventory.GetContext().Secondary.Value = false;
  Inventory.GetContext().Main.Value = false;
@@ -201,6 +192,7 @@ if (Players.Count > blueTeam.Count) Ui.GetContext().Hint.Value = "Hint/MatchGame
 
  mainTimer.Restart(4);
  TeamsBalancer.IsAutoBalance = false;
+ Spawns.GetContext().Enable = true;
  blueTeamAll(p);
 }
 function SetHideAndSeek() {
@@ -221,7 +213,7 @@ function SetHideAndSeek() {
  redTeam.Inventory.Build.Value = false;
 	
  mainTimer.Restart(41);
- Spawns.GetContext().Enable = true;
+ Spawns.GetContext().enable = true;
  Spawns.GetContext().Spawn();
 }
 function SetGameMode() {
