@@ -63,7 +63,8 @@ Teams.OnRequestJoinTeam.Add(p => {
  if (stateProp.Value == GameStateValue) redTeam.Add(p);
 else {
  blueTeam.Add(p);
-  } else Spawns.GetContext(p).Spawn();
+  }
+ Spawns.GetContext(p).Spawn();
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 });
