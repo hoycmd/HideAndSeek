@@ -58,23 +58,21 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
  return p.Properties.Get(`Kills`).Value;
 });
 
-// * Задаём вход в команды, для выбора команд - игроков. * //
+// * Быстрый заход в команду. * //
 Teams.OnRequestJoinTeam.Add(p => {
-
-});
-// * Сразу после входа в команду, респавним игрока - на спавн. * //
-Teams.OnPlayerChangeTeam.Add(function(p, t) {
  if (stateProp.Value == GameStateValue) redTeam.Add(p);
 else {
  blueTeam.Add(p);
-  }
+ Spawns.GetContext(p).Spawn();}});
+// * Респавним игрока после входа в команду. * //
+Teams.OnPlayerChangeTeam.Add(p => {
  Spawns.GetContext(p).Spawn();
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+ redTeam.Properties.Get('Deaths').Value = redTeam.Count;});
+// * За уход с команды, отномаем очки команды.  * //
+Players.OnPlayerDisconnected.Add(p => {
+ blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
-});
-Players.OnPlayerDisconnected.Add(function(p) {
-blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
-redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 });
 
 // * Обработчик спавнов: авто-бессмертие после респавна игрока. (Т3) * //
