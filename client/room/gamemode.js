@@ -59,26 +59,17 @@ LeaderBoard.PlayersWeightGetter.Set(function (p) {
 });
 
 // * Задаём вход в команды, для выбора команд - игроков. * //
-Teams.OnRequestJoinTeam.Add(function(p, t) { 
-  if (stateProp.Value == GameStateValue) {
-	  redTeam.Add(p);
-  } else {
-	blueTeam.Add(p);
-	p.Spawns.Spawn();
-  }
-}); 
-Teams.OnRequestJoinTeam.Add(function (p, t) {
-blueTeam.Spawns.SpawnPointsGroups.Add(1);
-redTeam.Spawns.SpawnPointsGroups.Add(2);
-redTeam.ContextedProperties.SkinType.Value = 0;
-blueTeam.ContextedProperties.SkinType.Value = 3;
-redTeam.ContextedProperties.StartBlocksCount.Value = 51;
+Teams.OnRequestJoinTeam.Add(p => {
+ if (stateProp.Value == GameStateValue) redTeam.Add(p);
+else {
+ blueTeam.Add(p);
+  } else Spawns.GetContext(p).Spawn();
+ blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
+ redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 });
 // * Сразу после входа в команду, респавним игрока - на спавн. * //
 Teams.OnPlayerChangeTeam.Add(function(p, t) {
 	p.Spawns.Spawn();
-	blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
-redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 });
 Players.OnPlayerDisconnected.Add(function(p) {
 blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
