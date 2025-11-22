@@ -152,6 +152,7 @@ mainTimer.OnTimer.Add(function() {
 if (Players.Count < 3) {
 if (Players.Count == 1) Ui.GetContext().Hint.Value = "Hint/WaitingPlayersCount2";
 if (Players.Count == 2) Ui.GetContext().Hint.Value = "Hint/WaitingPlayerCount1";
+Ui.GetContext().Hint.Value = "Hint/MatchGame";	
 	SetWaitingMode();
  } else {
 	SetHideAndSeek();
@@ -179,6 +180,8 @@ SetWaitingMode();
 // * Состояние, игровых режимов игры. * //
 function SetWaitingMode(p) {
  stateProp.Value = WaitingModeStateValue;
+ if (Players.Count == 1) Ui.GetContext().Hint.Value = "Hint/WaitingPlayersCount2";
+ if (Players.Count == 2) Ui.GetContext().Hint.Value = "Hint/WaitingPlayerCount1";
  Ui.GetContext().Hint.Value = "Hint/MatchGame";
 	
  Inventory.GetContext().Melee.Value = false;
