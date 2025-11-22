@@ -94,7 +94,7 @@ Spawns.GetContext().OnSpawn.Add(p => {
  p.Timers.Get('Immortality').Restart(4);
 });
 // * Если стёк таймер бессмертия, то отключаем защиту. * //
-Timers.GetContext().OnPlayerTimer.Add(t => {
+Timers.OnPlayerTimer.Add(t => {
  if (t.Id != 'Immortality') return t.Player.Properties.Immortality.Value = false;
 });
 	
