@@ -92,7 +92,7 @@ Timers.OnPlayerTimer.Add(function(t) {
 });
 
 // * Обработчик спавнов: авто-бессмертие после респавна игрока. (Т3) * //
-Spawns.GetContext().OnSpawn.Add(function(p => {
+Spawns.GetContext().OnSpawn.Add(function(p) {
 // * Если игрок вне команды, то неначисляем спавны. * //
 if (p.Team == null) continue;
 // * Засчёт спавнов игрока после респавна. * //
