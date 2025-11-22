@@ -100,9 +100,10 @@ Spawns.OnSpawn.Add(p => {
 // * Бессмертие игрока после респавна. * //
  p.Properties.Immortality.Value = true;
  p.Timers.Get('Immortality').Restart(4);
+});
 // * Если стёк таймер бессмертия, то отключаем защиту. * //
- if (p.Timer.Id != 'Immortality') return;
- p.Timer.Properties.Immortality.Value = false;
+Timers.OnPlayerTimer.Add(t => {
+ if (t.id != 'Immortality') return t.Player.Properties.Immortality.Value = false;
 });
 	
 // * Обработчик смертей. * //
