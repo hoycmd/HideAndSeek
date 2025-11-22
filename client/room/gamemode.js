@@ -47,21 +47,17 @@ LeaderBoard.PlayerLeaderBoardValues = [
   new DisplayValueHeader("Kills", "Statistics/Kills", "Statistics/Kills"),
   new DisplayValueHeader("Deaths", "Statistics/Deaths", "Statistics/Deaths"),
   new DisplayValueHeader("Spawns", "Statistics/Spawns", "Statistics/Spawns"),
-  new DisplayValueHeader("Scores", "Statistics/Scores", "Statistics/Scores")
-];
-// * Обрабатываем список лидирующих, для команд с наилучшими - значениями по смертям. * //
-LeaderBoard.TeamWeightGetter.Set(function (t) {
- return t.Properties.Get(`Deaths`).Value;
-});
-// * Список лидирующих, для игроков по лучшими значениями дл киллов. * //
-LeaderBoard.PlayersWeightGetter.Set(function (p) {
+  new DisplayValueHeader("Scores", "Statistics/Scores", "Statistics/Scores")];
+// * Списки игроков, за наибольшие/наилучшие смерти/киллы у игрока в команде. * //
+LeaderBoard.TeamWeightGetter.Set(t => {
+ return t.Properties.Get(`Deaths`).Value;});
+LeaderBoard.PlayersWeightGetter.Set(p => {
  return p.Properties.Get(`Kills`).Value;
 });
 
 // * Быстрый заход в команду. * //
 Teams.OnRequestJoinTeam.Add(p => {
- if (stateProp.Value == GameStateValue) redTeam.Add(p);
-else {
+ if (stateProp.Value == GameStateValue) redTeam.Add(p);else {
  blueTeam.Add(p);
  Spawns.GetContext(p).Spawn();}});
 // * Респавним игрока после входа в команду. * //
