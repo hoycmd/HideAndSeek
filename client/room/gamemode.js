@@ -96,7 +96,7 @@ Timers.OnPlayerTimer.Add(function(t) {
 });
 
 // * Обработчик спавнов: авто-бессмертие после респавна игрока. (Т3) * //
-Spawns.OnSpawn.Add(function(p) {
+Spawns.OnSpawn.Add(function(p => {
 // * Засчёт спавнов игрока после респавна. * //
 ++p.Properties.Spawns.Value;
  // * Бессмертие игрока после респавна. * //
