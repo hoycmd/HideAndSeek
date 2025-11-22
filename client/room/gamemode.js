@@ -85,10 +85,6 @@ blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 });
 
-Spawns.GetContext().OnSpawn.Add(function(p) {
- p.Properties.Immortality.Value = true;
- p.Timers.Get('Immortality').Restart(4);
-});
 // * Обработчик бессмертия игрока, после респавна. * //
 Timers.OnPlayerTimer.Add(function(t) {
  if (t.Id != `Immortality`) return;
@@ -96,12 +92,14 @@ Timers.OnPlayerTimer.Add(function(t) {
 });
 
 // * Обработчик спавнов: авто-бессмертие после респавна игрока. (Т3) * //
-Spawns.OnSpawn.Add(function(p => {
+Spawns.GetContext().OnSpawn.Add(p => {
+ // Если игрок вне команды, то спавны не начисляем. * //
+ if (p.Team == null) continue;
 // * Засчёт спавнов игрока после респавна. * //
 ++p.Properties.Spawns.Value;
  // * Бессмертие игрока после респавна. * //
-// p.Properties.Immortality.Value = true;
-// p.Timers.Get('Immortality').Restart(4);
+ p.Properties.Immortality.Value = true;
+ p.Timers.Get('Immortality').Restart(4);
 });
 	
 // * Обработчик смертей. * //
