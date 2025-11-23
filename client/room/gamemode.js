@@ -302,11 +302,6 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
 }
-function blueTeamAll(p) {
- for (const p of Players.All) {
-	if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);
-    }
-}
 	
 } catch (e) {
  for (var p of Players.All) { 
