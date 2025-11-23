@@ -157,6 +157,8 @@ mainTimer.OnTimer.Add(t => {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
 if (Players.Count < 2) {
+    if (Players.Count == 1) ui.Hint.Value = "Hint/WaitingPlayersCount2";
+    if (Players.Count == 2) ui.Hint.Value = "Hint/WaitingPlayerCount1";
    SetWaitingMode();
  } else SetHideAndSeek();
    break;
@@ -181,8 +183,6 @@ SetWaitingMode();
 // * Состояние, игровых режимов игры. * //
 function SetWaitingMode(p) {
  stateProp.Value = WaitingModeStateValue;
- if (Players.Count == 1) ui.Hint.Value = "Hint/WaitingPlayersCount2";
- if (Players.Count == 2) ui.Hint.Value = "Hint/WaitingPlayerCount1";
  ui.Hint.Value = "Hint/MatchGame";
 	
  Inventory.GetContext().Melee.Value = false;
