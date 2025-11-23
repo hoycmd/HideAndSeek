@@ -8,7 +8,7 @@ try {
 room.PopupsEnable = true;
 
 // * длинна таймера каждого режима: отдальный отсчёт времени в режиме. * //
-const WaitingPlayersTime = 10;
+const WaitingPlayersTime = 5;
 const HideAndSeekTime = 40;
 const GameModeTime = timer.game_mode_length_time(); // * Выбор класса таймера. * //
 const WinTeamsTime = 10;
@@ -194,7 +194,7 @@ function SetWaitingMode() {
  Inventory.GetContext().Explosive.Value = false;
  Inventory.GetContext().Build.Value = false;
 
- mainTimer.Restart(4);
+ mainTimer.Restart(WaitingPlayersTime);
  spawns.enable = true;
 }
 function SetHideAndSeek() {
@@ -214,7 +214,7 @@ function SetHideAndSeek() {
  Inventory.GetContext(redTeam).Explosive.Value = false;
  Inventory.GetContext(redTeam).Build.Value = false;
 		
- mainTimer.Restart(41);
+ mainTimer.Restart(HideAndSeekTime);
  spawns.enable = true;
  spawns.Spawn();
 }
@@ -252,7 +252,7 @@ function WinBlueTeam() {
  spawns.Spawn();
  damage.DamageOut.Value = false;
  damage.FriendlyFire.Value = false;
- mainTimer.Restart(11);
+ mainTimer.Restart(WinTeamsTime);
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
@@ -269,7 +269,7 @@ function WinRedTeam() {
  spawns.Spawn();
  damage.DamageOut.Value = false;
  damage.FriendlyFire.Value = false;
- mainTimer.Restart(11);
+ mainTimer.Restart(WinTeamsTime);
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
@@ -279,7 +279,7 @@ function SetEnd0fMatch() {
  spawns.Despawn();
 
  Game.GameOver(LeaderBoard.GetTeams());
- mainTimer.Restart(11);
+ mainTimer.Restart(End0fMatchTime);
 }
 
 function OnVoteResult(v) {
