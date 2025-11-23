@@ -21,7 +21,8 @@
   "params.5Minut": "<b><color=#e32636>5</a> минут</b>",
   "params.7Minut": "<b><color=#e32636>7</a> минут</b>",
   "params.10Minut": "<b><color=#e32636>10</a> минут</b>",
-  
+
+  "Hint/TeamsRequest": "Выберите, команду!",
   "Hint/MatchGame": "Матч сейчас начнется!",
   "Hint/WaitingPlayersCount2": "Что-бы начать игру, нужно: 2 игроков",
   "Hint/WaitingPlayerCount1": "Что-бы начать игру, нужен: 1 игрок",
