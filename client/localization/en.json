@@ -23,9 +23,7 @@
   "params.10Minut": "<b><color=#e32636>10</a> minut</b>",
 
   "Hint/TeamsRequest": "Select, team!",
-  "Hint/MatchGame": "The match is about to begin!",
-  "Hint/WaitingPlayersCount2": "To start the game, you need: 2 players",
-  "Hint/WaitingPlayerCount1": "To start the game, you need: 1 player",
+  "Hint/MatchGame": "To start a match, you need: 3 players!",
   "Hint/SearchPlaceBlue": "Find a secluded spot and hide!",
   "Hint/SearchWhereHidBlue": "Watch where, the survivors are hiding!",
   "Hint/HidensBlueTeam": "Hide from the guards!",
