@@ -109,9 +109,7 @@ Damage.OnKill.Add(p, k => {
 
 const scores_timer = Timers.GetContext().Get('Scores');
 // * Таймер обработчика очков, за время в комнате. * //
-scores_timer.OnTimer.Add(t => {
- // * Ограничители игровых режимов. * //
-if (stateProp.Value != WaitingModeStateValue && stateProp.Value != WinTeamsStateValue) return;
+scores_timer.OnTimer.Add(function () {
  // * Выводим макс игроков в комнате. * //
  Players.All.forEach(p => {
 if (p.Team === null) continue;  // * Если игрок вне команд, то очки не начисляются. //
