@@ -181,7 +181,8 @@ SetWaitingMode();
 function SetWaitingMode(p) {
  stateProp.Value = WaitingModeStateValue;
  if (Players.Count == 1) ui.Hint.Value = "Hint/WaitingPlayersCount2";
- if (Players.Count == 2) ui.Hint.Value = "Hint/WaitingPlayerCount1"; else ui.Hint.Value = "Hint/MatchGame";
+ if (Players.Count == 2) ui.Hint.Value = "Hint/WaitingPlayerCount1";
+ ui.Hint.Value = "Hint/MatchGame";
 	
  Inventory.GetContext().Melee.Value = false;
  Inventory.GetContext().Secondary.Value = false;
@@ -191,7 +192,6 @@ function SetWaitingMode(p) {
 
  mainTimer.Restart(4);
  spawns.enable = true;
- blueTeam(p);
 }
 function SetHideAndSeek() {
  stateProp.Value = HideAndSeekStateValue;
