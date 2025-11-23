@@ -92,7 +92,8 @@ spawns.OnSpawn.Add(p => {
 });
 // * Если стёк таймер бессмертия, то отключаем защиту. * //
 Timers.OnPlayerTimer.Add(t => {
- if (t.Id != 'Immortality') return t.Player.Properties.Immortality.Value = false;
+ if (t.Id != 'Immortality') return;
+ t.Player.Properties.Immortality.Value = false;
 });
 	
 // * Обработчик смертей: по правилам (Т3). * //
@@ -149,11 +150,11 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
   // * Событие у синих: если все синие пойманы, игра завершается в пользу красных. * //
   if (blueTeam.Count < 1 && blueTeam.Count <= 0 && redTeam.Count >= 1) {
-   return WinRedTeam();
+   WinRedTeam(); return;
  }
   // * Событие у красных: если основной таймер истёк, то игра завершается в пользу синих. * //
   if (mainTimer <= 0 || blueTeam.Count >= 1) {
-   return WinBlueTeam();	
+   WinBlueTeam(); return;	
  }       
  // * Интеврал таймера игры. * //
  game_timer.RestartLoop(11);
@@ -245,8 +246,8 @@ function SetGameMode() {
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
  ui.Hint.Value = "Hint/LoserTeamRed";
- blueTeam.Properties.Scores.Value += WINNER_SCORES;
- redTeam.Properties.Scores.Value += LOOSER_SCORES;	
+ blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
+ redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
 
  Inventory.GetContext().Melee.Value = false;
  Inventory.GetContext().Secondary.Value = false;
@@ -262,8 +263,8 @@ function WinBlueTeam() {
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
  ui.Hint.Value = "Hint/LoserTeamBlue";
- redTeam.Properties.Scores.Value += WINNER_SCORES;
- blueTeam.Properties.Scores.Value += LOOSER_SCORES;	
+ redTeam.Properties.Get('Scores').Value += WINNER_SCORES;
+ blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
 
  Inventory.GetContext().Melee.Value = false;
  Inventory.GetContext().Secondary.Value = false;
