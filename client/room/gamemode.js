@@ -32,10 +32,10 @@ const scores_timer = timers.Get('Scores');
 const stateProp = properties.Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
-const MapRotation = gamemodeParameters.GetString('MapRotation');
-damage.FriendlyFire.Value = gamemodeParameters.GetString(`FriendlyFire`);
-BreackGraph.Damage = gamemodeParameters.GetString(`BlocksDamage`);
-BreackGraph.WeakBlocks = gamemodeParameters.GetString(`LoosenBlocks`);
+const MapRotation = gamemodeParameters.GetBool('MapRotation');
+damage.FriendlyFire.Value = gamemodeParameters.GetBool(`FriendlyFire`);
+BreackGraph.Damage = gamemodeParameters.GetBool(`BlocksDamage`);
+BreackGraph.WeakBlocks = gamemodeParameters.GetBool(`LoosenBlocks`);
 
 // * Опции игровых режимов. * //
 damage.DamageOut.Value = true;
