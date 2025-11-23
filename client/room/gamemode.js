@@ -104,6 +104,7 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
  ++p.Properties.Deaths.Value;
 // * После каждой смерти синих, они становятся красными. (Т3) * //
 if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p); return;
+if (p.Team === null) continue; // * Если игроки в не команд, то очки не начисляем. * //
  // * Макс синих и красных в смертях. * //
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
@@ -126,6 +127,7 @@ scores_timer.OnTimer.Add(t => {
  // * Выводим макс игроков в комнате. * //
  Players.All.forEach(p => {
  // * Начисляем очки игроку, за время в команте. * //
+	if (p.Team === null) continue; // * Если игроки в не команд, то очки не начисляем. * //
 	p.Properties.Scores.Value += 5;
 });
  // * Запуск отсчёта таймера: 10 сек. * //
@@ -158,7 +160,7 @@ mainTimer.OnTimer.Add(t => {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
 if (Players.Count < 2) {
-   return SetWaitingMode();
+   SetWaitingMode();
  } else SetHideAndSeek();
    break;
   case HideAndSeekStateValue:
