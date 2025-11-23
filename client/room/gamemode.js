@@ -1,6 +1,6 @@
 import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
-import * as game_timer from './default_timer.js';
+import * as default_timer from './default_timer.js';
 import * as vote_types from 'pixel_combats/types/new_game_vote';
 
 try {
@@ -10,7 +10,7 @@ room.PopupsEnable = true;
 // * длинна таймера каждого режима: отдальный отсчёт времени в режиме. * //
 const WaitingPlayersTime = 11;
 const HideAndSeekTime = 31;
-const GameModeTime = game_timer.game_mode_length_time(); // * Выбор класса таймера. * //
+const GameModeTime = default_timer.game_mode_length_time(); // * Выбор класса таймера. * //
 const WinTeamsTime = 16;
 const End0fMatchTime = 11;
 
