@@ -1,4 +1,4 @@
-import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
+import { Players, room, ScoreInfo, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
 import * as timer from './default_timer.js';
 import * as vote_types from 'pixel_combats/types/new_game_vote';
@@ -111,13 +111,20 @@ if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p); ret
 });
 
 // * Обработчик киллов: дальний отсчёт по убийству * //
-Damage.OnKill.Add(function (p, k) {
+Damage.OnKill.Add(function (p, k, r) {
  // * Счётчик засчитывания киллов игрока. * //
  if (p.Id !== k.Id) ++p.Properties.Kills.Value;
   // * Выводим очки игроку: за убийста другово. * //
   p.Properties.Scores.Value += 10;
-}); 
-
+  // * Визуальное начисление очков. * //
+  ScoreInfo.Show(k, {
+	Type: 2, 
+	WeaponId: r.KillHit ? r.WeaponID : 0,
+	Scores: 10,
+	KillHeadshot: !!(r.KillHit && r.KillHit.IsHeadShot === true)
+  });
+}
+			
 // * Таймер обработчика очков, за время в комнате. * //
 scores_timer.OnTimer.Add(t => {
  // * Ограничители игровых режимов. * //
