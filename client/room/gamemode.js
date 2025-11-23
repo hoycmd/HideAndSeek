@@ -190,7 +190,9 @@ function SetWaitingMode() {
  Inventory.GetContext().Build.Value = false;
 
  Players.All.forEach(p => { 
-  if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);  mainTimer.Restart(WaitingPlayersTime);
+  if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);
+ });
+ mainTimer.Restart(WaitingPlayersTime);
  spawns.enable = true;
 }
 function SetHideAndSeek() {
