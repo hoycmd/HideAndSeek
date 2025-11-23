@@ -23,7 +23,7 @@
   "params.10Minut": "<b><color=#e32636>10</a> минут</b>",
 
   "Hint/TeamsRequest": "Выберите, команду!",
-  "Hint/MatchGame": "Матч сейчас начнется!",
+  "Hint/MatchGame": "Для начала матча, нужно: 3 игроков!",
   "Hint/WaitingPlayersCount2": "Что-бы начать игру, нужно: 2 игроков",
   "Hint/WaitingPlayerCount1": "Что-бы начать игру, нужен: 1 игрок",
   "Hint/SearchPlaceBlue": "Найдите укромное место и спрячьтесь!",
