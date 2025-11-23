@@ -112,7 +112,7 @@ const scores_timer = Timers.GetContext().Get('Scores');
 scores_timer.OnTimer.Add(function () {
  // * Выводим макс игроков в комнате. * //
  Players.All.forEach(p => {
-if (p.Team === null) continue;  // * Если игрок вне команд, то очки не начисляются. //
+//if (p.Team === null) continue;  // * Если игрок вне команд, то очки не начисляются. //
  // * Начисляем очки игроку, за время в команте. * //
 	p.Properties.Scores.Value += 5;
 });
@@ -307,7 +307,7 @@ function blueTeamAll(p) {
     }
 }
 
-S.RestartLoop(40);
+scores_timer.RestartLoop(40);
 	
 } catch (e) {
  for (var p of Players.All) { 
