@@ -158,7 +158,7 @@ mainTimer.OnTimer.Add(t => {
   case WaitingModeStateValue:
 if (Players.Count < 3) {
    SetWaitingMode();
- } else { SetHideAndSeek();
+ } else SetHideAndSeek();
    break;
   case HideAndSeekStateValue:
    SetGameMode();
