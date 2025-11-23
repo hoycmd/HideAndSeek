@@ -16,7 +16,7 @@ const End0fMatchTime = 11;
 
 const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
-const ui = Ui.GetContext(); const damage = Damage.GetContext(); const properties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timers = Timers.GetContext(); 
+const ui = Ui.GetContext(); const damage = Damage.GetContext(); const properties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timers = Timers.GetContext(); const gamemodeParameters = GameMode.Parameters;
 
 // * Имена используемых объектов. * //
 const WaitingModeStateValue = `WaitingMode`;
@@ -32,10 +32,10 @@ const scores_timer = timers.Get('Scores');
 const stateProp = properties.Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
-const MapRotation = GameMode.Parameters.GetBool('MapRotation');
-damage.FriendlyFire.Value = GameMode.Parameters.GetBool(`FriendlyFire`);
-BreackGraph.Damage = GameMode.Parameters.GetBool(`BlocksDamage`);
-BreackGraph.WeakBlocks = GameMode.Parameters.GetBool(`LoosenBlocks`);
+const MapRotation = gamemodeParameters.GetString('MapRotation');
+damage.FriendlyFire.Value = gamemodeParameters.GetString(`FriendlyFire`);
+BreackGraph.Damage = gamemodeParameters.GetString(`BlocksDamage`);
+BreackGraph.WeakBlocks = gamemodeParameters.GetString(`LoosenBlocks`);
 
 // * Опции игровых режимов. * //
 damage.DamageOut.Value = true;
