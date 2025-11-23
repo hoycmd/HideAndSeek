@@ -84,7 +84,7 @@ Timers.OnPlayerTimer.Add(t => {
  if (t.Id != 'Immortality') return t.Player.Properties.Immortality.Value = false;
 });
 	
-// * Обработчик смертей. * //
+// * Обработчик смертей: по правилам (Т3). * //
 Damage.OnDeath.Add(p => {
  // * Ограничители игровых режимов. * //
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) return;
@@ -100,20 +100,26 @@ if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p); ret
 });
 
 // * Обработчик киллов. * //
-Damage.OnKill.Add(function(k,p) {
- if (p.id !== k.id) { 
- ++p.Properties.Kills.Value;
-  p.Properties.Scores.Value += 50;
-   }
+Damage.OnKill.Add(p, k => {
+ // * Счётчик засчитывания киллов игрока. * //
+ if (p.Id !== k.Id) ++p.Properties.Kills.Value;
+  // * Выводим очки игроку: за убийста другово. * //
+  p.Properties.Scores.Value += 10;
 }); 
 
-const S = Timers.GetContext().Get('Scores');
-S.OnTimer.Add(function () {
- for (const p of Players.All) {
-if (p.Team == null) continue;
+const scores_timer = Timers.GetContext().Get('Scores');
+// * Таймер обработчика очков, за время в комнате. * //
+scores_timer.OnTimer.Add(t => {
+ // * Ограничители игровых режимов. * //
+if (stateProp.Value != WaitingModeStateValue && stateProp.Value != WinTeamsStateValue) return;
+ // * Выводим макс игроков в комнате. * //
+ Players.All.forEach(p => {
+if (p.Team === null) continue;  // * Если игрок вне команд, то очки не начисляются. //
+ // * Начисляем очки игроку, за время в команте. * //
 	p.Properties.Scores.Value += 5;
-   }
-  S.Restart(10);
+});
+ // * Запуск отсчёта таймера: 10 сек. * //
+  scores_timer.Restart(10);
 });
 	
 const Timer = Timers.GetContext().Get('Timer');
