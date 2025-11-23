@@ -1,6 +1,6 @@
 import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
-import * as game_timer from './default_timer.js';
+import * as timer from './default_timer.js';
 import * as vote_types from 'pixel_combats/types/new_game_vote';
 
 try {
@@ -10,13 +10,13 @@ room.PopupsEnable = true;
 // * длинна таймера каждого режима: отдальный отсчёт времени в режиме. * //
 const WaitingPlayersTime = 11;
 const HideAndSeekTime = 31;
-const GameModeTime = game_timer.game_mode_length_time(); // * Выбор класса таймера. * //
+const GameModeTime = timer.game_mode_length_time(); // * Выбор класса таймера. * //
 const WinTeamsTime = 16;
 const End0fMatchTime = 11;
 
 const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
-const ui = Ui.GetContext(); const damage = Damage.GetContext(); const properties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timer = Timers.GetContext(); 
+const ui = Ui.GetContext(); const damage = Damage.GetContext(); const properties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timers = Timers.GetContext(); 
 
 // * Имена используемых объектов. * //
 const WaitingModeStateValue = `WaitingMode`;
@@ -26,9 +26,9 @@ const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
 
 // * обработчики классов: константы переменных таймера и характеристик. * //
-const mainTimer = timer.Get(`Main`);
-const game_timer = timer.Get('GameTimer');
-const scores_timer = timer.Get('Scores');
+const mainTimer = timers.Get(`Main`);
+const game_timer = timers.Get('GameTimer');
+const scores_timer = timers.Get('Scores');
 const stateProp = properties.Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
