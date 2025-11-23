@@ -99,8 +99,8 @@ if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p); ret
  Spawns.GetContext(p).Spawn();
 });
 
-// * Обработчик киллов. * //
-Damage.OnKill.Add(p, k => {
+// * Обработчик киллов: дальний отсчёт по убийству * //
+Damage.OnKill.Add(function (p, k) {
  // * Счётчик засчитывания киллов игрока. * //
  if (p.Id !== k.Id) ++p.Properties.Kills.Value;
   // * Выводим очки игроку: за убийста другово. * //
@@ -110,6 +110,8 @@ Damage.OnKill.Add(p, k => {
 const scores_timer = Timers.GetContext().Get('Scores');
 // * Таймер обработчика очков, за время в комнате. * //
 scores_timer.OnTimer.Add(t => {
+ // * Ограничители игровых режимов. * //
+ if (stateProp.Value != WaitingModeStateValue && stateProp.Value != WinTeamsStateValue && stateProp.Value != End0fMatchStateValue) return;
  // * Выводим макс игроков в комнате. * //
  Players.All.forEach(p => {
  // * Начисляем очки игроку, за время в команте. * //
