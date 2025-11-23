@@ -123,7 +123,7 @@ Damage.OnKill.Add(function (p, k, r) {
 	Scores: 10,
 	KillHeadshot: !!(r.KillHit && r.KillHit.IsHeadShot === true)
   });
-}
+});
 			
 // * Таймер обработчика очков, за время в комнате. * //
 scores_timer.OnTimer.Add(t => {
