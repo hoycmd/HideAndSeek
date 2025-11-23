@@ -137,8 +137,6 @@ scores_timer.OnTimer.Add(t => {
 });
  // * Запуск отсчёта таймера: 10 сек. * //
   scores_timer.Restart(10);
-  // * Интервал таймера очков. * //
- scores_timer.RestartLoop(40);
 });
 	
  // * Таймер после продолжения игры с игроками в командах. (Т3) * //
@@ -156,9 +154,9 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
   if (mainTimer <= 0 || blueTeam.Count >= 1) {
    WinBlueTeam(); return;	
  }       
- // * Интеврал таймера игры. * //
- game_timer.RestartLoop(11);
-});
+}); 
+// * Интеврал таймера игры. * //
+game_timer.RestartLoop(11);
 	
 // * Основной таймер, переключения режимов игры. * //
 mainTimer.OnTimer.Add(t => {
@@ -312,6 +310,9 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
 }
+
+// * Интервал таймера очков. * //
+ scores_timer.RestartLoop(40);
 	
 } catch (e) {
  for (var p of Players.All) { 
