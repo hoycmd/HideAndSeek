@@ -119,6 +119,8 @@ scores_timer.OnTimer.Add(t => {
 });
  // * Запуск отсчёта таймера: 10 сек. * //
   scores_timer.Restart(10);
+  // * Интервал таймера очков. * //
+ scores_timer.RestartLoop(40);
 });
 	
 const Timer = Timers.GetContext().Get('Timer');
@@ -307,8 +309,6 @@ function blueTeamAll(p) {
 	if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);
     }
 }
-
-scores_timer.RestartLoop(40);
 	
 } catch (e) {
  for (var p of Players.All) { 
