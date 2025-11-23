@@ -65,9 +65,11 @@ LeaderBoard.PlayersWeightGetter.Set(p => {
 // * Быстрый заход в команду. * //
 Teams.OnRequestJoinTeam.Add(p => {
  // * Если после старта входят игроки, то выдаём команду красную. * //
- if (stateProp.Value == GameStateValue) redTeam.Add(p);else { // * До старта матча, вход разрешен для синих. * //
+ if (stateProp.Value == GameStateValue) { redTeam.Add(p);
+  } else { // * До старта матча, вход разрешен для синих. * //
  blueTeam.Add(p);
- Spawns.GetContext(p).Spawn();}}); // * Быстрый респаун и вход в синию команду. * //
+ Spawns.GetContext(p).Spawn();}
+}); // * Быстрый респаун и вход в синию команду. * //
 // * Респавним игрока после входа в команду. * //
 Teams.OnPlayerChangeTeam.Add(p => {
  // * Моментальный респаун игроков. * //
@@ -191,7 +193,6 @@ function SetWaitingMode(p) {
  Inventory.GetContext().Build.Value = false;
 
  mainTimer.Restart(4);
- blueTeam(p);
  spawns.enable = true;
 }
 function SetHideAndSeek() {
@@ -302,11 +303,6 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Spawns.SpawnPointsGroups.Add(TeamSpawnPointGroup);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
-}
-function blueTeam(p) {
- Players.All.forEach(p => {
-  if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);
-     });
 }
 	
 } catch (e) {
