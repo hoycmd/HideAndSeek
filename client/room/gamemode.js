@@ -100,7 +100,7 @@ if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p); ret
 });
 
 // * Обработчик киллов. * //
-Damage.OnKill.Add(p, k => {
+Damage.OnKill.Add(function(p, k) {
  // * Счётчик засчитывания киллов игрока. * //
  if (p.Id !== k.Id) ++p.Properties.Kills.Value;
   // * Выводим очки игроку: за убийста другово. * //
