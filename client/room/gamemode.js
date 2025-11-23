@@ -8,11 +8,11 @@ try {
 room.PopupsEnable = true;
 
 // * длинна таймера каждого режима: отдальный отсчёт времени в режиме. * //
-const WaitingPlayersTime = 11;
-const HideAndSeekTime = 31;
+const WaitingPlayersTime = 10;
+const HideAndSeekTime = 40;
 const GameModeTime = timer.game_mode_length_time(); // * Выбор класса таймера. * //
-const WinTeamsTime = 16;
-const End0fMatchTime = 11;
+const WinTeamsTime = 10;
+const End0fMatchTime = 5;
 
 const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
@@ -182,7 +182,7 @@ if (Players.Count < 3) {
 SetWaitingMode();
 
 // * Состояние, игровых режимов игры. * //
-function SetWaitingMode(p) {
+function SetWaitingMode() {
  stateProp.Value = WaitingModeStateValue;
  if (Players.Count < 2) ui.Hint.Value = "Hint/WaitingPlayersCount2";
  if (Players.Count > 1) ui.Hint.Value = "Hint/WaitingPlayerCount1";
