@@ -191,6 +191,7 @@ function SetWaitingMode(p) {
  Inventory.GetContext().Build.Value = false;
 
  mainTimer.Restart(4);
+ blueTeam(p);
  spawns.enable = true;
 }
 function SetHideAndSeek() {
@@ -301,6 +302,11 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Spawns.SpawnPointsGroups.Add(TeamSpawnPointGroup);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
+}
+function blueTeam(p) {
+ Players.All.forEach(p => {
+  if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);
+     });
 }
 	
 } catch (e) {
