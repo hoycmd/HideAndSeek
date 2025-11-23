@@ -16,7 +16,7 @@ const End0fMatchTime = 11;
 
 const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
-const ui = Ui.GetContext(); const damage = Damage.GetContext(); const properties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timer = Timers.GetContext(), const spawns_player = Spawns.GetContext(p);
+const ui = Ui.GetContext(); const damage = Damage.GetContext(); const properties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timer = Timers.GetContext(); const spawns_player = Spawns.GetContext(p);
 
 // * Имена используемых объектов. * //
 const WaitingModeStateValue = `WaitingMode`;
