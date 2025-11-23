@@ -1,6 +1,6 @@
 import { Players, room, Inventory, contextedProperties, LeaderBoard, BuildBlocksSet, Spawns, Teams, Ui, Game, GameMode, TeamsBalancer, Properties, Timers, Damage, BreackGraph, NewGame, NewGameVote } from "pixel_combats/room";
 import { DisplayValueHeader, Color } from 'pixel_combats/basic';
-import * as default_timer from './default_timer.js';
+import * as game_timer from './default_timer.js';
 import * as vote_types from 'pixel_combats/types/new_game_vote';
 
 try {
@@ -10,13 +10,13 @@ room.PopupsEnable = true;
 // * длинна таймера каждого режима: отдальный отсчёт времени в режиме. * //
 const WaitingPlayersTime = 11;
 const HideAndSeekTime = 31;
-const GameModeTime = default_timer.game_mode_length_time(); // * Выбор класса таймера. * //
+const GameModeTime = game_timer.game_mode_length_time(); // * Выбор класса таймера. * //
 const WinTeamsTime = 16;
 const End0fMatchTime = 11;
 
 const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
-const ui = Ui.GetContext(); const damage = Damage.GetContext(); const properties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timer = Timers.GetContext(); const spawns_player = Spawns.GetContext(p);
+const ui = Ui.GetContext(); const damage = Damage.GetContext(); const properties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timer = Timers.GetContext(); 
 
 // * Имена используемых объектов. * //
 const WaitingModeStateValue = `WaitingMode`;
@@ -67,11 +67,11 @@ Teams.OnRequestJoinTeam.Add(p => {
  // * Если после старта входят игроки, то выдаём команду красную. * //
  if (stateProp.Value == GameStateValue) redTeam.Add(p);else { // * До старта матча, вход разрешен для синих. * //
  blueTeam.Add(p);
- spawns_player.Spawn();}}); // * Быстрый респаун и вход в синию команду. * //
+ Spawns.GetContext(p).Spawn();}}); // * Быстрый респаун и вход в синию команду. * //
 // * Респавним игрока после входа в команду. * //
 Teams.OnPlayerChangeTeam.Add(p => {
  // * Моментальный респаун игроков. * //
- spawns_player.Spawn();
+ Spawns.GetContext(p).Spawn();
  // * Глобальный отсчёт прибавления смертей в интерфейс: для синих и красных после захода в команду. * //
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;});
@@ -106,7 +106,7 @@ if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p); ret
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
  // * Моментальный респаун игроков после смерти. * //
- spawns_player.Spawn();
+ Spawns.GetContext(p).Spawn();
 });
 
 // * Обработчик киллов: дальний отсчёт по убийству * //
