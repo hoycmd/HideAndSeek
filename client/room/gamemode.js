@@ -67,7 +67,7 @@ Teams.OnRequestJoinTeam.Add(p => {
  // * Если после старта входят игроки, то выдаём команду красную. * //
  if (stateProp.Value == GameStateValue) { redTeam.Add(p);} else { // * До старта матча, вход разрешен для синих. * //
  blueTeam.Add(p);
- Spawns.GetContext(p).Spawn();}
+ p.Spawns.Spawn();}
 }); // * Быстрый респаун и вход в синию команду. * //
 // * Респавним игрока после входа в команду. * //
 Teams.OnPlayerChangeTeam.Add(p => {
@@ -108,7 +108,7 @@ if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p); ret
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
  // * Моментальный респаун игроков после смерти. * //
- Spawns.GetContext(p).Spawn();
+ p.Spawns.Spawn();
 });
 
 // * Обработчик киллов: дальний отсчёт по убийству * //
