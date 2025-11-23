@@ -26,7 +26,7 @@ const stateProp = Properties.GetContext().Get(`State`);
 // * Игровые настройки параметров, и заданные настройки в игре. * //
 const MapRotation = GameMode.Parameters.GetBool('MapRotation');
 Damage.GetContext().FriendlyFire.Value = GameMode.Parameters.GetBool(`FriendlyFire`);
-BreackGraph.Damage =GameMode.Parameters.GetBool(`BlocksDamage`);
+BreackGraph.Damage = GameMode.Parameters.GetBool(`BlocksDamage`);
 BreackGraph.WeakBlocks = GameMode.Parameters.GetBool(`LoosenBlocks`);
 Damage.GetContext().DamageOut.Value = true;
 Damage.GetContext().GranadeTouchExplosion.Value = true;
@@ -85,13 +85,17 @@ Timers.OnPlayerTimer.Add(t => {
 });
 	
 // * Обработчик смертей. * //
-Damage.OnDeath.Add(function(p) {
-if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) {
+Damage.OnDeath.Add(p => {
+ // * Ограничители игровых режимов. * //
+if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue) return;
+ // * Засчитываем смерти игроков. * //
  ++p.Properties.Deaths.Value;
-if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p);
-}
+// * После каждой смерти синих, они становятся красными. (Т3) * //
+if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p); return;
+ // * Макс синих и красных в смертях. * //
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
+ // * Моментальный респаун игроков после смерти. * //
  Spawns.GetContext(p).Spawn();
 });
 
