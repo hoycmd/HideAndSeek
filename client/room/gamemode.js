@@ -81,6 +81,12 @@ Players.OnPlayerDisconnected.Add(p => {
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 });
+// * После захода игроков - поментально в команду синию и респаун. * //
+Players.OnPlayerConnected.Add(p => {
+ Players.All.forEach(p => { 
+  if (p.Team == null || p.Team == redTeam) blueTeam.Add(p); p.Spawns.Spawn();
+   });
+});
 
 // * Обработчик спавнов: авто-бессмертие после респавна игрока. (Т3) * //
 Spawns.OnSpawn.Add(p => {
@@ -94,7 +100,7 @@ spawns.OnSpawn.Add(p => {
 });	
 // * Если стёк таймер бессмертия, то отключаем защиту. * //
 Timers.OnPlayerTimer.Add(t => {
- if (t.Id != 'Immortality') return t.Player.Properties.Immortality.Value = false;
+ if (t.Id != 'Immortality') return; t.Player.Properties.Immortality.Value = false;
 });
 	
 // * Обработчик смертей: по правилам (Т3). * //
@@ -104,14 +110,15 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
  // * Засчитываем смерти игроков. * //
  ++p.Properties.Deaths.Value;
 // * После каждой смерти синих, они становятся красными. (Т3) * //
-if (stateProp.Value == GameStateValue && p.Team == blueTeam) redTeam.Add(p); return;
+if (stateProp.Value == GameStateValue && p.Team == blueTeam) { redTeam.Add(p); 
  // * Макс синих и красных в смертях. * //
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
  // * Моментальный респаун игроков после смерти. * //
- p.Spawns.Spawn();
+ Spawns.GetContext(p).Spawn();
+	}												  
 });
-
+	 
 // * Обработчик киллов: дальний отсчёт по убийству * //
 Damage.OnKill.Add(function (p, k, r) {
  // * Счётчик засчитывания киллов игрока. * //
@@ -128,7 +135,7 @@ Damage.OnKill.Add(function (p, k, r) {
 });
 			
 // * Таймер обработчика очков, за время в комнате. * //
-scores_timer.OnTimer.Add(t => {
+scores_timer.OnTimer.Add(function () {
  // * Ограничители игровых режимов. * //
  if (stateProp.Value != WaitingModeStateValue && stateProp.Value != WinTeamsStateValue && stateProp.Value != End0fMatchStateValue) return;
  // * Выводим макс игроков в комнате. * //
@@ -141,7 +148,7 @@ scores_timer.OnTimer.Add(t => {
 });
 	
  // * Таймер после продолжения игры с игроками в командах. (Т3) * //
-game_timer.OnTimer.Add(t => {
+game_timer.OnTimer.Add(function () {
  // * Ограничители игровых режимов. * //
 if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue && stateProp.Value != WinTeamsStateValue && stateProp.Value != End0fMatchStateValue) return;
  // * Ищем макс синих и красных в смертях. * //
@@ -160,7 +167,7 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
 game_timer.RestartLoop(11);
 	
 // * Основной таймер, переключения режимов игры. * //
-mainTimer.OnTimer.Add(t => {
+mainTimer.OnTimer.Add(function () {
  switch (stateProp.Value) {
   case WaitingModeStateValue:
 if (Players.Count < 3) {
@@ -196,9 +203,6 @@ function SetWaitingMode() {
  Inventory.GetContext().Explosive.Value = false;
  Inventory.GetContext().Build.Value = false;
 
- Players.All.forEach(p => { 
-  if (p.Team == null || p.Team == redTeam) blueTeam.Add(p);
- });
  mainTimer.Restart(WaitingPlayersTime);
  spawns.enable = true;
 }
@@ -245,9 +249,9 @@ function SetGameMode() {
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
  ui.Hint.Value = "Hint/LoserTeamRed";
- blueTeam.Properties.Get('Scores').Value += WINNER_SCORES;
- redTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
-
+ Properties.GetContext(blueTeam).Scores.Value += WINNER_SCORES;
+ Properties.GetContext(redTeam).Scores.Value += LOOSER_SCORES;
+	 
  Inventory.GetContext().Melee.Value = false;
  Inventory.GetContext().Secondary.Value = false;
  Inventory.GetContext().Main.Value = false;
@@ -262,9 +266,9 @@ function WinBlueTeam() {
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
  ui.Hint.Value = "Hint/LoserTeamBlue";
- redTeam.Properties.Get('Scores').Value += WINNER_SCORES;
- blueTeam.Properties.Get('Scores').Value += LOOSER_SCORES;	
-
+ Properties.GetContext(redTeam).Scores.Value += WINNER_SCORES;
+ Properties.GetContext(blueTeam).Scores.Value += LOOSER_SCORES;
+	 
  Inventory.GetContext().Melee.Value = false;
  Inventory.GetContext().Secondary.Value = false;
  Inventory.GetContext().Main.Value = false;
