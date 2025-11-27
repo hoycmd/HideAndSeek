@@ -16,7 +16,7 @@ const End0fMatchTime = 5;
 
 const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
-const ui = Ui.GetContext(); const damage = Damage.GetContext(); const properties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timers = Timers.GetContext(); const gamemodeParameters = GameMode.Parameters;
+const ui = Ui.GetContext(); const damage = Damage.GetContext(); const properties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timers = Timers.GetContext(); const gamemodeParameters = GameMode.Parameters; const dis_play_value_header = new DisplayValueHeader;
 
 // * Имена используемых объектов. * //
 const WaitingModeStateValue = `WaitingMode`;
@@ -51,10 +51,10 @@ ui.TeamProp1.Value = { Team: 'Red', Prop: 'Deaths' };
 ui.TeamProp2.Value = { Team: 'Blue', Prop: 'Deaths' };	
 // * Лидерборд команд: статистика каждой команды в таблице. * //
 LeaderBoard.PlayerLeaderBoardValues = [
-  new DisplayValueHeader("Kills", "Statistics/Kills", "Statistics/Kills"),
-  new DisplayValueHeader("Deaths", "Statistics/Deaths", "Statistics/Deaths"),
-  new DisplayValueHeader("Spawns", "Statistics/Spawns", "Statistics/Spawns"),
-  new DisplayValueHeader("Scores", "Statistics/Scores", "Statistics/Scores")];
+  dis_play_value_header("Kills", "Statistics/Kills", "Statistics/Kills"),
+  dis_play_value_header("Deaths", "Statistics/Deaths", "Statistics/Deaths"),
+  dis_play_value_header("Spawns", "Statistics/Spawns", "Statistics/Spawns"),
+  dis_play_value_header("Scores", "Statistics/Scores", "Statistics/Scores")];
 // * Списки игроков, за наибольшие/наилучшие смерти/киллы у игрока в команде. * //
 LeaderBoard.TeamWeightGetter.Set(t => {
  return t.Properties.Get(`Deaths`).Value;});
@@ -82,7 +82,7 @@ Players.OnPlayerDisconnected.Add(p => {
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 });
 // * После захода игроков - поментально в команду синию и респаун. * //
-Players.OnPlayerConnected.Add(p => {
+Players.OnPlayerConnected.Add(function () {
  Players.All.forEach(p => { 
   if (p.Team == null || p.Team == redTeam) blueTeam.Add(p); p.Spawns.Spawn();
    });
