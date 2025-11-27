@@ -42,7 +42,10 @@ damage.DamageOut.Value = true;
 damage.GranadeTouchExplosion.Value = true;
 ui.MainTimerId.Value = mainTimer.Id;
 // * Создаем команды, из функции - команд создания.
-const blueTeam = CreateNewTeam(`Blue`, `Teams/Blue`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
+const blueTeam { 
+ CreateNewTeam(
+	 `Blue`, `Teams/Blue`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
+};
 const redTeam = CreateNewTeam(`Red`, `Teams/Red`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
 // * Интерфейс команд: макс синих и красных в интерфейсе. * //
 blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
