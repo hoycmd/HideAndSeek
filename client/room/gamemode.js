@@ -144,7 +144,7 @@ scores_timer.OnTimer.Add(function () {
  // * Таймер после продолжения игры с игроками в командах. (Т3) * //
 game_timer.OnTimer.Add(function () {
  // * Ограничители игровых режимов. * //
-if (stateProp.Value == GameStateValue) {
+if (stateProp.Value != WaitingModeStateValue || stateProp.Value != HideAndSeekStateValue) {
  // * Ищем макс синих и красных в смертях. * //
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
@@ -156,7 +156,6 @@ if (stateProp.Value == GameStateValue) {
   if (mainTimer <= 0 || blueTeam.Count >= 1) {
    WinBlueTeam(); return;	
             } 
-    }
 }); 
 // * Интеврал таймера игры. * //
 game_timer.RestartLoop(11);
