@@ -144,7 +144,7 @@ scores_timer.OnTimer.Add(function () {
  // * Таймер после продолжения игры с игроками в командах. (Т3) * //
 game_timer.OnTimer.Add(function () {
  // * Ограничители игровых режимов. * //
-if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue && stateProp.Value != WinTeamsStateValue && stateProp.Value != End0fMatchStateValue) {
+if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeStateValue && stateProp.Value != WinTeamsStateValue && stateProp.Value != End0fMatchStateValue) return;
  // * Ищем макс синих и красных в смертях. * //
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
@@ -155,7 +155,7 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
   // * Событие у красных: если основной таймер истёк, то игра завершается в пользу синих. * //
   if (mainTimer <= 0 || blueTeam.Count >= 1) {
    WinBlueTeam(); return;	
-      } }     
+      } 
 }); 
 // * Интеврал таймера игры. * //
 game_timer.RestartLoop(11);
@@ -198,6 +198,7 @@ function SetWaitingMode() {
  Inventory.GetContext().Build.Value = false;
 	
  mainTimer.Restart(WaitingPlayersTime);
+ team_blue();
  spawns.enable = true;
 }
 function SetHideAndSeek() {
