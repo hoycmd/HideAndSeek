@@ -27,8 +27,8 @@ const End0fMatchStateValue = `End0fMatch`;
 
 // * обработчики классов: константы переменных таймера и характеристик. * //
 const mainTimer = timers.Get(`Main`);
-const game_timer = timers.Get('GameTimer');
-const scores_timer = timers.Get('Scores');
+const game_timer = timers.Get('DefTimer');
+const scores_timer = timers.Get(`Scores`);
 const stateProp = properties.Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
@@ -42,10 +42,7 @@ damage.DamageOut.Value = true;
 damage.GranadeTouchExplosion.Value = true;
 ui.MainTimerId.Value = mainTimer.Id;
 // * Создаем команды, из функции - команд создания.
-const blueTeam { 
- CreateNewTeam(
-	 `Blue`, `Teams/Blue`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
-};
+const blueTeam = CreateNewTeam(`Blue`, `Teams/Blue`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
 const redTeam = CreateNewTeam(`Red`, `Teams/Red`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
 // * Интерфейс команд: макс синих и красных в интерфейсе. * //
 blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
@@ -84,12 +81,6 @@ Players.OnPlayerDisconnected.Add(p => {
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
 });
-// * После захода игроков - поментально в команду синию и респаун. * //
-Players.OnPlayerConnected.Add(function () {
- Players.All.forEach(p => { 
-  if (p.Team == null || p.Team == redTeam) blueTeam.Add(p); p.Spawns.Spawn();
-   });
-});
 
 // * Обработчик спавнов: авто-бессмертие после респавна игрока. (Т3) * //
 Spawns.OnSpawn.Add(p => {
@@ -118,7 +109,7 @@ if (stateProp.Value == GameStateValue && p.Team == blueTeam) { redTeam.Add(p);
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
  // * Моментальный респаун игроков после смерти. * //
- Spawns.GetContext(p).Spawn();
+ for (const p of Players.All) if (p.Team == null) p.Spawns.Spawn();
 	}												  
 });
 	 
@@ -159,11 +150,11 @@ if (stateProp.Value != HideAndSeekStateValue && stateProp.Value != WaitingModeSt
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
   // * Событие у синих: если все синие пойманы, игра завершается в пользу красных. * //
   if (blueTeam.Count < 1 && blueTeam.Count <= 0 && redTeam.Count >= 1) {
-   return WinRedTeam(); 
+   WinRedTeam(); return;
  }
   // * Событие у красных: если основной таймер истёк, то игра завершается в пользу синих. * //
   if (mainTimer <= 0 || blueTeam.Count >= 1) {
-   return WinBlueTeam(); 	
+   WinBlueTeam(); return;	
  }       
 }); 
 // * Интеврал таймера игры. * //
@@ -205,7 +196,7 @@ function SetWaitingMode() {
  Inventory.GetContext().Main.Value = false;
  Inventory.GetContext().Explosive.Value = false;
  Inventory.GetContext().Build.Value = false;
-
+	
  mainTimer.Restart(WaitingPlayersTime);
  spawns.enable = true;
 }
@@ -317,6 +308,11 @@ Teams.Add(TeamName, TeamDisplayName, TeamColor);
   NewTeam.Spawns.SpawnPointsGroups.Add(TeamSpawnPointGroup);
   NewTeam.Build.BlocksSet.Value = TeamBuildBlocksSet;
    return NewTeam;
+}
+function team_blue() {
+ Players.All.forEach(p => { 
+  if (p.Team == null || p.Team == redTeam) blueTeam.Add(p); p.Spawns.Spawn();
+   });
 }
 
 // * Интервал таймера очков. * //
