@@ -16,7 +16,13 @@ const End0fMatchTime = 5;
 
 const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
-const ui = Ui.GetContext(); const damage = Damage.GetContext(); const properties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timers = Timers.GetContext(); const gamemodeParameters = GameMode.Parameters; 
+
+// * Контексты классов констант. * //
+const ui = Ui.GetContext(); 
+const damage = Damage.GetContext(); 
+const properties = Properties.GetContext(); 
+const spawns = Spawns.GetContext(); 
+const timers = Timers.GetContext(); const gamemodeParameters = GameMode.Parameters; 
 
 // * Имена используемых объектов. * //
 const WaitingModeStateValue = `WaitingMode`;
@@ -27,12 +33,12 @@ const End0fMatchStateValue = `End0fMatch`;
 
 // * обработчики классов: константы переменных таймера и характеристик. * //
 const mainTimer = timers.Get(`Main`);
-const game_timer = timers.Get('GameTimer');
+const game_timer = timers.Get(`GameTimer`);
 const scores_timer = timers.Get(`Scores`);
 const stateProp = properties.Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
-const MapRotation = gamemodeParameters.GetBool('MapRotation');
+const MapRotation = gamemodeParameters.GetBool(`MapRotation`);
 damage.FriendlyFire.Value = gamemodeParameters.GetBool(`FriendlyFire`);
 BreackGraph.Damage = gamemodeParameters.GetBool(`BlocksDamage`);
 BreackGraph.WeakBlocks = gamemodeParameters.GetBool(`LoosenBlocks`);
@@ -67,8 +73,10 @@ Teams.OnRequestJoinTeam.Add(p => {
  // * Если после старта входят игроки, то выдаём команду красную. * //
  if (stateProp.Value == GameStateValue) { redTeam.Add(p);} else { // * До старта матча, вход разрешен для синих. * //
  blueTeam.Add(p);
- p.Spawns.Spawn();}
-}); // * Быстрый респаун и вход в синию команду. * //
+ p.Spawns.Spawn();
+   }
+}); 
+// * Быстрый респаун и вход в синию команду. * //
 // * Респавним игрока после входа в команду. * //
 Teams.OnPlayerChangeTeam.Add(p => {
  // * Моментальный респаун игроков. * //
@@ -83,14 +91,12 @@ Players.OnPlayerDisconnected.Add(p => {
 });
 
 // * Обработчик спавнов: авто-бессмертие после респавна игрока. (Т3) * //
-Spawns.OnSpawn.Add(p => {
+spawns.OnSpawn.Add(p => {
 // * Засчёт спавнов игрока после респавна. * //
 ++p.Properties.Spawns.Value;
-});
 // * Бессмертие игрока после респавна. * //
-spawns.OnSpawn.Add(p => {
- p.Properties.Immortality.Value = true;
- p.Timers.Get('Immortality').Restart(4);
+   p.Properties.Immortality.Value = true;
+   p.Timers.Get('Immortality').Restart(4);
 });	
 // * Если стёк таймер бессмертия, то отключаем защиту. * //
 Timers.OnPlayerTimer.Add(t => {
