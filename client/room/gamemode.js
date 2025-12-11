@@ -87,7 +87,7 @@ Players.OnPlayerDisconnected.Add(p => {
 });
 
 // * Обработчик спавнов: авто-бессмертие после респавна игрока. (Т3) * //
-spawns.OnSpawn.Add((p) => {
+spawns.OnSpawn.Add(p => {
 // * Засчёт спавнов игрока после респавна. * //
 ++p.Properties.Spawns.Value;
 // * Бессмертие игрока после респавна. * //
@@ -96,9 +96,8 @@ spawns.OnSpawn.Add((p) => {
  });	
  // * Если стёк таймер бессмертия, то отключаем защиту. * //
  Timers.OnPlayerTimer.Add(t => {
-  if (t.Id != 'Immortality') return; t.Player.Properties.Immortality.Value = false;
+  if (t.Id !== 'Immortality') return t.Player.Properties.Immortality.Value = false;
  });
-}
 	
 // * Обработчик смертей: по правилам (Т3). * //
 Damage.OnDeath.Add(p => {
@@ -152,12 +151,12 @@ if (stateProp.Value != WaitingModeStateValue || stateProp.Value != HideAndSeekSt
  blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
  redTeam.Properties.Get('Deaths').Value = redTeam.Count;
   // * Событие у синих: если все синие пойманы, игра завершается в пользу красных. * //
-  if (blueTeam.Count < 1 && blueTeam.Count <= 0 && redTeam.Count >= 1) {
-   WinRedTeam(); return;
+  if (blueTeam.Count < 1) {
+   return WinRedTeam(); 
  }
   // * Событие у красных: если основной таймер истёк, то игра завершается в пользу синих. * //
   if (mainTimer.Value <= 0 && blueTeam.Count >= 1) {
-   WinBlueTeam(); return;	
+   return WinBlueTeam(); 
             } 
 }); 
 // * Интеврал таймера игры. * //
