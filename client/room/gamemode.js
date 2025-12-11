@@ -18,7 +18,12 @@ const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
 
 // * Контексты классов констант. * //
-const ui = Ui.GetContext(); const damage = Damage.GetContext(); const roperties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timers = Timers.GetContext(); const gamemodeParameters = GameMode.Parameters;
+const ui = Ui.GetContext(); 
+const damage = Damage.GetContext(); 
+const properties = Properties.GetContext(); 
+const spawns = Spawns.GetContext(); 
+const timers = Timers.GetContext(); 
+const gamemodeParameters = GameMode.Parameters;
 
 // * Имена используемых объектов. * //
 const WaitingModeStateValue = `WaitingMode`;
