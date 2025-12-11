@@ -28,10 +28,10 @@ const WinTeamsStateValue = `WinTeams`;
 const End0fMatchStateValue = `End0fMatch`;
 
 // * обработчики классов: константы переменных таймера и характеристик. * //
-const mainTimer = Props.timers.Get(`Main`);
-const game_timer = Props.timers.Get(`GameTimer`);
-const scores_timer = Props.timers.Get(`Scores`);
-const stateProp = Props.properties.Get(`State`);
+const mainTimer = timers.Get(`Main`);
+const game_timer = timers.Get(`GameTimer`);
+const scores_timer = timers.Get(`Scores`);
+const stateProp = properties.Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
 const MapRotation = gamemodeParameters.GetBool(`MapRotation`);
@@ -87,17 +87,18 @@ Players.OnPlayerDisconnected.Add(p => {
 });
 
 // * Обработчик спавнов: авто-бессмертие после респавна игрока. (Т3) * //
-spawns.OnSpawn.Add(p => {
+spawns.OnSpawn.Add((p) => {
 // * Засчёт спавнов игрока после респавна. * //
 ++p.Properties.Spawns.Value;
 // * Бессмертие игрока после респавна. * //
    p.Properties.Immortality.Value = true;
    p.Timers.Get('Immortality').Restart(4);
-});	
-// * Если стёк таймер бессмертия, то отключаем защиту. * //
-Timers.OnPlayerTimer.Add(t => {
- if (t.Id != 'Immortality') return; t.Player.Properties.Immortality.Value = false;
-});
+ });	
+ // * Если стёк таймер бессмертия, то отключаем защиту. * //
+ Timers.OnPlayerTimer.Add(t => {
+  if (t.Id != 'Immortality') return; t.Player.Properties.Immortality.Value = false;
+ });
+}
 	
 // * Обработчик смертей: по правилам (Т3). * //
 Damage.OnDeath.Add(p => {
