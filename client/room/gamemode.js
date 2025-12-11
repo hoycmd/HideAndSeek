@@ -18,9 +18,7 @@ const WINNER_SCORES = 30;
 const LOOSER_SCORES = 15;
 
 // * Контексты классов констант. * //
-const Props = {
- ui = Ui.GetContext(), damage = Damage.GetContext(), properties = Properties.GetContext(), spawns = Spawns.GetContext(), timers = Timers.GetContext(), gamemodeParameters = GameMode.Parameters
-};
+const ui = Ui.GetContext(); const damage = Damage.GetContext(); const roperties = Properties.GetContext(); const spawns = Spawns.GetContext(); const timers = Timers.GetContext(); const gamemodeParameters = GameMode.Parameters;
 
 // * Имена используемых объектов. * //
 const WaitingModeStateValue = `WaitingMode`;
@@ -36,23 +34,23 @@ const scores_timer = Props.timers.Get(`Scores`);
 const stateProp = Props.properties.Get(`State`);
 
 // * Игровые настройки параметров, и заданные настройки в игре. * //
-const MapRotation = Props.gamemodeParameters.GetBool(`MapRotation`);
-Props.damage.FriendlyFire.Value = Props.gamemodeParameters.GetBool(`FriendlyFire`);
-BreackGraph.Damage = Props.gamemodeParameters.GetBool(`BlocksDamage`);
-BreackGraph.WeakBlocks = Props.gamemodeParameters.GetBool(`LoosenBlocks`);
+const MapRotation = gamemodeParameters.GetBool(`MapRotation`);
+damage.FriendlyFire.Value = gamemodeParameters.GetBool(`FriendlyFire`);
+BreackGraph.Damage = gamemodeParameters.GetBool(`BlocksDamage`);
+BreackGraph.WeakBlocks = gamemodeParameters.GetBool(`LoosenBlocks`);
 
 // * Опции игровых режимов. * //
-Props.damage.DamageOut.Value = true;
-Props.damage.GranadeTouchExplosion.Value = true;
-Props.ui.MainTimerId.Value = mainTimer.Id;
+damage.DamageOut.Value = true;
+damage.GranadeTouchExplosion.Value = true;
+ui.MainTimerId.Value = mainTimer.Id;
 // * Создаем команды, из функции - команд создания.
 const blueTeam = CreateNewTeam(`Blue`, `Teams/Blue`, new Color(0, 0, 125/255, 0), 1, BuildBlocksSet.Blue);
 const redTeam = CreateNewTeam(`Red`, `Teams/Red`, new Color(125/255, 0, 0, 0), 2, BuildBlocksSet.Red);
 // * Интерфейс команд: макс синих и красных в интерфейсе. * //
 blueTeam.Properties.Get('Deaths').Value = blueTeam.Count;
 redTeam.Properties.Get('Deaths').Value = redTeam.Count;
-Props.ui.TeamProp1.Value = { Team: 'Red', Prop: 'Deaths' }; 
-Props.ui.TeamProp2.Value = { Team: 'Blue', Prop: 'Deaths' };	
+ui.TeamProp1.Value = { Team: 'Red', Prop: 'Deaths' }; 
+ui.TeamProp2.Value = { Team: 'Blue', Prop: 'Deaths' };	
 // * Лидерборд команд: статистика каждой команды в таблице. * //
 LeaderBoard.PlayerLeaderBoardValues = [
   new DisplayValueHeader("Kills", "Statistics/Kills", "Statistics/Kills"),
@@ -193,7 +191,7 @@ SetWaitingMode();
 // * Состояние, игровых режимов игры. * //
 function SetWaitingMode() {
  stateProp.Value = WaitingModeStateValue;
- Props.ui.Hint.Value = "Hint/MatchGame";
+ ui.Hint.Value = "Hint/MatchGame";
 	
  Inventory.GetContext().Melee.Value = false;
  Inventory.GetContext().Secondary.Value = false;
@@ -203,11 +201,11 @@ function SetWaitingMode() {
 	
  mainTimer.Restart(WaitingPlayersTime);
  team_blue();
- Props.spawns.enable = true;
+ spawns.enable = true;
 }
 function SetHideAndSeek() {
  stateProp.Value = HideAndSeekStateValue;
- Props.ui.Hint.Value = "Hint/TeamsRequest";
+ ui.Hint.Value = "Hint/TeamsRequest";
  blueTeam.Ui.Hint.Value = "Hint/SearchPlaceBlue";
  redTeam.Ui.Hint.Value = "Hint/SearchWhereHidBlue";
 
@@ -223,8 +221,8 @@ function SetHideAndSeek() {
  Inventory.GetContext(redTeam).Build.Value = false;
 		
  mainTimer.Restart(HideAndSeekTime);
- Props.spawns.enable = true;
- Props.spawns.Spawn();
+ spawns.enable = true;
+ spawns.Spawn();
 }
 function SetGameMode() {
  stateProp.Value = GameStateValue;
@@ -247,7 +245,7 @@ function SetGameMode() {
 }
 function WinBlueTeam() {
  stateProp.Value = WinTeamsStateValue;
- Props.ui.Hint.Value = "Hint/LoserTeamRed";
+ ui.Hint.Value = "Hint/LoserTeamRed";
  Properties.GetContext(blueTeam).Scores.Value += WINNER_SCORES;
  Properties.GetContext(redTeam).Scores.Value += LOOSER_SCORES;
 	 
@@ -257,14 +255,14 @@ function WinBlueTeam() {
  Inventory.GetContext().Explosive.Value = false;
  Inventory.GetContext().Build.Value = false;
 	
- Props.spawns.Spawn();
- Props.damage.DamageOut.Value = false;
- Props.damage.FriendlyFire.Value = false;
+ spawns.Spawn();
+ damage.DamageOut.Value = false;
+ damage.FriendlyFire.Value = false;
  mainTimer.Restart(WinTeamsTime);
 }
 function WinRedTeam() {
  stateProp.Value = WinTeamsStateValue;
- Props.ui.Hint.Value = "Hint/LoserTeamBlue";
+ ui.Hint.Value = "Hint/LoserTeamBlue";
  Properties.GetContext(redTeam).Scores.Value += WINNER_SCORES;
  Properties.GetContext(blueTeam).Scores.Value += LOOSER_SCORES;
 	 
@@ -274,17 +272,17 @@ function WinRedTeam() {
  Inventory.GetContext().Explosive.Value = false;
  Inventory.GetContext().Build.Value = false;
 	
- Props.spawns.Spawn();
- Props.damage.DamageOut.Value = false;
- Props.damage.FriendlyFire.Value = false;
+ spawns.Spawn();
+ damage.DamageOut.Value = false;
+ damage.FriendlyFire.Value = false;
  mainTimer.Restart(WinTeamsTime);
 }
 function SetEnd0fMatch() {
  stateProp.Value = End0fMatchStateValue;
- Props.ui.Hint.Value = "Hint/EndMatch";
+ ui.Hint.Value = "Hint/EndMatch";
 	
- Props.spawns.enable = false;
- Props.spawns.Despawn();
+ spawns.enable = false;
+ spawns.Despawn();
 
  Game.GameOver(LeaderBoard.GetTeams());
  mainTimer.Restart(End0fMatchTime);
