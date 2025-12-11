@@ -92,13 +92,15 @@ Players.OnPlayerDisconnected.Add(p => {
 });
 
 // * Обработчик спавнов: авто-бессмертие после респавна игрока. (Т3) * //
-spawns.OnSpawn.Add(p => {
+Spawns.OnSpawn.Add(p => {
 // * Засчёт спавнов игрока после респавна. * //
 ++p.Properties.Spawns.Value;
-// * Бессмертие игрока после респавна. * //
+ });
+ // * Бессмертие игрока после респавна. * //
+spawns.OnSpawn.Add(p => {
    p.Properties.Immortality.Value = true;
    p.Timers.Get('Immortality').Restart(4);
- });	
+});
  // * Если стёк таймер бессмертия, то отключаем защиту. * //
  Timers.OnPlayerTimer.Add(t => {
   if (t.Id !== 'Immortality') return t.Player.Properties.Immortality.Value = false;
